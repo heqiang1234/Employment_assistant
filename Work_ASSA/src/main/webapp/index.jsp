@@ -16,7 +16,7 @@
 
             width:500px;
             padding:20px;
-        }git remote add origin https://github.com/heqiang1234/Employment_assistant.git
+        }
     </style>
     <title></title>
 </head>
