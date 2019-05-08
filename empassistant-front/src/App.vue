@@ -6,13 +6,16 @@
 
 <script>
 export default {
-  name: '就业助手'
+ 
 }
 </script>
 
 <style>
+<<<<<<< HEAD
 *{
   margin: 0px;
   padding: 0px;
 }
+=======
+>>>>>>> ca593951f49737897f57dfbf420f978624849aa0
 </style>
