@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com_java_demo.dao.AdminMapper" >
+    <resultMap id="BaseResultMap" type="com_java_demo.entity.Admin" >
+        <id column="adminadminId" property="adminadminId" jdbcType="INTEGER" />
+        <result column="adminName" property="adminName" jdbcType="VARCHAR" />
+        <result column="adminPassword" property="adminPassword" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    adminId, adminName, adminPassword
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where adminadminId = #{adminadminId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where adminadminId = #{adminadminId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com_java_demo.entity.Admin" >
+    insert into admin (adminadminId, adminName, adminPassword
+      )
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com_java_demo.entity.Admin" >
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="adminId != null" >
+                adminId,
+            </if>
+            <if test="adminName != null" >
+                adminName,
+            </if>
+            <if test="adminPassword != null" >
+                adminPassword,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="adminId != null" >
+                #{adminId,jdbcType=INTEGER},
+            </if>
+            <if test="adminName != null" >
+                #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPassword != null" >
+                #{adminPassword,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com_java_demo.entity.Admin">
+        update admin
+        <set >
+            <if test="adminName != null" >
+                adminName = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPassword != null" >
+                adminPassword = #{adminPassword,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where adminId = #{adminId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com_java_demo.entity.Admin" >
+    update admin
+    set adminName = #{adminName,jdbcType=VARCHAR},
+      adminPassword = #{adminPassword,jdbcType=VARCHAR}
+    where adminId = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>
