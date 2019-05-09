@@ -8,9 +8,11 @@ public interface UserService {
 
     List<User> getAllUser();
 
-    public User getUserById(int userId);
+    public User getUserById(int user_Id);
 
-    public int deleteUserById(int userId);
+    public User getUserByName(String user_Name);
+
+    public int deleteUserById(int user_Id);
 
     void save(User user);
 

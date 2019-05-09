@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * create on hq 2019/5/7;
+ */
 
 @Controller
 @RequestMapping("/")
 public class UserController {
 
-    /**
-     * create on hq 2019/5/7;
-     */
 
     @Resource
     @Autowired
@@ -29,12 +29,9 @@ public class UserController {
     @RequestMapping(value = "/showuser")
     public String showUser(HttpServletRequest request, Model model){
 
-              System.out.println("showuser");
        //log.info("查询所有用户信息");
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList",userList);
-        System.out.println("ss");
-        String code="100";
         return "showUser";
     }
 
@@ -45,21 +42,25 @@ public class UserController {
 
 
     /**
-     * 对登录页面输入的用户名和密码做简单的判断
+     * 对登录页面输入的用户名和密码进行验证
      * @param request
      * @return
      */
     @RequestMapping(value = "/dologin", method = RequestMethod.POST)
     @ResponseBody
     public JsonMsg dologin(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        System.out.println(username + password);
-        User user = userService.getUserById(6);
-        if(username!=user.getUsername())
-        if (!"admin1234".equals(username + password)){
-            return JsonMsg.fail().addInfo("login_error", "输入账号用户名与密码不匹配，请重新输入！");
+        String user_name = request.getParameter("username");
+        String passWord = request.getParameter("password");
+        User user = userService.getUserByName(user_name);
+        if(!user_name.equals(user.getUser_Name()))
+        {
+            return JsonMsg.fail().addInfo("login_error", "不存在该用户名，请重新输入！");
         }
+        else
+            if(!passWord.equals(user.getUser_Password()))
+            {
+                return JsonMsg.fail().addInfo("login_error", "输入账号用户名与密码不匹配，请重新输入！");
+            }
         return JsonMsg.success();
     }
 
@@ -79,6 +80,11 @@ public class UserController {
 
     }
 
+    /**
+     * 注册添加用户
+     * @param user
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public User save(User user) {
@@ -86,6 +92,11 @@ public class UserController {
         return user;
     }
 
+    /**
+     * 更改用户信息
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
     public String update(User user) {
 //        log.info("更改用户");

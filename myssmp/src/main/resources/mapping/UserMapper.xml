@@ -4,20 +4,24 @@
 
     <resultMap id="UserBaseMap" type="com.human.model.User">
         <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <!--<result column="user_email" property="userEmail" jdbcType="VARCHAR"/>-->
-        <!--<result column="user_pwd" property="userPwd" jdbcType="VARCHAR"/>-->
-        <!--<result column="pwd_salt" property="pwdSalt" jdbcType="VARCHAR"/>-->
-        <!--<result column="create_time" property="createTime" jdbcType="DATE"/>-->
-        <!--<result column="modify_time" property="modifyTime" jdbcType="DATE"/>-->
-        <!--<result column="is_delete" property="isDelete" jdbcType="SMALLINT"></result>-->
+        <id column="userID" property="user_Id" jdbcType="INTEGER" />
+        <result column="userName" property="user_Name" jdbcType="VARCHAR"/>
+        <result column="userPassword" property="user_Password" jdbcType="VARCHAR"/>
+        <result column="userRealName" property="user_RealName" jdbcType="VARCHAR"/>
+        <result column="userSchool" property="user_School" jdbcType="VARCHAR"/>
+        <result column="userMajor" property="user_Major" jdbcType="VARCHAR"/>
+        <result column="userIntentionalPost" property="user_IntentionPost" jdbcType="VARCHAR"/>
+        <result column="userEmail" property="user_Email" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="selectUserById" parameterType="int" resultMap="UserBaseMap">
-        SELECT * FROM user1
-        WHERE id = #{userId}
+        SELECT * FROM user
+        WHERE userID = #{user_Id}
+    </select>
+
+    <select id="selectUserByName"  resultMap="UserBaseMap">
+        SELECT *  FROM user
+        WHERE userName = #{user_Name}
     </select>
 
     <!--<select id="selectUserByPhoneOrEmail" resultMap="UserBaseMap">-->
@@ -27,21 +31,21 @@
     <!--</select>-->
 
     <select id="selectAllUser" resultMap="UserBaseMap">
-        SELECT * FROM user1
+        SELECT * FROM user
     </select>
 
     <delete id="deleteUserById" parameterType="int"   >
-        delete from user1
-        where id = #{userId}
+        delete from user
+        where userID = #{user_Id}
     </delete>
 
     <!--添加用户保存数据-->
     <insert id="save" parameterType="com.human.model.User">
-        insert into user1 (username,password) values
-        (#{username},#{password})
+        insert into user (userName,userPassword) values
+        (#{user_Name},#{user_Password})
     </insert>
 
     <update id="update" parameterType="com.human.model.User">
-        update user1 set username=#{username},password=#{password} where id = #{id}
+        update user set userName=#{user_Name},userPassword=#{user_Password} where userID = #{user_Id}
     </update>
 </mapper>
