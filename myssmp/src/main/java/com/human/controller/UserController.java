@@ -3,6 +3,8 @@ package com.human.controller;
 import com.human.model.User;
 import com.human.service.UserService;
 import com.human.util.JsonMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +23,25 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
-
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Resource
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/Test")
+    public JsonMsg Testtt(HttpServletRequest request, Model model){
+
+        log.info("测试");
+//        List<User> userList = userService.getAllUser();
+//        model.addAttribute("userList",userList);
+        return JsonMsg.success();
+    }
+
+
     @RequestMapping(value = "/showuser")
     public String showUser(HttpServletRequest request, Model model){
 
-       //log.info("查询所有用户信息");
+       log.info("查询所有用户信息");
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList",userList);
         return "showUser";
@@ -52,6 +64,7 @@ public class UserController {
         String user_name = request.getParameter("username");
         String passWord = request.getParameter("password");
         User user = userService.getUserByName(user_name);
+        log.info("登陆验证");
         if(!user_name.equals(user.getUser_Name()))
         {
             return JsonMsg.fail().addInfo("login_error", "不存在该用户名，请重新输入！");
