@@ -36,6 +36,7 @@
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <a href="javascript:void(0)" class="btn btn-lg btn-success btn-block" id='login_btn'>登录</a>
+                            <a href="javascript:void(0)" class="btn btn-lg btn-success btn-block" id='res_btn'>注册</a>
                         </fieldset>
                     </form>
 
@@ -52,7 +53,7 @@
             alert('1234')
             $.ajax({
                 url:"dologin",
-                type:"POST",
+                type:"GET",
                 data:$("#login_form").serialize(),
                 success:function (result) {
                     if(result.code == 100){
@@ -60,6 +61,19 @@
                     }else {
                         alert(result.extendInfo.login_error);
                     }
+                }
+
+            });
+        });
+        $("#res_btn").click(function () {
+            alert('5678dsdas')
+            $.ajax({
+                url:"add",
+                type:"GET",
+                data:$("#login_form").serialize(),
+                success:function () {
+                   alert('success')
+                    window.location.href= "addH";
                 }
 
             });
