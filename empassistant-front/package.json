@@ -49,12 +49,7 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-<<<<<<< HEAD
     "webpack-dev-server": "2.9.1",
-=======
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^2.9.1",
->>>>>>> ca593951f49737897f57dfbf420f978624849aa0
     "webpack-merge": "^4.1.0"
   },
   "engines": {

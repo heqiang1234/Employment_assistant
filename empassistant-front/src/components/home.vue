@@ -17,7 +17,7 @@
             <a href="#">藏经阁</a>
           </li>
         </ul>
-      </div>
+      </div> 
     </div>
     <div class="login-box">
       <div class="login-title">学生登录</div>
@@ -25,9 +25,13 @@
       <input type="password" id="password" placeholder="请输入密码">
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
-        <a href="#" class="register">立即注册</a>
+        <a href="http://localhost:8080/#/register" class="register">立即注册</a>
       </div>
       <div class="submit">立即登录</div>
+    </div>
+    <div class="login-bottom">
+      <p>就业助手你的好帮手</p>
+      <span>国内领先的实习生招聘平台</span>
     </div>
   </div>
 </template>
@@ -80,12 +84,16 @@ export default {
   text-decoration: none;
   display: inline-block;
   vertical-align: top;
-  color: #fff;
+  color: rgba(255,255,255,.8);
   font-size: 16px;
   padding: 0 16px;
   height: 56px;
   line-height: 56px;
   margin: 0;
+  cursor: pointer;
+}
+.container ul li a:hover{
+  color: #fff;
 }
 .login-box {
   width: 220px;
@@ -137,5 +145,24 @@ export default {
   text-align: center;
   background-color: #0287ee;
   cursor: pointer;
+}
+.login-bottom{
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+  text-align: center;
+}
+.login-bottom p{
+  font-family: "微软雅黑";
+  font-size: 36px;
+  font-weight: bold;
+  color: #595959;
+  display: block;
+}
+.login-bottom span{
+  margin-top: 10px;
+  font-size: 14px;
+  color: rgba(38,38,38,.5);
+  display: block;
 }
 </style>
