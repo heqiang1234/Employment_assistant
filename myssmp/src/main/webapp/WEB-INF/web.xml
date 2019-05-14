@@ -18,31 +18,32 @@
   </context-param>
 
 
-  <!-- 解决AJAX跨域访问问题 -->
-  <filter>
-    <filter-name>corsFilter</filter-name>
-    <filter-class>com.human.Filter.CorsFilter</filter-class>
-    <init-param>
-      <param-name>allowOrigin</param-name>
-      <param-value>*</param-value>
-    </init-param>
-    <init-param>
-      <param-name>allowMethods</param-name>
-      <param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>
-    </init-param>
-    <init-param>
-      <param-name>allowCredentials</param-name>
-      <param-value>true</param-value>
-    </init-param>
-    <init-param>
-      <param-name>allowHeaders</param-name>
-      <param-value>Content-Type</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>corsFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+
+  <!--&lt;!&ndash; 解决AJAX跨域访问问题 &ndash;&gt;-->
+  <!--<filter>-->
+    <!--<filter-name>corsFilter</filter-name>-->
+    <!--<filter-class>com.human.Filter.CorsFilter</filter-class>-->
+    <!--<init-param>-->
+      <!--<param-name>allowOrigin</param-name>-->
+      <!--<param-value>*</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowMethods</param-name>-->
+      <!--<param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowCredentials</param-name>-->
+      <!--<param-value>true</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowHeaders</param-name>-->
+      <!--<param-value>Content-Type</param-value>-->
+    <!--</init-param>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+    <!--<filter-name>corsFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
 
   <!-- 处理中文乱码 -->
 
@@ -51,7 +52,7 @@
     <filter-name>CharacterEncodingFilter</filter-name>
 
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-
+     <async-supported>true</async-supported>
     <init-param>
 
       <param-name>encoding</param-name>
@@ -97,9 +98,9 @@
     <!-- 此处也可以配置成 *.do 形式 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
+  <absolute-ordering />
   <welcome-file-list>
-    <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
   <!-- session配置 -->

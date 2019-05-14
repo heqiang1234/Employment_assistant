@@ -58,7 +58,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/dologin", method = RequestMethod.POST)
+    @RequestMapping(value = "/dologin", method = RequestMethod.GET)
     @ResponseBody
     public JsonMsg dologin(HttpServletRequest request){
         String user_name = request.getParameter("username");
@@ -87,10 +87,16 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/add",method = RequestMethod.GET)
     public String toAdd(HttpServletRequest request) {
-        return "adduser";
 
+        return "adduser";
+    }
+
+    @RequestMapping(value = "/addH")
+    public String toAddh(HttpServletRequest request) {
+
+        return "adduser";
     }
 
     /**
@@ -101,6 +107,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public User save(User user) {
+
         userService.save(user);
         return user;
     }

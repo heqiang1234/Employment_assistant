@@ -37,12 +37,12 @@
                 <h1>添加用户</h1>
                 <div class="form-group">
                     <label >用户名</label>
-                    <input  class="form-control" name="username"  placeholder="用户名" >
+                    <input  class="form-control" name="user_Name"  placeholder="用户名" >
                 </div>
 
                 <div class="form-group">
                     <label >密码</label>
-                    <input  class="form-control"  name="password" placeholder="密码">
+                    <input  class="form-control"  name="user_Password" placeholder="密码">
                 </div>
 
 
