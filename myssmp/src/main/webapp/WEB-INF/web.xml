@@ -45,6 +45,15 @@
     <!--<url-pattern>/*</url-pattern>-->
   <!--</filter-mapping>-->
 
+  <filter>
+    <filter-name>cors</filter-name>
+    <filter-class>com.human.Filter.SimpleCORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>cors</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- 处理中文乱码 -->
 
   <filter>
@@ -100,7 +109,7 @@
   </servlet-mapping>
   <absolute-ordering />
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
   </welcome-file-list>
 
   <!-- session配置 -->
