@@ -2,10 +2,10 @@
   <div class="regi-body">
     <div class="bg">
       <ul class="ul-box">
-        <li class="sport1"><img src="../assets/reg-bg.png" alt=""></li>
-        <li class="sport2"><img src="../assets/reg-bg1.png" alt=""></li>
-        <li class="sport3"><img src="../assets/reg-bg.png" alt=""></li>
-        <li class="sport4"><img src="../assets/reg-bg1.png" alt=""></li>
+        <li class="sport1"><img src="../assets/reg-bg6.png" alt=""></li>
+        <li class="sport2"><img src="../assets/reg-bg3.png" alt=""></li>
+        <li class="sport3"><img src="../assets/reg-bg4.png" alt=""></li>
+        <li class="sport4"><img src="../assets/reg-bg5.png" alt=""></li>
       </ul>
     </div>
     <div class="regi-box">
@@ -64,6 +64,9 @@ export default {
   height: 100vh;
   overflow: hidden;
 }
+::-webkit-scrollbar {
+display: none;
+}
 .bg {
   width: 100%;
   height: 100%;
@@ -78,30 +81,57 @@ export default {
   float: left;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  top: -100%;
+  position: absolute;
 }
 .ul-box li img{
   width: 100%;
+  overflow: hidden;
 }
 .sport1{
-  animation: sport-1 15s linear 0s infinite normal;
+  animation: sport-1 25s linear 0s infinite normal;
 }
 .sport2{
-  animation: sport-2 10s linear 0s infinite normal;
+  animation: sport-2 20s linear 15s infinite normal;
 }
+.sport3{
+  animation: sport-3 30s linear 10s infinite normal;
+}
+.sport4{
+  animation: sport-4 50s linear 5s infinite normal;
+}
+
 @keyframes sport-1 {
   0% {
-    top: 0px;
+    top: 100%;
   }
-  100% {
-    top: -50vh;
+  100%{
+    top:-120%;
   }
 }
 @keyframes sport-2 {
   0% {
-    top: 0px;
+    top: 100%;
+  }
+  100%{
+    top:-120%;
+  }
+}
+@keyframes sport-3 {
+  0% {
+    top: 100%;
   }
   100% {
-    top: -50vh;
+    top: -120%;
+  }
+}
+@keyframes sport-4 {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -120%;
   }
 }
 .regi-box {
@@ -112,11 +142,13 @@ export default {
   border-radius: 6px;
   top: 15%;
   right: 30%;
+  box-shadow: 5px 5px 10px #888888;
   z-index: 999;
 }
 .regi-title {
   width: 100%;
   height: 40px;
+  margin-top: 15px;
   text-align: center;
   line-height: 40px;
   color: #0287ee;
