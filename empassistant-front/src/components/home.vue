@@ -1,3 +1,4 @@
+
  <template>
   <div class="warp">
     <div class="header">
@@ -21,22 +22,60 @@
     </div>
     <div class="login-box">
       <div class="login-title">学生登录</div>
-      <input type="text" id="username" placeholder="请输入账号" autofocus>
-      <input type="password" id="password" placeholder="请输入密码">
+      <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
+      <input type="password" v-model="pwd" placeholder="请输入密码">
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
-        <a href="#" class="register">立即注册</a>
+        <a href="http://localhost:8080/#/register" class="register">立即注册</a>
       </div>
-      <div class="submit">立即登录</div>
+      <div @click="login" class="submit">立即登录</div>
+    </div>
+    <div class="login-bottom">
+      <p>就业助手你的好帮手</p>
+      <span>国内领先的实习生招聘平台</span>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "HelloWorld",
+  name: "home",
+  created() {
+    this.axios(this.API.JOBS.GETJOBS).then(res => {
+      console.log(res);
+    });
+  },
+  methods: {
+    login() { //提交登陆
+      console.log(this.userName);
+      console.log(this.pwd);
+      let params = this.qs.stringify({
+          username: this.userName,
+          password: this.pwd
+        })
+      this.axios({
+        url: this.API.USER.LOGIN,
+        methods: "POST",
+        headers: { "Content-Type": "application/json" },
+        params: {
+          username: this.userName,
+          password: this.pwd
+        },
+      })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   data() {
-    return {};
+    return {
+      userName: "",
+      pwd: ""
+    };
   }
 };
 </script>
@@ -80,12 +119,16 @@ export default {
   text-decoration: none;
   display: inline-block;
   vertical-align: top;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
   padding: 0 16px;
   height: 56px;
   line-height: 56px;
   margin: 0;
+  cursor: pointer;
+}
+.container ul li a:hover {
+  color: #fff;
 }
 .login-box {
   width: 220px;
@@ -97,12 +140,12 @@ export default {
   position: absolute;
   right: 20%;
 }
-.login-title{
+.login-title {
   text-align: center;
   font-size: 20px;
   color: #0287ee;
 }
-.login-box input{
+.login-box input {
   margin-top: 20px;
   width: 100%;
   height: 25px;
@@ -114,21 +157,21 @@ export default {
   outline: none;
   border-bottom: 1px solid #0287ee;
 }
-.forget{
+.forget {
   text-decoration: none;
   display: inline-block;
-  color: rgba(38,38,38,.85);
+  color: rgba(38, 38, 38, 0.85);
   font-size: 14px;
   margin: 20px 50px 20px 5%;
 }
-.register{
+.register {
   text-decoration: none;
   display: inline-block;
   color: #0287ee;
   font-size: 14px;
   margin: 20px 5% 20px 0px;
 }
-.submit{
+.submit {
   font-size: 12px;
   color: #fff;
   width: 100%;
@@ -137,5 +180,24 @@ export default {
   text-align: center;
   background-color: #0287ee;
   cursor: pointer;
+}
+.login-bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+  text-align: center;
+}
+.login-bottom p {
+  font-family: "微软雅黑";
+  font-size: 36px;
+  font-weight: bold;
+  color: #595959;
+  display: block;
+}
+.login-bottom span {
+  margin-top: 10px;
+  font-size: 14px;
+  color: rgba(38, 38, 38, 0.5);
+  display: block;
 }
 </style>
