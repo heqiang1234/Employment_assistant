@@ -40,7 +40,7 @@
 <script>
 
 export default {
-  name: "home",
+  name: "login",
   created() {
     this.axios(this.API.JOBS.GETJOBS).then(res => {
       console.log(res);
