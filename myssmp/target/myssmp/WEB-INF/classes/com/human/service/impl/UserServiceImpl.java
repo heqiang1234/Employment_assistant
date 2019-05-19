@@ -8,8 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
-@Service
+@Service("userService")
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
@@ -43,6 +44,14 @@ public class UserServiceImpl implements UserService {
 
         userDao.update(user);
     }
+
+    @Override
+    public Set<String> findPermissionsByUserId(int user_Id) {
+        return userDao.findPermissionsByUserId(user_Id);
+    }
+
+
+
 }
 
 

@@ -34,6 +34,11 @@
         SELECT * FROM user
     </select>
 
+    <select id="selectPermissionById" parameterType="String">
+        SELECT url FROM permission
+        where roleid=#{user_Id}
+    </select>
+
     <delete id="deleteUserById" parameterType="int"   >
         delete from user
         where userID = #{user_Id}

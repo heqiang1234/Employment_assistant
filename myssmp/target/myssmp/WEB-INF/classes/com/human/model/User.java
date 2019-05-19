@@ -1,12 +1,15 @@
 package com.human.model;
 
+import java.io.Serializable;
+
 /**
  *  create by hq on 2019/5/9;
  * 用户表
  */
 
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Integer user_Id;
     private String user_Name;
     private String user_Password;

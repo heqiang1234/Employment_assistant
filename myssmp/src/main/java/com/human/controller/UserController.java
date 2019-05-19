@@ -1,9 +1,15 @@
 package com.human.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.human.model.User;
+import com.human.service.ShiroService;
 import com.human.service.UserService;
+import com.human.service.impl.SessionServiceImpl;
 import com.human.util.JsonMsg;
+import com.human.util.Md5Utils;
+import org.apache.shiro.SecurityUtils;
+
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,60 +19,114 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * create on hq 2019/5/7;
  */
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value="/user")
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Resource
     @Autowired
     private UserService userService;
-
+         private ShiroService shiroService;
 
 
     @RequestMapping(value = "/showuser")
-    public String showUser(HttpServletRequest request, Model model){
+    @ResponseBody
+    public  List<User> showUser(HttpServletRequest request, Model model){
 
        log.info("查询所有用户信息");
         List<User> userList = userService.getAllUser();
-        model.addAttribute("userList",userList);
-        return "showUser";
+        return userList;
     }
+
+    @RequestMapping(value = "/NoPermission")
+    @ResponseBody
+    public  JsonMsg permission(HttpServletRequest request, Model model){
+
+        return JsonMsg.Lose().addInfo("login_error", "session失效，请重新输入！");
+    }
+
+    @RequestMapping(value = "/login")
+    @ResponseBody
+    public  JsonMsg login(HttpServletRequest request, Model model){
+
+        return JsonMsg.fail().addInfo("login_error", "没有登陆，请重新输入！");
+    }
+
 
     /**
      * 对登录页面输入的用户名和密码进行验证
      * @param
      * @return
      */
-    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value="/dologin")
     @ResponseBody
-    public JsonMsg  dologin(HttpServletRequest request){
+    public JsonMsg  dologin(HttpServletRequest request) {
 
-        String user_name = request.getParameter("username");
-        String passWord = request.getParameter("password");
-        User user = userService.getUserByName(user_name);
-        log.info("登陆验证");
-        if(!user_name.equals(user.getUser_Name()))
-        {
-            return JsonMsg.fail().addInfo("login_error", "不存在该用户名，请重新输入！");
-        }
-        else
-            if(!passWord.equals(user.getUser_Password()))
-            {
-                return JsonMsg.fail().addInfo("login_error", "输入账号用户名与密码不匹配，请重新输入！");
-            }
-            return  JsonMsg.success().addInfo("person",user);
+           try {
+               //主体,当前状态为没有认证的状态“未认证”
+               Subject currentUser = SecurityUtils.getSubject();
+               // 登录后存放进shiro token
+               if (!currentUser.isAuthenticated()) {
+                   String user_name = request.getParameter("username");
+                   String passWord = request.getParameter("password");
+                   if (user_name == null || user_name.trim().length() == 0 || passWord == null || passWord.trim().length() == 0) {
+                       return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+                   }
+                   UsernamePasswordToken upToken = new UsernamePasswordToken(user_name, passWord);
+                   //保存session
+                   upToken.setRememberMe(true);
+
+                   try {
+                       currentUser.login(upToken);
+                       User user;
+                       user = userService.getUserByName(user_name);
+                       return JsonMsg.success().addInfo("person", user);
+
+                   } catch (IncorrectCredentialsException ice) {
+                       System.out.println("邮箱/密码不匹配！");
+                       return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+                   } catch (LockedAccountException lae) {
+                       System.out.println("账户已被冻结！");
+                       return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+                   } catch (AuthenticationException ae) {
+                       System.out.println(ae.getMessage());
+                       return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+
+                   }
+               }
+               User user;
+               user=userService.getUserByName(currentUser.getPrincipal().toString());
+               return  JsonMsg.success().addInfo("person", user);
+           }
+        catch (AuthenticationException qqe){
+                   return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+               }
+
     }
-
+//        //登录方法（认证是否通过）
+//        //使用subject调用securityManager,安全管理器调用Realm
+//        try {
+//            //利用异常操作
+//            //需要开始调用到Realm中
+//            System.out.println("========================================");
+//            System.out.println("1、进入认证方法");
+//            subject.login(token);
+//            user = (User) subject.getPrincipal();
+//            session.setAttribute("user", subject);
+//          //  model.addAttribute("message", "登录完成");
+//            System.out.println("登录完成");
+//            return  JsonMsg.success().addInfo("person",user);
+//        } catch (UnknownAccountException e) {
+//            return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+//        }
+//    }
 
     @RequestMapping("/userinfo/{id}")
     //查找其中一个用户，路径带参数
@@ -88,9 +148,18 @@ public class UserController {
         log.info("注册用户");
         String user_name = request.getParameter("username");
         String passWord = request.getParameter("password");
+        System.out.println(user_name+" "+passWord);
+       String newPs= Md5Utils.encrypt(user_name,passWord);
         User user=new User();
         user.setUser_Name(user_name);
-        user.setUser_Password(passWord);
+        user.setUser_Password(newPs);
+        log.info(newPs);
+        System.out.println(user.getUser_Name()+" "+user.getUser_Password());
+        User user_temp=userService.getUserByName(user_name);
+                if(user_temp!=null)
+                {
+                    return JsonMsg.fail().addInfo("login_error", "注册失败，请重新输入！");
+                }
         userService.save(user);
         return  JsonMsg.success().addInfo("person",user);
     }
