@@ -1,11 +1,12 @@
-<template>
+
+ <template>
   <div class="warp">
     <div class="header">
       <div class="container">
         <h1>实习助手</h1>
-        <ul>
+        <ul class="subnav">
           <li>
-            <a href="#">首页</a>
+            <a href="home.vue">首页</a>
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -18,220 +19,800 @@
           </li>
         </ul>
       </div>
-    </div>    
-    <div class="top">
-        <div class="container">
-            <div class="top-leftImg">
-                <img class="leftImg" src="../assets/main-picture.png" alt="">
-            </div>
+    </div>
+    <div class="top-header">
+      <div class="container">
+        <div class="leftImg">
+          <img src="../assets/main-picture.png" alt>
         </div>
+      </div>
     </div>
     <div class="top-bar">
-        <div class="container">
-            <div class="left-bar">
-                <div class="user-count">0018983</div>
-                <div class="user-count-num">共计0018983个热门职业等着你</div>
-            </div>
-            <div class="right-bar">
-                <div class="form">
-                    <div class="bnt1">全国 <img src="../assets/arrow1.png" alt=""></div>
-                    <div class="bnt1 bnt2">搜职业 <img src="../assets/arrow1.png" alt=""></div>
-                    <div class="bnt3"><input class="search" type="text"  placeholder="请输入您期望的职位" autofocus></div>
-                    <div class="bnt4">立即搜索</div>
-                </div>
-                <div class="form-bar">
-                    热门搜索：
-                    <a href="">项目</a>
-                    <a href="">前端</a>
-                    <a href="">财会</a>
-                    <a href="">市场</a>
-                    <a href="">行政</a>
-                    <a href="">广告</a>
-                </div>
-            </div>
+      <div class="container">
+        <div class="left-bar">
+          <div class="user-count">0018983</div>
+          <div class="user-count-num">共计0018983个热门职业等着你</div>
         </div>
+        <div class="right-bar">
+          <div class="form">
+            <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+              <el-select style="width:120px;" placeholder="选择地区" v-model="select" slot="prepend">
+                <el-option label="全国" value="1"></el-option>
+                <el-option label="北京" value="2"></el-option>
+              </el-select>
+              <el-select
+                style="width:120px;margin-left:15px;"
+                placeholder="选择信息"
+                v-model="select"
+                slot="prepend"
+              >
+                <el-option label="搜职业" value="1"></el-option>
+                <el-option label="搜公司" value="2"></el-option>
+              </el-select>
+              <el-button style="width:130px;" slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+          </div>
+          <div class="form-bar">
+            热门搜索：
+            <a href="#">项目</a>
+            <a href="#">前端</a>
+            <a href="#">财会</a>
+            <a href="#">市场</a>
+            <a href="#">行政</a>
+            <a href="#">广告</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mid-bar">
+      <div class="container">
+        <div class="list">
+          <div class="list-title">全部分类</div>
+          <div class="type-item" data-type="IT互联网">
+            <a href="#">IT互联网</a>
+            <a href="#">软件</a>
+            <a href="#">运营</a>
+            <a href="#">硬件</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">软件</a>
+                <a href="#">数据库</a>
+                <a href="#">C#/.NET</a>
+                <a href="#">Android</a>
+                <a href="#">算法</a>
+                <a href="#">运维</a>
+                <a href="#">前端</a>
+              </div>
+              <div class="item-list">
+                <a href="#">运营</a>
+                <a href="#">新媒体</a>
+                <a href="#">内容运营</a>
+                <a href="#">编辑</a>
+                <a href="#">SEO</a>
+                <a href="#">产品运营</a>
+                <a href="#">前端</a>
+              </div>
+              <div class="item-list">
+                <a href="#">硬件</a>
+                <a href="#">嵌入式</a>
+                <a href="#">集成电路</a>
+              </div>
+              <div class="item-list">
+                <a href="#">设计</a>
+                <a href="#">Flash</a>
+                <a href="#">UI/UE</a>
+                <a href="#">特效</a>
+                <a href="#">网页/美工</a>
+                <a href="#">2D/3D</a>
+              </div>
+              <div class="item-list">
+                <a href="#">通信</a>
+                <a href="#">物联网</a>
+                <a href="#">通信</a>
+                <a href="#">射频</a>
+              </div>
+              <div class="item-list">
+                <a href="#">产品</a>
+                <a href="#">用户研究</a>
+                <a href="#">产品助理</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="市场商务">
+            <a href="#">市场商务</a>
+            <a href="#">商务</a>
+            <a href="#">销售</a>
+            <a href="#">公关</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">商务</a>
+                <a href="#">商务</a>
+                <a href="#">招投标</a>
+              </div>
+              <div class="item-list">
+                <a href="#">销售</a>
+                <a href="#">推广</a>
+                <a href="#">销售</a>
+              </div>
+              <div class="item-list">
+                <a href="#">公关</a>
+                <a href="#">媒介</a>
+                <a href="#">公关</a>
+              </div>
+              <div class="item-list">
+                <a href="#">客服</a>
+                <a href="#">客户服务</a>
+                <a href="#">销售支持</a>
+              </div>
+              <div class="item-list">
+                <a href="#">市场</a>
+                <a href="#">渠道</a>
+                <a href="#">分析/调研</a>
+                <a href="#">策划</a>
+                <a href="#">品牌</a>
+                <a href="#">市场</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="电子电器">
+            <a href="#">电子电气</a>
+            <a href="#">电子</a>
+            <a href="#">电气</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">电子</a>
+                <a href="#">光电</a>
+                <a href="#">半导体/芯片</a>
+                <a href="#">电子工程</a>
+              </div>
+              <div class="item-list">
+                <a href="#">电气</a>
+                <a href="#">电子设计</a>
+                <a href="#">电气工程</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="其他类型">
+            <a href="#">其他类型</a>
+            <a href="#">体育快消</a>
+            <a href="#">机械</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">体育快消</a>
+                <a href="#">快消</a>
+                <a href="#">体育</a>
+              </div>
+              <div class="item-list">
+                <a href="#">机械制造</a>
+                <a href="#">质量</a>
+                <a href="#">机械设计</a>
+                <a href="#">生产</a>
+                <a href="#">安全</a>
+                <a href="#">设备</a>
+                <a href="#">自动化</a>
+              </div>
+              <div class="item-list">
+                <a href="#">物流采购</a>
+                <a href="#">采购</a>
+                <a href="#">供应链</a>
+                <a href="#">物流</a>
+              </div>
+              <div class="item-list">
+                <a href="#">建筑房产</a>
+                <a href="#">城规/市政</a>
+                <a href="#">工程造价</a>
+                <a href="#">建筑</a>
+                <a href="#">土木</a>
+                <a href="#">园林</a>
+                <a href="#">土地开发</a>
+                <a href="#">房产销售</a>
+                <a href="#">给排水</a>
+                <a href="#">物业管理</a>
+              </div>
+              <div class="item-list">
+                <a href="#">生物医疗</a>
+                <a href="#">医生</a>
+                <a href="#">医药</a>
+                <a href="#">生物</a>
+                <a href="#">护理</a>
+              </div>
+              <div class="item-list">
+                <a href="#">能源环保</a>
+                <a href="#">矿产</a>
+                <a href="#">能源</a>
+                <a href="#">环保</a>
+              </div>
+              <div class="item-list">
+                <a href="#">食品材料</a>
+                <a href="#">材料</a>
+                <a href="#">食品</a>
+              </div>
+              <div class="item-list">
+                <a href="#">NGO公益</a>
+                <a href="#">志愿者</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="人事行政">
+            <a href="#">人力资源</a>
+            <a href="#">猎头</a>
+            <a href="#">行政</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">人力资源</a>
+                <a href="#">人事/HR</a>
+                <a href="#">招聘</a>
+                <a href="#">企业文化</a>
+              </div>
+              <div class="item-list">
+                <a href="#">猎头</a>
+                <a href="#">猎头</a>
+              </div>
+              <div class="item-list">
+                <a href="#">行政</a>
+                <a href="#">行政</a>
+                <a href="#">前台</a>
+                <a href="#">助理</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="外语外贸">
+            <a href="#">外语外贸</a>
+            <a href="#">外语</a>
+            <a href="#">外贸</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">外语</a>
+                <a href="#">英语</a>
+                <a href="#">日语</a>
+                <a href="#">翻译</a>
+              </div>
+              <div class="item-list">
+                <a href="#">外贸</a>
+                <a href="#">报关员</a>
+                <a href="#">外贸专员</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="金融法务">
+            <a href="#">财经法务</a>
+            <a href="#">金融</a>
+            <a href="#">投资</a>
+            <a href="#">法务</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">金融</a>
+                <a href="#">基金</a>
+                <a href="#">证券</a>
+                <a href="#">风控</a>
+                <a href="#">金融</a>
+              </div>
+              <div class="item-list">
+                <a href="#">投资</a>
+                <a href="#">分析师</a>
+                <a href="#">投资</a>
+              </div>
+              <div class="item-list">
+                <a href="#">法务</a>
+                <a href="#">合规</a>
+                <a href="#">律师</a>
+                <a href="#">法务</a>
+              </div>
+              <div class="item-list">
+                <a href="#">银行</a>
+                <a href="#">客户经理</a>
+                <a href="#">部门经理</a>
+                <a href="#">贷款</a>
+                <a href="#">大堂经理</a>
+              </div>
+              <div class="item-list">
+                <a href="#">保险</a>
+                <a href="#">业务</a>
+                <a href="#">保单</a>
+              </div>
+              <div class="item-list">
+                <a href="#">财会</a>
+                <a href="#">审计</a>
+                <a href="#">税务</a>
+                <a href="#">财务</a>
+                <a href="#">会计/出纳</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="教育咨询">
+            <a href="#">教育咨询</a>
+            <a href="#">教育</a>
+            <a href="#">咨询</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">教育</a>
+                <a href="#">教务</a>
+                <a href="#">教师</a>
+                <a href="#">幼教</a>
+                <a href="#">培训</a>
+                <a href="#">课程</a>
+              </div>
+              <div class="item-list">
+                <a href="#">咨询</a>
+                <a href="#">咨询/顾问</a>
+              </div>
+            </div>
+          </div>
+          <div class="type-item" data-type="媒体设计">
+            <a href="#">媒体设计</a>
+            <a href="#">广告</a>
+            <a href="#">编辑</a>
+            <a href="#">设计</a>
+            <div class="item-infor">
+              <div class="item-list">
+                <a href="#">广告</a>
+                <a href="#">创意</a>
+                <a href="#">策划</a>
+                <a href="#">AE</a>
+              </div>
+              <div class="item-list">
+                <a href="#">编辑</a>
+                <a href="#">编辑/采编</a>
+                <a href="#">校队/排版</a>
+              </div>
+              <div class="item-list">
+                <a href="#">设计</a>
+                <a href="#">美术设计</a>
+                <a href="#">工业设计</a>
+                <a href="#">平面设计</a>
+                <a href="#">视觉设计</a>
+              </div>
+              <div class="item-list">
+                <a href="#">艺术</a>
+                <a href="#">记者</a>
+                <a href="#">支持/播音</a>
+                <a href="#">编导</a>
+              </div>
+              <div class="item-list">
+                <a href="#">艺术</a>
+                <a href="#">演艺</a>
+                <a href="#">摄影</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper">
+          <el-carousel>
+            <el-carousel-item v-for="item in 4" :key="item">
+              <h3>{{ item }}</h3>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <div class="container">
+        <div class="vip-companys">
+          <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+        </div>
+      </div>
+    </div>
+    <div class="company-tab">
+      <div class="container-tab">
+        <ul class="tab-list">
+          <li>热门职业</li>
+          <li>最新职业</li>
+          <li>急招职业</li>
+        </ul>
+        <ul class="tab-content">
+          <div v-for="(item,index) in arr" :key="index"  class="post">
+              <!-- 职位盒子 -->
+              <div class="post-title">
+                <div class="post-head">
+                  <div class="post-name">Web前端</div>
+                  <div class="post-pay">100-150￥/天</div>
+                </div>
+                <div class="post-body">
+                  <div class="post-others">
+                    <i class="el-icon-location-outline"></i>
+                    <span class="post-other">北京</span>
+                  </div>
+                  <div class="post-others">
+                    <i class="el-icon-time"></i>
+                    <span class="post-other">4天/周</span>
+                  </div>
+                  <div class="post-others">
+                    <i class="el-icon-date"></i>
+                    <span class="post-other">四个月</span>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="post-company">
+                <div class="company-logo">
+                  <img src="../assets/aiqiyi.jpg" alt="">
+                </div>
+                <div class="company-infor">
+                  <div class="company-name"><a href="#">爱奇艺</a></div>
+                  <div class="company-info">互联网|2000人以上</div>
+                </div>
+              </div>
+            </div>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
-<style scope>
-*{
-    margin: 0px;
-    padding: 0px;
+<script>
+export default {
+  name: "home",
+  data() {
+    return {
+      arr:[1,2,3,4]
+    };
+  }
+};
+</script>
+
+<style>
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 .warp {
   width: 100%;
   min-width: 1080px;
-  background: #fefefe;
+  background: #f1f4f6;
 }
 .header {
   width: 100%;
   height: 56px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #aaa;
 }
 .container {
+  justify-content: space-between;
+  display: flex;
   height: 100%;
   max-width: 90%;
   margin: 0px auto;
-  position: relative;
 }
 .container h1 {
   display: inline-block;
   position: absolute;
   top: -9999px;
 }
-.container ul {
+.subnav {
   list-style: none;
   height: 100%;
 }
-.container ul li {
+.subnav li {
   height: 100%;
   float: left;
 }
-.container ul li a {
-  list-style: none;
+.subnav li a {
   text-decoration: none;
   display: inline-block;
   vertical-align: top;
-  color: rgba(3, 3, 3, 0.8);
   font-size: 16px;
+  color: #222;
   padding: 0 16px;
   line-height: 56px;
+  margin: 0;
   cursor: pointer;
 }
-.container ul li a:hover {
-  color: #02a0e9;
+.subnav a:hover {
+  color: #0287ee;
 }
-.top{
-    width: 100%;
-    min-width: 1080px;
-    height: 172px;
-    background-color: #02a0e9;
+.top-header {
+  width: 100%;
+  height: 172px;
+  background: #67b0e7;
 }
-.top-leftImg{
-    width: 260px;
-    height: 100%;
-    display: inline-block;
-    position: relative;
+.leftImg {
+  width: 23%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
-.leftImg{
-    position: absolute;
-    bottom: 0px;
-    left: 22px;
-    display: block;
+.top-bar {
+  width: 100%;
+  height: 120px;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
-.top-bar{
-    width: 100%;
-    padding-top: 20px;
-    height: 120px;
-    box-sizing: border-box;
-    position: absolute;
-    left: 0px;
+.left-bar {
+  width: 23%;
+  height: 100px;
+  padding-top: 20px;
+  background: #eee;
+  display: inline-block;
+  box-sizing: border-box;
 }
-.left-bar{
-    width: 25%;
-    height: 100px;
-    padding-top: 20px;
-    background-color: #eee;
-    display: inline-block;
-    box-sizing:border-box;
+.user-count {
+  width: 95%;
+  height: 50px;
+  color: #0287ee;
+  font-size: 30px;
+  text-align: center;
+  line-height: 30px;
+  padding: 10px 0px;
+  margin: 0px auto;
+  background: #f1f4f6;
+  box-sizing: border-box;
 }
-.user-count{
-    width: 234px;
-    height: 50px;
-    box-sizing:border-box;
-    line-height: 30px;
-    margin: 0px auto;
-    padding: 10px 0px;
-    text-align: center;
-    font-size: 28px;
-    color: #02a0e9;
-    background-color: #fafafa;
+.user-count-num {
+  line-height: 24px;
+  font-size: 12px;
+  text-align: center;
+  height: 24px;
+  color: #333;
 }
-.user-count-num{
-    width: 100%;
-    line-height: 24px;
-    font-size: 12px;
-    text-align: center;
-    height: 24px;
-    color: #333;
+.right-bar {
+  width: 75%;
+  height: 100px;
+  padding-top: 20px;
+  display: inline-block;
+  box-sizing: border-box;
 }
-.right-bar{
-    width: 73%;
-    height: 100px;
-    padding-top: 20px;
-    display: inline-block;
-    box-sizing:border-box;
-    position: absolute;
-    right: 0px;
+.form {
+  width: 100%;
+  height: 50px;
 }
-.form{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 46px;
-    border: 2px solid #02a0e9;
-    /* box-sizing:border-box; */
-    font-size: 14px;
-    font-family: "微软雅黑";
+.form-bar {
+  color: #6aa2e4;
+  line-height: 28px;
+  font-size: 14px;
 }
-.bnt1{
-    display: inline-block;
-    width: 10%;
-    box-sizing:border-box;
-    text-align: center;
-    cursor: pointer;
-    border-right: 1px solid #02a0e9;
+.form-bar > a {
+  text-decoration: none;
+  color: #6aa2e4;
+  padding-right: 15px;
 }
-.bnt2{
-    width: 11%;
+.form-bar > a:hover {
+  text-decoration: underline;
 }
-.bnt3{
-    width: 50%;
-    box-sizing:border-box;
-    padding-left:12px; 
-    display: inline-block;
+.mid-bar {
+  width: 100%;
+  height: 463px;
+  padding: 20px 0px 25px 0px;
+  box-sizing: border-box;
 }
-.search{
-    border: none;
-    outline: none;
-    display: inline-block;
-    width: 398px;
-    margin: 0px;
-    padding: 0px;
-    font-size: 16px;
+.list {
+  width: 23%;
+  height: 408px;
+  font-size: 14px;
+  background: #fafafa;
+  display: inline-block;
+  z-index: 999;
+  box-sizing: border-box;
 }
-.bnt4{
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    flex: 1;
-    /* box-sizing:border-box; */
-    background:#02a0e9;
-    color: #fafafa;
-    font-size: 16px;
-    display: flex;
+.list-title {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  border: solid 1px transparent;
+  border-bottom: solid 1px #eee;
 }
-.bnt4:hover{
-    background: #abcdef;
+.type-item {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  border: solid 1px transparent;
+  border-bottom: solid 1px #eee;
+  position: relative;
 }
-.form-bar{
-    width: 100%;
-    height: 24px;
-    margin-top: 5px; 
-    color: #6aa2e4;
-    text-decoration: none;
-    line-height: 28px;
-    font-size: 14px;
+.type-item:hover {
+  background-color: #fff;
+  border: solid 1px #999;
+  border-right: none;
+  border-left: none;
+  z-index: 999;
 }
-.form-bar>a{
-    color: #6aa2e4;
-    padding: 0px 5px;
-    text-decoration: none;
-    font-size: 14px;
+.type-item:hover .item-infor {
+  display: block;
 }
-.form-bar>a:hover{
-    text-decoration: underline;
+.type-item :nth-child(1) {
+  color: #000;
+  font-weight: 500;
+  font-size: 15px;
+}
+.type-item > a {
+  text-decoration: none;
+  color: #555;
+  padding-right: 10px;
+}
+.type-item > a:hover {
+  text-decoration: underline;
+}
+.item-infor {
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  width: 250%;
+  background-color: #fff;
+  border: solid 1px #999;
+  z-index: 99;
+  display: none;
+}
+.item-list {
+  padding-right: 20px;
+}
+.item-list > a {
+  text-decoration: none;
+  color: #555;
+  padding-left: 15px;
+}
+.item-list > a:hover {
+  text-decoration: underline;
+}
+.item-list :nth-child(1) {
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+}
+.swiper {
+  width: 75%;
+  height: 408px;
+}
+.bottom-bar {
+  width: 100%;
+  height: 120px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+.vip-companys {
+  width: 100px;
+  height: 100px;
+  background: #aaa;
+  display: flex;
+  align-items: center;
+}
+.vip-companys > img {
+  width: 100px;
+  height: 40px;
+}
+.vip-companys:hover {
+  background: #0287ee;
+}
+.company-tab {
+  width: 100%;
+  height: 920px;
+}
+.container-tab {
+  height: 100%;
+  max-width: 90%;
+  min-width: 900px;
+  margin: 0px auto;
+}
+.tab-list {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-family: "微软雅黑";
+}
+.tab-list li {
+  float: left;
+  width: 150px;
+  height: 100%;
+  border-top-left-radius: 20% 100%;
+  border-bottom-right-radius: 20% 100%;
+  cursor: pointer;
+  background-color: #ccc;
+  list-style: none;
+}
+.tab-list li:hover {
+  font-size: 16px;
+  color: #0287ee;
+  background: #eee;
+}
+.tab-list li:hover .line {
+  display: block;
+}
+.tab-content {
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+  max-height: 850px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.post {
+  width: 32%;
+  height: 195px;
+  margin-top: 10px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  border: 1px solid #666;
+}
+.post-title {
+  height: 100px;
+  text-align: center;
+  padding: 20px 0px;
+  box-sizing: border-box;
+}
+.post-head {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.post-name {
+  width: 59%;
+  line-height: 30px;
+  height: 30px;
+  font-family: "微软雅黑";
+  font-size: 18px;
+  text-align: left;
+  font-weight: bolder;
+}
+.post-pay {
+  width: 40%;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+  color: orangered;
+}
+.post-body {
+  width: 80%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.post-others {
+  width: 30%;
+  height: 100%;
+  line-height: 30px;
+  padding-left: 0px;
+  text-align: left;
+}
+.post-other {
+  color: #666;
+  font-size: 14px;
+  padding-left: 5px;
+}
+.post-company{
+  height: 90px;
+  width: 100%;
+  padding-top: 15px;
+  box-sizing: border-box;
+  line-height: 90px;
+  display: flex;
+  flex-direction: row;
+}
+.company-logo{
+  width: 60px;
+  height: 60px;
+}
+.company-logo>img{
+  width: 100%;
+}
+.company-infor{
+  width: 70%;
+  height: 50px;
+  padding-left: 20px;
+}
+.company-name{
+  height: 30px;
+  line-height: 30px;
+}
+.company-name>a{ 
+  color: #0287ee;
+  text-decoration: none;
+}
+.company-info{
+  height: 30px;
+  color: #aaa;
+  line-height: 30px;
 }
 </style>

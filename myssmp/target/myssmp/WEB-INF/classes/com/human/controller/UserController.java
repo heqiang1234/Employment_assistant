@@ -1,5 +1,6 @@
 package com.human.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.human.model.User;
 import com.human.service.UserService;
 import com.human.util.JsonMsg;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * create on hq 2019/5/7;
@@ -28,14 +30,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/Test")
-    public JsonMsg Testtt(HttpServletRequest request, Model model){
-
-        log.info("测试");
-//        List<User> userList = userService.getAllUser();
-//        model.addAttribute("userList",userList);
-        return JsonMsg.success();
-    }
 
 
     @RequestMapping(value = "/showuser")
@@ -47,20 +41,16 @@ public class UserController {
         return "showUser";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
-
-
     /**
      * 对登录页面输入的用户名和密码进行验证
-     * @param request
+     * @param
      * @return
      */
-    @RequestMapping(value = "/dologin", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value="/dologin")
     @ResponseBody
-    public JsonMsg dologin(HttpServletRequest request){
+    public JsonMsg  dologin(HttpServletRequest request){
+
         String user_name = request.getParameter("username");
         String passWord = request.getParameter("password");
         User user = userService.getUserByName(user_name);
@@ -74,7 +64,7 @@ public class UserController {
             {
                 return JsonMsg.fail().addInfo("login_error", "输入账号用户名与密码不匹配，请重新输入！");
             }
-        return JsonMsg.success();
+            return  JsonMsg.success().addInfo("person",user);
     }
 
 
@@ -86,30 +76,23 @@ public class UserController {
         return  "detail";
     }
 
-
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
-    public String toAdd(HttpServletRequest request) {
-
-        return "adduser";
-    }
-
-    @RequestMapping(value = "/addH")
-    public String toAddh(HttpServletRequest request) {
-
-        return "adduser";
-    }
-
     /**
      * 注册添加用户
-     * @param user
+     * @param request
      * @return
      */
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/save")
     @ResponseBody
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public User save(User user) {
-
+    public JsonMsg save(HttpServletRequest request) {
+        log.info("注册用户");
+        String user_name = request.getParameter("username");
+        String passWord = request.getParameter("password");
+        User user=new User();
+        user.setUser_Name(user_name);
+        user.setUser_Password(passWord);
         userService.save(user);
-        return user;
+        return  JsonMsg.success().addInfo("person",user);
     }
 
     /**

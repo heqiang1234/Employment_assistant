@@ -53,7 +53,7 @@
             alert('1234')
             $.ajax({
                 url:"dologin",
-                type:"GET",
+                type:"POST",
                 data:$("#login_form").serialize(),
                 success:function (result) {
                     if(result.code == 100){

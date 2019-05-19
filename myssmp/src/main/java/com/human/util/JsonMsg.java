@@ -39,14 +39,14 @@ public class JsonMsg {
 
     public static JsonMsg success(){
         JsonMsg res = new JsonMsg();
-        res.setCode(100);
+        res.setCode(200);
         res.setMsg("操作成功！");
         return res;
     }
 
     public static JsonMsg fail(){
         JsonMsg res = new JsonMsg();
-        res.setCode(200);
+        res.setCode(100);
         res.setMsg("操作失败！");
         return res;
     }

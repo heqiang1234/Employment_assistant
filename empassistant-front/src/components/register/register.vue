@@ -1,29 +1,69 @@
 <template>
   <div class="regi-body">
     <div class="bg">
-      <ul class="ul-box">
-        <li class="sport1"><img src="../assets/reg-bg6.png" alt=""></li>
-        <li class="sport2"><img src="../assets/reg-bg3.png" alt=""></li>
-        <li class="sport3"><img src="../assets/reg-bg4.png" alt=""></li>
-        <li class="sport4"><img src="../assets/reg-bg5.png" alt=""></li>
-      </ul>
+      <canvas id="canvas"></canvas>
     </div>
     <div class="regi-box">
       <div class="regi-title">学生注册</div>
       <div class="regi-input">
-        <input type="text" id="username" placeholder="请输入账号" autofocus>
-        <input type="password" id="password" placeholder="请输入密码">
-        <input type="password" id="repassword" placeholder="确认密码">
+        <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
+        <input type="password" v-model="pwd" placeholder="请输入密码">
+        <input type="password" v-model="rePassword" placeholder="确认密码">
       </div>
       <div class="agree">
         注册即代表同意
         <a href="#">《就业助手协议》</a>
       </div>
-      <div class="regist">立即注册</div>
+      <div @click="regist" class="regist">立即注册</div>
     </div>
   </div>
 </template>
+
+<script>
+import {canvas} from './canvas';
+export default {
+  mounted() {
+    canvas();
+  },
+  methods:{
+    regist(){
+      if(this.rePassword !== this.pwd){
+        this.$message({
+          showClose: true,
+          message: '两次输入的密码不一致~',
+          type: 'error'
+        });
+        return;
+      }
+     this.axios({
+        url: "http://120.79.15.183:8080/myssmp/save",
+        methods: "post",
+        headers: { "Content-Type": "application/json" },
+        params: {
+          username: this.userName,
+          password: this.pwd
+        },
+      })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  data(){
+    return{
+      userName: "",
+      pwd: "",
+      rePassword:""
+    }
+  }
+}
+</script>
+
 <style>
+
 .regi-body {
   width: 100%;
   height: 100vh;
@@ -42,72 +82,24 @@ display: none;
   height: 100%;
   list-style: none;
 }
-.ul-box li {
-  float: left;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  top: -100%;
-  position: absolute;
-}
-.ul-box li img{
-  width: 100%;
-  overflow: hidden;
-}
-.sport1{
-  animation: sport-1 25s linear 0s infinite normal;
-}
-.sport2{
-  animation: sport-2 20s linear 15s infinite normal;
-}
-.sport3{
-  animation: sport-3 30s linear 10s infinite normal;
-}
-.sport4{
-  animation: sport-4 50s linear 5s infinite normal;
-}
 
-@keyframes sport-1 {
-  0% {
-    top: 100%;
-  }
-  100%{
-    top:-120%;
-  }
-}
-@keyframes sport-2 {
-  0% {
-    top: 100%;
-  }
-  100%{
-    top:-120%;
-  }
-}
-@keyframes sport-3 {
-  0% {
-    top: 100%;
-  }
-  100% {
-    top: -120%;
-  }
-}
-@keyframes sport-4 {
-  0% {
-    top: 100%;
-  }
-  100% {
-    top: -120%;
-  }
+canvas{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .regi-box {
   position: absolute;
   width: 350px;
   height: 400px;
-  background-color: #fff;
+  background-color: rgba(255,255,255,.8);
   border-radius: 6px;
   top: 15%;
-  right: 30%;
-  box-shadow: 5px 5px 10px #888888;
+  right: 0%;
+  left:0%;
+  margin:auto;
   z-index: 999;
 }
 .regi-title {
@@ -124,6 +116,7 @@ display: none;
   margin: 0 auto;
 }
 .regi-input > input {
+  background-color:inherit;
   margin-top: 20px;
   width: 100%;
   height: 25px;
