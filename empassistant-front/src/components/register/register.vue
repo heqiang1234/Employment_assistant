@@ -27,14 +27,32 @@ export default {
   },
   methods:{
     regist(){
-      if(this.rePassword !== this.pwd){
+      console.log(this.mkSubmit)
+      if(this.mkSubmit) {
+        return;
+      }
+      else{
+        this.mkSubmit = 1;
+        setTimeout(()=>{
+          this.mkSubmit = null;
+        },1000)
+      }
+      if(!this.userName || !this.pwd||!this.rePassword){
+        this.$message({
+          showClose: true,
+          message: '信息未完整填写~',
+          type: 'error'
+        });
+        return;
+      }
+      else if(this.rePassword !== this.pwd){
         this.$message({
           showClose: true,
           message: '两次输入的密码不一致~',
           type: 'error'
         });
         return;
-      }
+      };
      this.axios({
         url: "http://120.79.15.183:8080/myssmp/save",
         methods: "post",
@@ -56,7 +74,8 @@ export default {
     return{
       userName: "",
       pwd: "",
-      rePassword:""
+      rePassword:"",
+      mkSubmit:null
     }
   }
 }
@@ -135,7 +154,6 @@ canvas{
   margin: 0px auto;
   font-family: "微软雅黑";
   line-height: 56px;
-  cursor: pointer;
   color: rgba(38, 38, 38, 0.5);
 }
 .agree a {

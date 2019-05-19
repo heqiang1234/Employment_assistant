@@ -1,5 +1,4 @@
-
- <template>
+<template>
   <div class="warp">
     <div class="header">
       <div class="container">
@@ -450,7 +449,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;

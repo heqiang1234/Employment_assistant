@@ -3,9 +3,9 @@
     <div class="header">
       <div class="container">
         <h1>实习助手</h1>
-        <ul>
+        <ul class="subnav">
           <li>
-            <a href="#">首页</a>
+            <a href="home.vue">首页</a>
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -38,9 +38,41 @@
 
 <script>
 export default {
+name: "login",
   name: "HelloWorld",
   data() {
     return {};
+  },
+  
+  created() {
+    this.axios(this.API.JOBS.GETJOBS).then(res => {
+      console.log(res);
+    });
+  },
+  methods: {
+    login() { //提交登陆
+      console.log(this.userName);
+      console.log(this.pwd);
+      let params = this.qs.stringify({
+          username: this.userName,
+          password: this.pwd
+        })
+      this.axios({
+        url: this.API.USER.LOGIN,
+        methods: "POST",
+        headers: { "Content-Type": "application/json" },
+        params: {
+          username: this.userName,
+          password: this.pwd
+        },
+      })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>

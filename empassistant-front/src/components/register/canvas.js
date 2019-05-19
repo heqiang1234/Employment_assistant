@@ -13,18 +13,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
   } _createClass(Line, [{
     key: 'update', value: function update() {
       this.y -= this.speed;
-      this.i += this.seed;
+
     }
   }, {
     key: 'draw', value: function draw(
 
       canvas) {
-      var x = this.x + Math.sin(this.i) * this.amplitude;
+      var x = this.x ;
 
       canvas.ctx.beginPath();
       canvas.ctx.fillStyle = this.color;
-      canvas.ctx.shadowColor = this.color;
-      canvas.ctx.shadowBlur = 5;
+      // canvas.ctx.shadowColor = this.color;
+      // canvas.ctx.shadowBlur = 5;
       canvas.ctx.arc(x, this.y, this.size, 0, 2 * Math.PI);
       canvas.ctx.fill();
       canvas.ctx.closePath();
@@ -44,14 +44,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
     } _createClass(Canvas, [{
       key: 'pushParticle', value: function pushParticle() {
         var x = Math.random() * this.width;
-        var y = this.height + Math.random() * 250;
-        var size = 1 + Math.random();
+        var y = this.height + Math.random() * this.height;
+        var size = 25 + Math.random()*25;
 
         var g = Math.floor(150 + Math.random() * 100);
         var b = Math.floor(150 + Math.random() * 100);
         var color = 'rgba(120,' + g + ',' + b + ',0.7)';
 
-        var speed = 2 + Math.random() * 1.5;
+        var speed = 0.5 + Math.random() * 1;
         var seed = Math.random() / 20;
         var amp = Math.random() * 15;
 
@@ -59,7 +59,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
       }
     }, {
       key: 'start', value: function start() {
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i <30; i++) {
           this.pushParticle();
         }
       }
@@ -72,10 +72,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
         }
 
         this.lines = this.lines.filter(function (line) {
-          return line.y > -2;
+          return line.y > -line.size;
         });
 
-        var toAdd = 100 - this.lines.length;
+        var toAdd = 30 - this.lines.length;
 
         if (toAdd === 0) { return; }
 
@@ -90,7 +90,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
         this.ctx.globalCompositeOperation = 'source-over';
         this.ctx.fillStyle = '#ABCDEF';
         this.ctx.fillRect(0, 0, this.width, this.height);
-        this.ctx.globalCompositeOperation = 'lighter';
+        // this.ctx.globalCompositeOperation = 'lighter';
 
         for (var i = 0; i < this.lines.length; i++) {
           var line = this.lines[i];
