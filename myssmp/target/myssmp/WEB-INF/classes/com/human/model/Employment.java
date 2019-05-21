@@ -11,12 +11,22 @@ public class Employment {
     private String company_id;
     private String company_name;
     private String logo;
+    private String hitCount;
+    private String recruitPost;
     private String professionals;
-    private String city_name;
     private String meet_name;
     private String meet_time;
     private String meet_day;
     private String address;
+    private String presentLink;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public int getEmployment_id() {
         return employment_id;
@@ -38,16 +48,8 @@ public class Employment {
         return company_name;
     }
 
-    public String getLogo() {
-        return logo;
-    }
-
     public String getProfessionals() {
         return professionals;
-    }
-
-    public String getCity_name() {
-        return city_name;
     }
 
     public String getMeet_name() {
@@ -64,6 +66,18 @@ public class Employment {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPresentLink() {
+        return presentLink;
+    }
+
+    public String getHitCount() {
+        return hitCount;
+    }
+
+    public String getRecruitPost() {
+        return recruitPost;
     }
 
     public void setEmployment_id(int employment_id) {
@@ -86,16 +100,8 @@ public class Employment {
         this.company_name = company_name;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
     public void setProfessionals(String professionals) {
         this.professionals = professionals;
-    }
-
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
     }
 
     public void setMeet_name(String meet_name) {
@@ -112,5 +118,17 @@ public class Employment {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setPresentLink(String presentLink) {
+        this.presentLink = presentLink;
+    }
+
+    public void setHitCount(String hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    public void setRecruitPost(String recruitPost) {
+        this.recruitPost = recruitPost;
     }
 }

@@ -1,5 +1,7 @@
 package com.human.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 
 /**
@@ -16,7 +18,7 @@ public class User implements Serializable {
     private String user_RealName;
     private String user_School;
     private String user_Major;
-    private String user_IntentionPost;
+    private String user_IntentionalPost;
     private String user_Email;
 
     public Integer getUser_Id() {
@@ -35,6 +37,7 @@ public class User implements Serializable {
         this.user_Name = user_Name;
     }
 
+    @JSONField(serialize=false)
     public String getUser_Password() {
         return user_Password;
     }
@@ -67,12 +70,12 @@ public class User implements Serializable {
         this.user_Major = user_Major;
     }
 
-    public String getUser_IntentionPost() {
-        return user_IntentionPost;
+    public String getUser_IntentionalPost() {
+        return user_IntentionalPost;
     }
 
-    public void setUser_IntentionPost(String user_IntentionPost) {
-        this.user_IntentionPost = user_IntentionPost;
+    public void setUser_IntentionalPost(String user_IntentionalPost) {
+        this.user_IntentionalPost = user_IntentionalPost;
     }
 
     public String getUser_Email() {

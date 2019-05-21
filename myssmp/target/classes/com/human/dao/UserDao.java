@@ -18,6 +18,8 @@ public interface UserDao {
 
     User selectUserByName(@Param("user_Name") String user_Name);
 
+    User selectUserByNameNoPassword(@Param("user_Name") String user_Name);
+
     User selectUserByPhoneOrEmail(@Param("emailOrPhone") String emailOrPhone, @Param("state") Short state);
 
     List<User> selectAllUser();
@@ -29,5 +31,7 @@ public interface UserDao {
     //添加用户保存数据
     void save(User user);
 
-    void update(User user);
+    void updateUser(User user);
+
+    void updateUserPassword(User user);
 }

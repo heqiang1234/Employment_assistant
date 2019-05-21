@@ -114,8 +114,9 @@ public class UserRealm extends AuthorizingRealm {
         User user = userService.getUserByName(username);
 
         if (user != null) {
-           // ByteSource credentialsSalt = ByteSource.Util.bytes(user.getMobilePhone());
+            log.info("进入验证shiro 认证");
 
+            // ByteSource credentialsSalt = ByteSource.Util.bytes(user.getMobilePhone());pToken
          //   this.setSession(UserManager.CURRENT_USER, user);
             ByteSource salt = ByteSource.Util.bytes(user.getUser_Name());
             SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUser_Name(),user.getUser_Password(),salt,this.getClass().getName());
