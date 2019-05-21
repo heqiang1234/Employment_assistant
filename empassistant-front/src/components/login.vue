@@ -42,7 +42,14 @@
 export default {
   name: "login",
   created() {
-    this.axios(this.API.JOBS.GETJOBS).then(res => {
+    this.axios({
+      url:this.API.EMP.GETEMP,
+      methods:"GET",
+      params:{
+        PageSize:30,
+        CurrentPage:1
+      }
+    }).then(res => {
       console.log(res);
     });
   },
@@ -50,10 +57,6 @@ export default {
     login() { //提交登陆
       console.log(this.userName);
       console.log(this.pwd);
-      let params = this.qs.stringify({
-          username: this.userName,
-          password: this.pwd
-        })
       this.axios({
         url: this.API.USER.LOGIN,
         methods: "POST",

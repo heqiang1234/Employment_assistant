@@ -45,7 +45,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
       key: 'pushParticle', value: function pushParticle() {
         var x = Math.random() * this.width;
         var y = this.height + Math.random() * this.height;
-        var size = 25 + Math.random()*25;
+        var size = 50 + Math.random()*25;
 
         var g = Math.floor(150 + Math.random() * 100);
         var b = Math.floor(150 + Math.random() * 100);
@@ -59,7 +59,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
       }
     }, {
       key: 'start', value: function start() {
-        for (var i = 0; i <30; i++) {
+        for (var i = 0; i <100; i++) {
           this.pushParticle();
         }
       }
@@ -75,7 +75,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
           return line.y > -line.size;
         });
 
-        var toAdd = 30 - this.lines.length;
+        var toAdd = 100 - this.lines.length;
 
         if (toAdd === 0) { return; }
 
