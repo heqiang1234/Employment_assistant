@@ -3,6 +3,7 @@ package com.human.service;
 import com.human.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
@@ -17,4 +18,6 @@ public interface UserService {
     void save(User user);
 
     void update(User user);
+
+    Set<String> findPermissionsByUserId(int user_Id);
 }

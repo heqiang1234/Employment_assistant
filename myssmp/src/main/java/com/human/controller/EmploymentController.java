@@ -36,14 +36,16 @@ public class EmploymentController {
 
         log.info("查询所有宣讲会信息");
         String currentPage = request.getParameter("currentPage");
+        String pageSize = request.getParameter("pageSize");
         int cur=Integer.parseInt(currentPage);
-       PageBean pagebean = employmentService.findByPage(cur);
+        int pag=Integer.parseInt(pageSize);
+       PageBean pagebean = employmentService.findByPage(cur,pag);
         //model.addAttribute("userList",userList);
         return pagebean;
     }
-    @RequestMapping("/main")
-    public String  main(@RequestParam(value="currentPage",defaultValue="1",required=false)int currentPage, Model model){
-        model.addAttribute("pagemsg", employmentService.findByPage(currentPage));//回显分页数据
-        return "main";
-    }
+//    @RequestMapping("/main")
+//    public String  main(@RequestParam(value="currentPage",defaultValue="1",required=false)int currentPage, Model model){
+//        model.addAttribute("pagemsg", employmentService.findByPage(currentPage));//回显分页数据
+//        return "main";
+//    }
 }

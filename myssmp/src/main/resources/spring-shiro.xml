@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+				http://www.springframework.org/schema/context
+				 http://www.springframework.org/schema/context/spring-context-3.2.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+				 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" /> <!--加载管理器-->
+        <property name="loginUrl" value="/user/login" />   <!-- &lt;!&ndash;没有登录的时候，跳转到这个页面&ndash;&gt;-->
+      <property name="unauthorizedUrl" value="/user/NoPermission" /> <!--&lt;!&ndash;当没有权限的时候，跳转到这个url&ndash;&gt;-->
+        <property name="filterChainDefinitions">
+            <value>
+                /user/dologin = anon <!--可以不需要登录-->
+                /user/save = anon <!--可以不需要登录-->
+                <!--/user/showuser = authc &lt;!&ndash;可以不需要登录&ndash;&gt;-->
+                /user/showuser = authc, perms[/showuser]  <!-- perms 表示需要该权限才能访问的页面 -->
+                /user/readData = authc, perms[/readData]
+                /user/* = authc <!-- authc 表示需要认证才能访问的页面 -->
+            </value>
+        </property>
+    </bean>
+
+
+
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+
+        <!-- 注入缓存管理器 -->
+        <property name="cacheManager" ref="cacheManager" />
+        <!-- 注入session管理器 -->
+         <property name="sessionManager" ref="sessionManager" />
+        <!-- 验证 -->
+        <property name="authenticator" ref="authenticator"/>
+        <!-- 记住我 -->
+        <property name="rememberMeManager" ref="rememberMeManager" />
+        <!-- 注入realm -->
+        <property name="realm" ref="UserRealm"/>
+    </bean>
+
+    <!-- 自定义Realm -->
+    <bean id="UserRealm" class="com.human.shiro.UserRealm">
+        <!-- businessManager 用来实现用户名密码的查询 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+                <property name="hashAlgorithmName" value="MD5"></property>
+                <!-- 加密次数 -->
+                <property name="hashIterations" value="1024"></property>
+                <!--&lt;!&ndash;   true means hex encoded, false means base64 encoded &ndash;&gt;-->
+                <!--<property name="storedCredentialsHexEncoded" value="true"/>-->
+            </bean>
+        </property>
+    </bean>
+    <!--声明一个Service 注入到自定义Realm-->
+    <!--<bean id="accountService" class="com.human.service.impl.UserServiceImpl"/>-->
+    <!-- <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="cacheManager" /> </bean> -->
+
+
+    <!-- 会话Session ID生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+    <!-- 创建SessionDao  这个SessionDao继承了 EnterpriseCacheSessionDAO-->
+    <bean id="sessionDao" class="com.human.shiro.SessionDao">
+        <!-- 配置SessionDao里面的 id生成器 -->
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <!-- 设置Session缓存到Eacehc的名字，默认就是shiro-activeSessionCache -->
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+    </bean>
+
+
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager"
+          class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+
+        <!-- session的失效时长，单位毫秒 -->
+        <property name="globalSessionTimeout" value="18000" />
+        <!-- 删除失效的session -->
+        <property name="deleteInvalidSessions" value="true" />
+        <!-- Session调度器，用来检查Session是否还存在的问题 -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <!--  设定session的调度管理器-->
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+        <!-- 配置管理session的 dao -->
+        <property name="sessionDAO" ref="sessionDao"/>
+
+        <!-- 开启cookie 不然一直登录不上 -->
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+
+    </bean>
+
+    <!-- 全局的会话信息检测扫描信息间隔30分钟
+		 设定检查sesion过期事件，
+	-->
+    <bean id="sessionValidationScheduler"
+          class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="18000" />
+        <property name="sessionManager" ref="sessionManager" />
+    </bean>
+
+    <!-- 缓存管理器 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml" />
+    </bean>
+    <!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('6ZmI6I2j5Y+R5aSn5ZOlAA==')}"/>
+        <property name="cookie" ref="rememberMeCookie" />
+    </bean>
+    <!-- 记住我cookie -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!-- rememberMe是cookie的名字 -->
+        <constructor-arg value="rememberMe" />
+        <!-- 记住我cookie生效时间30天 -->
+        <property name="maxAge" value="2592000" />
+
+    </bean>
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+
+    <!-- 授权策略 -->
+    <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+        <property name="authenticationStrategy" >
+            <!-- 所有Reaml都全部匹配的策略 -->
+            <!-- <bean class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"/> -->
+            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+        </property>
+    </bean>
+
+</beans>

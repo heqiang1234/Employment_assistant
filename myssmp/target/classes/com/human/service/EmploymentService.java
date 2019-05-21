@@ -12,5 +12,5 @@ public interface EmploymentService {
 
     int deleteByPrimaryKey(Integer id);
 
-    PageBean<Employment> findByPage(int currentPage);
+    PageBean<Employment> findByPage(int currentPage,int  pagesize);
 }

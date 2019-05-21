@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Zhangxq on 2016/7/15.
@@ -20,6 +21,8 @@ public interface UserDao {
     User selectUserByPhoneOrEmail(@Param("emailOrPhone") String emailOrPhone, @Param("state") Short state);
 
     List<User> selectAllUser();
+
+    Set<String> findPermissionsByUserId(int user_Id);
 
     int deleteUserById(@Param("user_Id") int user_Id);
 
