@@ -11,6 +11,13 @@ public interface EmploymentService {
 
     int selectCount();
 
+
+    /**
+     * 查询数据记录总数根据条件
+     * @return
+     */
+    int selectCountById(String S_ID,String S_Name);
+
     PageBean<Employment> findByPage(int currentPage,int  pagesize);
     /**
      *

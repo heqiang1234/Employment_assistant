@@ -26,6 +26,6 @@ public interface CompanyService {
     PageBean<Company> findByPageBySchool(int currentPage, int  pagesize,String School_Id);
 
     //根据行业查询宣讲会公司信息
-    List<Company> selectByCompanyId(String  CompanyId,String Career_Talk_Id);
+    PageBean<Company> selectByCompanyId(int currentPage, int  pagesize,String  CompanyId,String Career_Talk_Id);
 
 }

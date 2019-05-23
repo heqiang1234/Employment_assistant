@@ -138,9 +138,13 @@ public class CompanyController {
     {
         try {
             log.info("根据公司ID查询宣讲会公司信息");
+            String CurrentPage = request.getParameter("CurrentPage");
+            String PageSize = request.getParameter("PageSize");
             String Company_Id = request.getParameter("Company_Id");
             String Career_Talk_Id = request.getParameter("Career_Talk_Id");
-            List<Company> companyList= companyService.selectByCompanyId(Company_Id, Career_Talk_Id);
+            int cur = Integer.parseInt(CurrentPage);
+            int pag = Integer.parseInt(PageSize);
+            PageBean<Company> companyList= companyService.selectByCompanyId(cur,pag,Company_Id, Career_Talk_Id);
             return JsonMsg.success().addInfo("companyList",companyList);
         }catch (Exception e)
         {

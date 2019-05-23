@@ -5,6 +5,7 @@ package com.human.model;
  * 宣讲会信息表
  */
 public class Employment {
+    private static final long serialVersionUID = 8430941165882152228L;
     private int employment_id;
     private String school_id;
     private String career_talk_id;

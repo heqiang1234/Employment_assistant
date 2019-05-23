@@ -75,34 +75,33 @@ public class EmploymentController {
             String Search_Name = request.getParameter("Search_Name");
             int cur = Integer.parseInt(currentPage);
             int pag = Integer.parseInt(pageSize);
-            PageBean pagebean=new PageBean();
             if(Search_Id=="Company"||Search_Id.equals("Company")) {
                 log.info("公司查询宣讲会信息");
-               pagebean= employmentService.selectEmploymentByCompanyName(cur, pag, Search_Name);
-                return JsonMsg.success().addInfo("pagebean",pagebean);
+                PageBean  pagebean_Company= employmentService.selectEmploymentByCompanyName(cur, pag, Search_Name);
+                return JsonMsg.success().addInfo("pagebean_Company",pagebean_Company);
             }
             else
             if(Search_Id=="School"||Search_Id.equals("School"))
             {
                 log.info("学校查询宣讲会信息");
-               pagebean = employmentService.selectEmploymentBySchool(cur, pag, Search_Name);
-                return JsonMsg.success().addInfo("pagebean",pagebean);
+                PageBean  pagebean_School = employmentService.selectEmploymentBySchool(cur, pag, Search_Name);
+                return JsonMsg.success().addInfo("pagebean_School",pagebean_School);
             }
             else
             if(Search_Id=="Position"||Search_Id.equals("Position"))
             {
                 log.info("岗位查询宣讲会信息");
-              pagebean = employmentService.findByPage(cur, pag);
-                return JsonMsg.success().addInfo("pagebean",pagebean);
+                PageBean  pagebean_Position = employmentService.findByPage(cur, pag);
+                return JsonMsg.success().addInfo("pagebean_Position",pagebean_Position);
             }
             else
                 if(Search_Id=="Professional"||Search_Id.equals("Professional"))
                 {
                     log.info("专业查询宣讲会信息");
-                    pagebean = employmentService.selectEmploymentByPro(cur, pag, Search_Name);
-                  JsonMsg.success().addInfo("info",pagebean);
+                    PageBean  pagebean_Professional = employmentService.selectEmploymentByPro(cur, pag, Search_Name);
+                    return JsonMsg.success().addInfo("pagebean_Professional",pagebean_Professional);
                 }
-            pagebean = employmentService.findByPage(cur, pag);
+            PageBean pagebean = employmentService.findByPage(cur, pag);
             return JsonMsg.success().addInfo("pagebean",pagebean);
         }
         catch (Exception e)

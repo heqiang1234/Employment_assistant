@@ -1,7 +1,8 @@
 package com.human.model;
 
 public class Position {
-    private  int position;
+    private static final long serialVersionUID = 8430941165882152228L;
+    private  int positionID;
     private String school_id;
     private String career_talk_id;
     private String position_name;
@@ -12,12 +13,12 @@ public class Position {
     private String workPlace;
     private String salaryWelfare;
 
-    public int getPosition() {
-        return position;
+    public int getPositionID() {
+        return positionID;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setPositionID(int positionID) {
+        this.positionID = positionID;
     }
 
     public String getSchool_id() {

@@ -42,10 +42,10 @@ public interface CompanyDao {
     //查询某学校宣讲会公司信息
     List<Company> selectBySchool(String  SchoolAddress);
 
-    //根据行业查询宣讲会公司信息
+    //根据公司行业查询宣讲会公司信息
     List<Company> selectByCompanyType(String  CompanyType);
 
-    //根据行业查询宣讲会公司信息
+    //根据公司ID查询宣讲会公司信息
     List<Company> selectByCompanyId(HashMap<String,Object> map);
 
 }

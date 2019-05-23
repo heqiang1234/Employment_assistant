@@ -21,6 +21,7 @@
                 /User/* = authc <!-- authc 表示需要认证才能访问的页面 -->
                 /Company/*=anon <!--公司信息路径可以不需要登录-->
                 /Employment/*=anon <!--宣讲会信息路径可以不需要登录-->
+                /Position/*=anon <!--宣讲会信息路径可以不需要登录-->
                 <!-- 请求logout.action地址，shiro去清除session -->
 
             </value>

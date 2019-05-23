@@ -29,6 +29,14 @@ public class EmploymentServiceImpl implements EmploymentService {
         return employmentDao.selectCount();
     }
 
+    @Override
+    public int selectCountById(String S_ID, String S_Name) {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("S_ID",S_ID);
+        map.put("S_Name",S_Name);
+        return employmentDao.selectCountById(map);
+    }
+
     /**
      * 分页查询所有的宣讲会信息
      * @param currentPage
@@ -102,7 +110,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         pageBean.setPageSize(pageSize);
 
         //封装总记录数
-        int totalCount = employmentDao.selectCount();
+        int totalCount = selectCountById("address",address);
         pageBean.setTotalCount(totalCount);
 
         //封装总页数
@@ -146,7 +154,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         pageBean.setPageSize(pageSize);
 
         //封装总记录数
-        int totalCount = employmentDao.selectCount();
+        int totalCount = selectCountById("Professional",pro);
         pageBean.setTotalCount(totalCount);
 
         //封装总页数
@@ -195,7 +203,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         pageBean.setPageSize(pageSize);
 
         //封装总记录数
-        int totalCount = employmentDao.selectCount();
+        int totalCount = selectCountById("School",School);
         pageBean.setTotalCount(totalCount);
 
         //封装总页数
@@ -244,7 +252,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         pageBean.setPageSize(pageSize);
 
         //封装总记录数
-        int totalCount = employmentDao.selectCount();
+        int totalCount = selectCountById("CompanyName",CompanyName);
         pageBean.setTotalCount(totalCount);
 
         //封装总页数

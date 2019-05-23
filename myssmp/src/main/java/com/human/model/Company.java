@@ -7,6 +7,7 @@ package com.human.model;
  *
  */
 public class Company {
+    private static final long serialVersionUID = 8430941165882152228L;
     private int id;
     private String career_talk_id;
     private String company_id;

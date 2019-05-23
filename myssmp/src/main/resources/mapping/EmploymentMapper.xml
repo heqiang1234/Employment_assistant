@@ -37,11 +37,30 @@
 	</select>
 
 
+    <!-- 查询用户记录根据类型 -->
+    <select id="selectCountById" resultType="int">
+		select count(*) from employment
+        <if test="S_ID.toString()=='address'.toString()">
+        address like   "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='Professional'.toString()">
+            professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+        </if>
+        <if test="S_ID.toString()=='School'.toString()">
+            school_id like   "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='CompanyName'.toString()">
+            company_name like  "%"#{S_Name}"%"
+        </if>
+	</select>
+
+
     <!-- 根据分页数据start 和size查询数据 -->
     <select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap">
         select
         <include refid="Base_Column_List" />
-        from employment  order by meet_day desc
+        from employment
+        order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
@@ -52,7 +71,7 @@
         select
         <include refid="Base_Column_List" />
         from employment
-        where address like  CONCAT('%',#{address},'%')  order by meet_day desc
+        where address like    "%"#{address}"%"  order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
@@ -63,8 +82,7 @@
         select
         <include refid="Base_Column_List" />
         from employment
-        where professionals like CONCAT('%',#{pro},'%') or professionals='' or professionals like '不限专业' or professionals ='null'
-        order by meet_day desc
+        where professionals LIKE "%"#{pro}"%" or professionals like '%不限专业%' or professionals ='' order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
@@ -75,7 +93,7 @@
         select
         <include refid="Base_Column_List" />
         from employment
-        where school_id like CONCAT('%',#{School},'%') order by meet_day desc
+        where school_id like   "%"#{School}"%"  order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
@@ -86,7 +104,7 @@
         select
         <include refid="Base_Column_List" />
         from employment
-        where company_name like CONCAT('%',#{CompanyName},'%') order by meet_day desc
+        where company_name like  "%"#{CompanyName}"%"  order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>

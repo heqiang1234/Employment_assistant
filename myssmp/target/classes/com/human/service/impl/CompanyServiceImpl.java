@@ -89,19 +89,71 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     /**
-     * 根据宣讲会ID和公司ID查询公司信息
+     * 根据公司ID等分页查询内容
+     * @param currentPage
+     * @param pagesize
      * @param CompanyId
      * @param Career_Talk_Id
      * @return
      */
     @Override
-    public List<Company> selectByCompanyId(String CompanyId,String Career_Talk_Id) {
+    public PageBean<Company> selectByCompanyId(int currentPage, int pagesize,String CompanyId,String Career_Talk_Id) {
         HashMap<String,Object> map = new HashMap<String,Object>();
+        PageBean<Company> pageBean = new PageBean<Company>();
+
+        //封装当前页数
+        pageBean.setCurrPage(currentPage);
+
+        //判断是否有前一页,然后进行赋值操作，回显前台
+        if(currentPage>1)
+            pageBean.setPreviousPage(true);
+        else
+            pageBean.setPreviousPage(false);
+
+        //每页显示的数据
+        int pageSize=pagesize;
+        pageBean.setPageSize(pageSize);
+
+        //封装总记录数
+        int totalCount = companyDao.CompanyCountAll();
+        pageBean.setTotalCount(totalCount);
+
+        //封装总页数
+        double tc = totalCount;
+        Double num =Math.ceil(tc/pageSize);//向上取整
+        pageBean.setTotalPage(num.intValue());
+
+        if(currentPage<=num.intValue()-1)
+            pageBean.setAfterPage(true);
+        else
+            pageBean.setAfterPage(false);
+
+        map.put("start",(currentPage-1)*pageSize);
+        map.put("size", pageBean.getPageSize());
         map.put("CompanyId",CompanyId);
         map.put("Career_Talk_Id", Career_Talk_Id);
+        //封装每页显示的数据
         List<Company> lists = companyDao.selectByCompanyId(map);
-        return lists;
+        pageBean.setLists(lists);
+
+        return pageBean;
     }
+
+
+//    /**
+//     * 根据宣讲会ID和公司ID查询公司信息
+//     * @param CompanyId
+//     * @param Career_Talk_Id
+//     * @return
+//     */
+//    @Override
+//    public List<Company> selectByCompanyId() {
+//        HashMap<String,Object> map = new HashMap<String,Object>();
+//        map.put("CompanyId",CompanyId);
+//        map.put("Career_Talk_Id", Career_Talk_Id);
+//        List<Company> lists = companyDao.selectByCompanyId(map);
+//        return lists;
+//    }
 
     @Override
     public PageBean<Company> findByPage(int currentPage, int pagesize) {

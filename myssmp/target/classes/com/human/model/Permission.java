@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Permission {
+    private static final long serialVersionUID = 8430941165882152228L;
     private int id;
     private String token;
     /**资源url**/

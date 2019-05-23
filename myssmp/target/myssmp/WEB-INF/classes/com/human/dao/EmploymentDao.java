@@ -18,6 +18,13 @@ public interface EmploymentDao {
      * @return
      */
     int selectCount();
+
+
+    /**
+     * 查询数据记录总数根据条件
+     * @return
+     */
+    int selectCountById(HashMap<String,Object> map);
     /**
      * 分页操作，调用findByPage limit分页方法
      * @param map
