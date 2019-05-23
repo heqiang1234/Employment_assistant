@@ -1,5 +1,6 @@
 package com.human.dao;
 
+import com.human.model.Employment;
 import com.human.model.Position;
 
 import java.util.HashMap;
@@ -35,10 +36,23 @@ public interface PositionDao {
     List<Position> selectPositionById(HashMap<String,Object> map);
 
     /**
+     * 根据岗位Z中的宣讲会ID 进入宣讲会
+     * @param
+     * @return
+     */
+    List<Position> selectEmploymentByCareerId(HashMap<String,Object> map);
+
+    /**
      * 返回相应的数量
      * @param map
      * @return
      */
     int selectCountBytype(HashMap<String,Object> map);
+
+    /**
+     *
+     * 根据条件查询岗位
+     */
+    List<Position> selectPositionByType(HashMap<String,Object> map);
 
 }

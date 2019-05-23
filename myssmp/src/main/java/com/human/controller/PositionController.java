@@ -74,7 +74,7 @@ public class PositionController {
     @ResponseBody
     public JsonMsg SelectByCareerid(HttpServletRequest request)
     {
-        log.info("根据岗位ID查询学生");
+        log.info("根据岗宣讲会ID查询岗位");
         String Career_Id_Name=request.getParameter("Career_Id_Name");
         String currentPage=request.getParameter("CurrentPage");
         String pageSize=request.getParameter("PageSize");
@@ -112,7 +112,7 @@ public class PositionController {
     @ResponseBody
     public JsonMsg selectByPositionId(HttpServletRequest request)
     {
-        log.info("展示粗略岗位信息");
+        log.info("根据岗位ID查询详细数据");
         String position_Id=request.getParameter("Position_Id");
           List<Position> lists=positionService.selectPositionById(position_Id);
         return JsonMsg.success().addInfo("List",lists);
@@ -120,7 +120,7 @@ public class PositionController {
 
 
 
-    @RequestMapping(value = "/SearchEmployment")
+    @RequestMapping(value = "/SearchPosition")
     @ResponseBody
     public  JsonMsg SearchEmployment(HttpServletRequest request, Model model){
         try {
@@ -133,7 +133,7 @@ public class PositionController {
             int pag = Integer.parseInt(pageSize);
             if(Search_Id!=null||Search_Id.trim().length()!=0) {
                 log.info("查询宣讲会信息"+Search_Id);
-                PageBean  pagebean= positionService.selectPositionByType(cur, pag,Search_Id,Search_Name);
+                PageBean pagebean= positionService.selectPositionByType(cur, pag,Search_Id,Search_Name);
                 return JsonMsg.success().addInfo("pagebean_",pagebean);
             }
             PageBean pagebean = positionService.selectAllPosition(cur, pag);

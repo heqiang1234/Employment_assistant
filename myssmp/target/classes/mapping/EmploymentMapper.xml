@@ -41,16 +41,16 @@
     <select id="selectCountById" resultType="int">
 		select count(*) from employment
         <if test="S_ID.toString()=='address'.toString()">
-        address like   "%"#{S_Name}"%"
+       where address like   "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='Professional'.toString()">
-            professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+            where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
         </if>
         <if test="S_ID.toString()=='School'.toString()">
-            school_id like   "%"#{S_Name}"%"
+            where  school_id like  "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='CompanyName'.toString()">
-            company_name like  "%"#{S_Name}"%"
+            where  company_name like  "%"#{S_Name}"%"
         </if>
 	</select>
 

@@ -166,4 +166,42 @@ public class PositionServiceImpl implements PositionService {
         map.put("position_Id",position_Id);
         return positionDao.selectPositionById(map);
     }
+
+    @Override
+    public PageBean<Position> selectPositionByType(int currentPage, int pagesize, String S_id, String S_name) {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        PageBean<Position> pageBean = new PageBean<Position>();
+
+        //封装当前页数
+        pageBean.setCurrPage(currentPage);
+
+        //判断是否有前一页,然后进行赋值操作，回显前台
+        if(currentPage>1)
+            pageBean.setPreviousPage(true);
+        else
+            pageBean.setPreviousPage(false);
+
+        //每页显示的数据
+        int pageSize=pagesize;
+        pageBean.setPageSize(pageSize);
+
+        //封装总记录数
+        int totalCount = selectCountBytype(S_id,S_name);
+        pageBean.setTotalCount(totalCount);
+
+        //封装总页数
+        double tc = totalCount;
+        Double num =Math.ceil(tc/pageSize);//向上取整
+        pageBean.setTotalPage(num.intValue());
+
+        map.put("start",(currentPage-1)*pageSize);
+        map.put("size", pageBean.getPageSize());
+        map.put("S_ID", S_id);
+        map.put("S_Name", S_name);
+        //封装每页显示的数据
+        System.out.println(S_id+" "+S_name);
+        List<Position> lists =positionDao.selectPositionByType(map);
+        pageBean.setLists(lists);
+        return pageBean;
+    }
 }

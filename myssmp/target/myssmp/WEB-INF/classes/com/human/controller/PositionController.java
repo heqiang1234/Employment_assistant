@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -73,7 +74,7 @@ public class PositionController {
     @ResponseBody
     public JsonMsg SelectByCareerid(HttpServletRequest request)
     {
-        log.info("根据岗位ID查询学生");
+        log.info("根据岗宣讲会ID查询岗位");
         String Career_Id_Name=request.getParameter("Career_Id_Name");
         String currentPage=request.getParameter("CurrentPage");
         String pageSize=request.getParameter("PageSize");
@@ -111,10 +112,37 @@ public class PositionController {
     @ResponseBody
     public JsonMsg selectByPositionId(HttpServletRequest request)
     {
-        log.info("展示粗略岗位信息");
+        log.info("根据岗位ID查询详细数据");
         String position_Id=request.getParameter("Position_Id");
           List<Position> lists=positionService.selectPositionById(position_Id);
         return JsonMsg.success().addInfo("List",lists);
+    }
+
+
+
+    @RequestMapping(value = "/SearchPosition")
+    @ResponseBody
+    public  JsonMsg SearchEmployment(HttpServletRequest request, Model model){
+        try {
+            log.info("查询岗位信息");
+            String currentPage = request.getParameter("CurrentPage");
+            String pageSize = request.getParameter("PageSize");
+            String Search_Id = request.getParameter("Search_Id");
+            String Search_Name = request.getParameter("Search_Name");
+            int cur = Integer.parseInt(currentPage);
+            int pag = Integer.parseInt(pageSize);
+            if(Search_Id!=null||Search_Id.trim().length()!=0) {
+                log.info("查询宣讲会信息"+Search_Id);
+                PageBean pagebean= positionService.selectPositionByType(cur, pag,Search_Id,Search_Name);
+                return JsonMsg.success().addInfo("pagebean_",pagebean);
+            }
+            PageBean pagebean = positionService.selectAllPosition(cur, pag);
+            return JsonMsg.success().addInfo("pagebean",pagebean);
+        }
+        catch (Exception e)
+        {
+            return JsonMsg.fail().addInfo("log_error","查询失败");
+        }
     }
 
 }

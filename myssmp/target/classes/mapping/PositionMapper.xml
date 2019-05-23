@@ -21,7 +21,7 @@
     <!--</resultMap>-->
 
     <sql id="Base_Column_List">
-		positionID,career_talk_id,position_name,positionWage
+		positionID,position_name,positionWage,company_logo,companyType,company_size,workPlace
 	</sql>
 
 
@@ -44,6 +44,10 @@
             select count(*) from employment
             where career_talk_id =#{S_Name}
         </if>
+        <if test="S_ID.toString()=='workPlace'.toString()">
+            select count(*) from position
+            where workPlace LIKE "%"#{S_Name}"%"
+        </if>
 
 	</select>
 
@@ -59,6 +63,21 @@
         </if>
     </select>
 
+
+
+    <select id="selectPositionByType" parameterType="Map" resultType="com.human.model.Position">
+        select * from  position
+        <if test="S_ID.toString()=='position_name'.toString()">
+            where companyType LIKE "%"#{S_Name}"%"  or  position_name LIKE "%"#{S_Name}"%"  or jobDescription LIKE "%"#{S_Name}"%"  or professionals LIKE "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='workPlace'.toString()">
+            where workPlace LIKE  "%"#{S_Name}"%"
+        </if>
+        order by positionWage desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
 
     <select id="selectPositionById" parameterType="Map" resultType="com.human.model.Position">
         select  *

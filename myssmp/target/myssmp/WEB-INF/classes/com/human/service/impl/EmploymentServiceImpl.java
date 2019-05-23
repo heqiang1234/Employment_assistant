@@ -34,6 +34,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("S_ID",S_ID);
         map.put("S_Name",S_Name);
+        System.out.println("655555122222");
         return employmentDao.selectCountById(map);
     }
 
@@ -220,6 +221,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         map.put("size", pageBean.getPageSize());
         map.put("School",School);
         //封装每页显示的数据
+        System.out.println("=---------------------------");
         List<Employment> lists = employmentDao.selectEmploymentBySchool(map);
         pageBean.setLists(lists);
 

@@ -43,4 +43,10 @@ public interface PositionService {
      * @return
      */
     List<Position> selectPositionById(String position_Id);
+
+    /**
+     *
+     * 根据条件查询岗位
+     */
+    PageBean<Position> selectPositionByType(int currentPage, int pagesize,String S_id,String S_name);
 }
