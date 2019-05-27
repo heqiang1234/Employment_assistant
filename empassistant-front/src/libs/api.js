@@ -4,6 +4,9 @@ const API = {
     LOGIN:api+'/User/DoLogin',//用户登录
     REGIST:api+'/Save' //注册用户
   },
+  JOBS:{
+    GETJOBLIST:api+'/Position/selectAllPosition'
+  },
   EMP:{
     GETEMP:api+'/Employment/ShowEmployment' //宣讲会分页
   }

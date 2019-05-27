@@ -1,11 +1,11 @@
 <template>
-  <div class="warp">
+  <div class="wrap">
     <div class="header">
       <div class="container">
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-            <a href="home.vue">首页</a>
+            <router-link :to="{name:'home'}">首页</router-link>
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -29,8 +29,8 @@
     <div class="top-bar">
       <div class="container">
         <div class="left-bar">
-          <div class="user-count">0018983</div>
-          <div class="user-count-num">共计0018983个热门职业等着你</div>
+          <div class="user-count">{{totalJobNum}}</div>
+          <div class="user-count-num">共计{{totalJobNum}}个热门职业等着你</div>
         </div>
         <div class="right-bar">
           <div class="form">
@@ -376,40 +376,39 @@
           </div>
         </div>
         <div class="swiper">
-          <el-carousel>
+          <el-carousel height="288px">
             <el-carousel-item v-for="item in 4" :key="item">
               <h3>{{ item }}</h3>
             </el-carousel-item>
           </el-carousel>
-        </div>
-      </div>
-    </div>
-    <div class="bottom-bar">
-      <div class="container">
+          <div class="ad-bar">
+      <div class="ad-container">
         <div class="vip-companys">
           <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
         </div>
       </div>
     </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="company-tab">
       <div class="container-tab">
         <ul class="tab-list">
-          <li>热门职业</li>
-          <li>最新职业</li>
-          <li>急招职业</li>
+          <li @click="chageListType(index)" :data-index="index" v-for="(item,index) in ['热门职业','最新职业','急招职业']" :key=index :class="curJobIndex===index?'select':''">{{item}}</li>
         </ul>
         <ul class="tab-content">
-          <div v-for="(item,index) in arr" :key="index"  class="post">
+          <div v-for="(item) in jobList" :key="item.career_talk_id"  class="post">
               <!-- 职位盒子 -->
               <div class="post-title">
                 <div class="post-head">
-                  <div class="post-name">Web前端</div>
-                  <div class="post-pay">100-150￥/天</div>
+                  <div class="post-name">{{item.position_name}}</div>
+                  <div class="post-pay">{{item.positionWage}}</div>
                 </div>
                 <div class="post-body">
                   <div class="post-others">
                     <i class="el-icon-location-outline"></i>
-                    <span class="post-other">北京</span>
+                    <span class="post-other">{{item.workPlace}}</span>
                   </div>
                   <div class="post-others">
                     <i class="el-icon-time"></i>
@@ -421,14 +420,14 @@
                   </div>
                 </div>
               </div>
-              <hr>
+              <div class="post-sepLine"></div>
               <div class="post-company">
                 <div class="company-logo">
-                  <img src="../assets/aiqiyi.jpg" alt="">
+                  <img :src="item.company_logo" alt="">
                 </div>
                 <div class="company-infor">
-                  <div class="company-name"><a href="#">爱奇艺</a></div>
-                  <div class="company-info">互联网|2000人以上</div>
+                  <div class="company-name"><a href="#">{{item.companyType}}</a></div>
+                  <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
                 </div>
               </div>
             </div>
@@ -441,20 +440,56 @@
 <script>
 export default {
   name: "home",
+    created() {
+      this.getJobList()
+  },
+  methods:{
+    getJobList(){ //获取职位列表
+      let that = this;
+      if(!that.nextPage)return;
+      that.axios({
+      url:this.API.JOBS.GETJOBLIST,
+      methods:"GET",
+      params:{
+        PageSize:15,
+        CurrentPage:that.curJobPage
+      }
+      }).then(res => {
+      console.log(res)
+      let totalJob = ''+res.data.extendInfo.List.totalCount;
+        for(let i=0;i<8-totalJob.length;i++){
+          totalJob = '0'+totalJob;
+        }
+        if(!that.totalJobNum){
+          that.totalJobNum = totalJob;
+        }
+        that.jobList = res.data.extendInfo.List.lists;
+        console.log(that.jobList)
+    });
+    },
+    chageListType(index){
+      this.curJobIndex = index; 
+    }
+  },
   data() {
     return {
-      arr:[1,2,3,4]
+      totalJobNum:false,//总岗位数量
+      jobList:[],//职位列表
+      curJobPage:1,//当前职位列表页数
+      nextPage:true,//是否有下一页
+      curJobIndex:0 //当前职位列表类型
     };
   }
 };
 </script>
 
-<style scope>
+<style scoped>
+
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
-  line-height: 300px;
+  line-height: 288px;
   margin: 0;
 }
 .el-carousel__item:nth-child(2n) {
@@ -463,10 +498,9 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.warp {
+.wrap {
   width: 100%;
   min-width: 1080px;
-  background: #f1f4f6;
 }
 .header {
   width: 100%;
@@ -530,11 +564,13 @@ export default {
   width: 23%;
   height: 100px;
   padding-top: 20px;
-  background: #eee;
+  background: #fafafa;
   display: inline-block;
   box-sizing: border-box;
 }
 .user-count {
+  font-weight: 400;
+  letter-spacing: 5px;
   width: 95%;
   height: 50px;
   color: #0287ee;
@@ -543,7 +579,7 @@ export default {
   line-height: 30px;
   padding: 10px 0px;
   margin: 0px auto;
-  background: #f1f4f6;
+  background: #fff;
   box-sizing: border-box;
 }
 .user-count-num {
@@ -579,8 +615,7 @@ export default {
 }
 .mid-bar {
   width: 100%;
-  height: 463px;
-  padding: 20px 0px 25px 0px;
+  padding: 20px 0px 20px 0px;
   box-sizing: border-box;
 }
 .list {
@@ -609,12 +644,14 @@ export default {
   border-bottom: solid 1px #eee;
   position: relative;
 }
+
 .type-item:hover {
   background-color: #fff;
-  border: solid 1px #999;
+  border: solid 1px #f5f5f5;
   border-right: none;
   border-left: none;
   z-index: 999;
+  
 }
 .type-item:hover .item-infor {
   display: block;
@@ -628,9 +665,10 @@ export default {
   text-decoration: none;
   color: #555;
   padding-right: 10px;
+  cursor: default;
 }
 .type-item > a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .item-infor {
   position: absolute;
@@ -638,7 +676,7 @@ export default {
   top: -10px;
   width: 250%;
   background-color: #fff;
-  border: solid 1px #999;
+  border: solid 1px #d5d5d5;
   z-index: 99;
   display: none;
 }
@@ -653,6 +691,10 @@ export default {
 .item-list > a:hover {
   text-decoration: underline;
 }
+.item-list :nth-child(1):hover{
+  text-decoration: none;
+  cursor: default;
+}
 .item-list :nth-child(1) {
   color: #000;
   font-size: 15px;
@@ -662,11 +704,15 @@ export default {
   width: 75%;
   height: 408px;
 }
-.bottom-bar {
+.ad-bar {
   width: 100%;
   height: 120px;
   padding-bottom: 20px;
   box-sizing: border-box;
+}
+.ad-container{
+  margin-top:20px;
+  cursor: pointer;
 }
 .vip-companys {
   width: 100px;
@@ -680,11 +726,9 @@ export default {
   height: 40px;
 }
 .vip-companys:hover {
-  background: #0287ee;
 }
 .company-tab {
   width: 100%;
-  height: 920px;
 }
 .container-tab {
   height: 100%;
@@ -693,38 +737,50 @@ export default {
   margin: 0px auto;
 }
 .tab-list {
-  height: 50px;
+  height: 40px;
   width: 100%;
+  font-size: 14px;
   text-align: center;
-  line-height: 50px;
-  font-family: "微软雅黑";
+  line-height: 40px;
+  font-family: "Microsoft Yahei";
+  background: #f3f3f3;
 }
 .tab-list li {
   float: left;
-  width: 150px;
+  width: 100px;
   height: 100%;
-  border-top-left-radius: 20% 100%;
-  border-bottom-right-radius: 20% 100%;
   cursor: pointer;
-  background-color: #ccc;
   list-style: none;
+  position: relative;
 }
+ .tab-list .select{
+   background: #fff;
+  color:#0287ee;
+ }
+ .tab-list .select::before{
+   width:100%;
+   content:'';
+   height:4px;
+   background: #0287ee;
+   position: absolute;
+   top:0;
+   left:0;
+ }
+  
 .tab-list li:hover {
-  font-size: 16px;
   color: #0287ee;
-  background: #eee;
 }
 .tab-list li:hover .line {
   display: block;
 }
 .tab-content {
   display: block;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
-  max-height: 850px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
 .post {
   width: 32%;
@@ -732,13 +788,15 @@ export default {
   margin-top: 10px;
   padding: 0px 10px;
   box-sizing: border-box;
-  border: 1px solid #666;
+  border: 1px solid #dadada;
+  background: #fff;
 }
 .post-title {
   height: 100px;
   text-align: center;
   padding: 20px 0px;
   box-sizing: border-box;
+  
 }
 .post-head {
   width: 100%;
@@ -754,13 +812,20 @@ export default {
   font-size: 18px;
   text-align: left;
   font-weight: bolder;
+  color:rgba(0,0,0,.7)
+}
+.post-sepLine{
+  height:1px;
+  width:100%;
+  background: #dadada;
 }
 .post-pay {
+  font-size: 14px;
   width: 40%;
   height: 30px;
   line-height: 30px;
   text-align: right;
-  color: orangered;
+  color: #FD8150;
 }
 .post-body {
   width: 80%;
@@ -778,9 +843,10 @@ export default {
 .post-other {
   color: #666;
   font-size: 14px;
-  padding-left: 5px;
+  margin-left:-2px;
 }
 .post-company{
+  
   height: 90px;
   width: 100%;
   padding-top: 15px;
@@ -792,6 +858,7 @@ export default {
 .company-logo{
   width: 60px;
   height: 60px;
+  overflow: hidden;
 }
 .company-logo>img{
   width: 100%;
