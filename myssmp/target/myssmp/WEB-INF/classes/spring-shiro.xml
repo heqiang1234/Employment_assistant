@@ -10,21 +10,23 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" /> <!--加载管理器-->
-        <property name="loginUrl" value="/user/login" />   <!-- &lt;!&ndash;没有登录的时候，跳转到这个页面&ndash;&gt;-->
-      <property name="unauthorizedUrl" value="/user/NoPermission" /> <!--&lt;!&ndash;当没有权限的时候，跳转到这个url&ndash;&gt;-->
+        <property name="loginUrl" value="/User/Login" />   <!-- &lt;!&ndash;没有登录的时候，跳转到这个页面&ndash;&gt;-->
+      <property name="unauthorizedUrl" value="/User/NoPermission" /> <!--&lt;!&ndash;当没有权限的时候，跳转到这个url&ndash;&gt;-->
         <property name="filterChainDefinitions">
             <value>
-                /user/dologin = anon <!--可以不需要登录-->
-                /user/save = anon <!--可以不需要登录-->
+                /User/DoLogin = anon <!--可以不需要登录-->
+                /User/Save = anon <!--可以不需要登录-->
                 <!--/user/showuser = authc &lt;!&ndash;可以不需要登录&ndash;&gt;-->
-                /user/showuser = authc, perms[/showuser]  <!-- perms 表示需要该权限才能访问的页面 -->
-                /user/readData = authc, perms[/readData]
-                /user/* = authc <!-- authc 表示需要认证才能访问的页面 -->
+                /User/ShowUser = authc, perms[/showuser]  <!-- perms 表示需要该权限才能访问的页面 -->
+                /User/* = authc <!-- authc 表示需要认证才能访问的页面 -->
+                /Company/*=anon <!--公司信息路径可以不需要登录-->
+                /Employment/*=anon <!--宣讲会信息路径可以不需要登录-->
+                /Position/*=anon <!--宣讲会信息路径可以不需要登录-->
+                <!-- 请求logout.action地址，shiro去清除session -->
+
             </value>
         </property>
     </bean>
-
-
 
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -79,7 +81,7 @@
           class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 
         <!-- session的失效时长，单位毫秒 -->
-        <property name="globalSessionTimeout" value="18000" />
+        <property name="globalSessionTimeout" value="1200000" />
         <!-- 删除失效的session -->
         <property name="deleteInvalidSessions" value="true" />
         <!-- Session调度器，用来检查Session是否还存在的问题 -->
@@ -100,7 +102,7 @@
 	-->
     <bean id="sessionValidationScheduler"
           class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="18000" />
+        <property name="sessionValidationInterval" value="1200000" />
         <property name="sessionManager" ref="sessionManager" />
     </bean>
 

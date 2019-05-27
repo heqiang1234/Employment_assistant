@@ -10,33 +10,21 @@
         <result column="company_id" property="company_id" jdbcType="VARCHAR"/>
         <result column="company_name" property="company_name" jdbcType="VARCHAR"/>
         <result column="logo" property="logo" jdbcType="VARCHAR"/>
+        <result column="hitCount" property="hitCount" jdbcType="VARCHAR"/>
         <result column="professionals" property="professionals" jdbcType="VARCHAR"/>
-        <result column="city_name" property="city_name" jdbcType="VARCHAR"/>
+        <result column="recruitPost" property="recruitPost" jdbcType="VARCHAR"/>
         <result column="meet_name" property="meet_name" jdbcType="VARCHAR"/>
         <result column="meet_time" property="meet_time" jdbcType="VARCHAR"/>
         <result column="meet_day" property="meet_day" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="presentLink" property="presentLink" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-		employment_id, school_id, career_talk_id, company_id, logo, professionals,city_name,meet_name,meet_time,meet_day,address
+		employment_id, school_id, career_talk_id, company_id,company_name, logo,hitCount, professionals,recruitPost,meet_name,meet_time,meet_day,address,presentLink
 	</sql>
 
-    <!--<select id="selectUserById" parameterType="int" resultMap="UserBaseMap">-->
-        <!--SELECT * FROM user-->
-        <!--WHERE userID = #{user_Id}-->
-    <!--</select>-->
 
-    <!--<select id="selectUserByName"  resultMap="UserBaseMap">-->
-        <!--SELECT *  FROM user-->
-        <!--WHERE userName = #{user_Name}-->
-    <!--</select>-->
-
-    <!--<select id="selectUserByPhoneOrEmail" resultMap="UserBaseMap">-->
-    <!--SELECT * FROM t_user-->
-    <!--WHERE user_email = #{emailOrPhone} OR user_phone = #{emailOrPhone}-->
-    <!--AND user_state = #{state}-->
-    <!--</select>-->
 
     <select id="selectAllEmployment" resultMap="EmploymentBaseMap">
         SELECT * FROM employment
@@ -49,35 +37,77 @@
 	</select>
 
 
+    <!-- 查询用户记录根据类型 -->
+    <select id="selectCountById" resultType="int">
+		select count(*) from employment
+        <if test="S_ID.toString()=='address'.toString()">
+       where address like   "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='Professional'.toString()">
+            where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+        </if>
+        <if test="S_ID.toString()=='School'.toString()">
+            where  school_id like  "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='CompanyName'.toString()">
+            where  company_name like  "%"#{S_Name}"%"
+        </if>
+	</select>
+
+
     <!-- 根据分页数据start 和size查询数据 -->
     <select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap">
         select
         <include refid="Base_Column_List" />
         from employment
+        order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
     </select>
 
-    <!--根据主键删除一条用户数据 -->
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from employment
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
+    <!-- 根据地址分页查询数据start 和size查询数据 -->
+    <select id="selectEmploymentByAddress" parameterType="Map" resultMap="EmploymentBaseMap">
+        select
+        <include refid="Base_Column_List" />
+        from employment
+        where address like    "%"#{address}"%"  order by meet_day desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
 
+    <!-- 根据专业分页查询数据start 和size查询数据 -->
+    <select id="selectEmploymentByPro" parameterType="Map" resultMap="EmploymentBaseMap">
+        select
+        <include refid="Base_Column_List" />
+        from employment
+        where professionals LIKE "%"#{pro}"%" or professionals like '%不限专业%' or professionals ='' order by meet_day desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
 
-    <!--<delete id="deleteUserById" parameterType="int"   >-->
-        <!--delete from user-->
-        <!--where userID = #{user_Id}-->
-    <!--</delete>-->
+    <!-- 根据学校分页查询数据start 和size查询数据 -->
+    <select id="selectEmploymentBySchool" parameterType="Map" resultMap="EmploymentBaseMap">
+        select
+        <include refid="Base_Column_List" />
+        from employment
+        where school_id like   "%"#{School}"%"  order by meet_day desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
 
-    <!--&lt;!&ndash;添加用户保存数据&ndash;&gt;-->
-    <!--<insert id="save" parameterType="com.human.model.User">-->
-        <!--insert into user (userName,userPassword) values-->
-        <!--(#{user_Name},#{user_Password})-->
-    <!--</insert>-->
+    <!-- 根据公司名字分页查询数据start 和size查询数据 -->
+    <select id="selectEmploymentByCompanyName" parameterType="Map" resultMap="EmploymentBaseMap">
+        select
+        <include refid="Base_Column_List" />
+        from employment
+        where company_name like  "%"#{CompanyName}"%"  order by meet_day desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
 
-    <!--<update id="update" parameterType="com.human.model.User">-->
-        <!--update user set userName=#{user_Name},userPassword=#{user_Password} where userID = #{user_Id}-->
-    <!--</update>-->
 </mapper>

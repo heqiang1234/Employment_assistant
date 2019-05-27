@@ -14,22 +14,41 @@ public interface EmploymentDao {
     List<Employment> selectAllEmployment();
 
     /**
-     * 根据主键删除一条用户数据
-     * @param id
-     * @return
-     */
-    int deleteByPrimaryKey(Integer id);
-
-
-    /**
      * 查询数据记录总数
      * @return
      */
     int selectCount();
+
+
+    /**
+     * 查询数据记录总数根据条件
+     * @return
+     */
+    int selectCountById(HashMap<String,Object> map);
     /**
      * 分页操作，调用findByPage limit分页方法
      * @param map
      * @return
      */
     List<Employment> findByPage(HashMap<String,Object> map);
+    /**
+     *
+     * 根据地址查询宣讲会
+     */
+    List<Employment> selectEmploymentByAddress(HashMap<String,Object> map);
+    /**
+     *
+     * 根据专业查询宣讲会
+     */
+    List<Employment> selectEmploymentByPro(HashMap<String,Object> map);
+    /**
+     *
+     * 根据学校查询宣讲会
+     */
+    List<Employment> selectEmploymentBySchool(HashMap<String,Object> map);
+    /**
+     *
+     * 根据公司名查询宣讲会
+     */
+    List<Employment> selectEmploymentByCompanyName(HashMap<String,Object> map);
 }

@@ -13,11 +13,15 @@ public interface UserService {
 
     public User getUserByName(String user_Name);
 
+    public User getUserByNameNoPassword(String user_Name);
+
     public int deleteUserById(int user_Id);
 
     void save(User user);
 
-    void update(User user);
+    void updateUser(User user);
 
     Set<String> findPermissionsByUserId(int user_Id);
+
+    void updateUserPassword(User user);
 }
