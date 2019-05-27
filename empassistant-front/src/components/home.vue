@@ -19,13 +19,7 @@
         </ul>
       </div>
     </div>
-    <div class="top-header">
-      <div class="container">
-        <div class="leftImg">
-          <img src="../assets/main-picture.png" alt>
-        </div>
-      </div>
-    </div>
+
     <div class="top-bar">
       <div class="container">
         <div class="left-bar">
@@ -382,56 +376,64 @@
             </el-carousel-item>
           </el-carousel>
           <div class="ad-bar">
-      <div class="ad-container">
-        <div class="vip-companys">
-          <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+            <div class="ad-container">
+              <div class="vip-companys">
+                <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-        </div>
-      </div>
-    </div>
-    
+
     <div class="company-tab">
       <div class="container-tab">
         <ul class="tab-list">
-          <li @click="chageListType(index)" :data-index="index" v-for="(item,index) in ['热门职业','最新职业','急招职业']" :key=index :class="curJobIndex===index?'select':''">{{item}}</li>
+          <li
+            @click="chageListType(index)"
+            :data-index="index"
+            v-for="(item,index) in ['热门职业','最新职业','急招职业']"
+            :key="index"
+            :class="curJobIndex===index?'select':''"
+          >{{item}}</li>
         </ul>
-        <ul class="tab-content">
-          <div v-for="(item) in jobList" :key="item.career_talk_id"  class="post">
-              <!-- 职位盒子 -->
-              <div class="post-title">
-                <div class="post-head">
-                  <div class="post-name">{{item.position_name}}</div>
-                  <div class="post-pay">{{item.positionWage}}</div>
+            <ul class="tab-content">
+              <div v-for="(item) in jobList" :key="item.career_talk_id" class="post">
+                <!-- 职位盒子 -->
+                <div class="post-title">
+                  <div class="post-head">
+                    <div class="post-name">{{item.position_name}}</div>
+                    <div class="post-pay">{{item.positionWage}}</div>
+                  </div>
+                  <div class="post-body">
+                    <div class="post-others">
+                      <i class="el-icon-location-outline"></i>
+                      <span class="post-other">{{item.workPlace}}</span>
+                    </div>
+                    <div class="post-others">
+                      <i class="el-icon-time"></i>
+                      <span class="post-other">4天/周</span>
+                    </div>
+                    <div class="post-others">
+                      <i class="el-icon-date"></i>
+                      <span class="post-other">四个月</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="post-body">
-                  <div class="post-others">
-                    <i class="el-icon-location-outline"></i>
-                    <span class="post-other">{{item.workPlace}}</span>
+                <div class="post-sepLine"></div>
+                <div class="post-company">
+                  <div class="company-logo">
+                    <img :src="item.company_logo" alt>
                   </div>
-                  <div class="post-others">
-                    <i class="el-icon-time"></i>
-                    <span class="post-other">4天/周</span>
-                  </div>
-                  <div class="post-others">
-                    <i class="el-icon-date"></i>
-                    <span class="post-other">四个月</span>
+                  <div class="company-infor">
+                    <div class="company-name">
+                      <a href="#">{{item.companyType}}</a>
+                    </div>
+                    <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
                   </div>
                 </div>
               </div>
-              <div class="post-sepLine"></div>
-              <div class="post-company">
-                <div class="company-logo">
-                  <img :src="item.company_logo" alt="">
-                </div>
-                <div class="company-infor">
-                  <div class="company-name"><a href="#">{{item.companyType}}</a></div>
-                  <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
-                </div>
-              </div>
-            </div>
-        </ul>
+            </ul>
       </div>
     </div>
   </div>
@@ -440,51 +442,53 @@
 <script>
 export default {
   name: "home",
-    created() {
-      this.getJobList()
+  created() {
+    this.getJobList();
   },
-  methods:{
-    getJobList(){ //获取职位列表
+  methods: {
+    getJobList() {
+      //获取职位列表
       let that = this;
-      if(!that.nextPage)return;
-      that.axios({
-      url:this.API.JOBS.GETJOBLIST,
-      methods:"GET",
-      params:{
-        PageSize:15,
-        CurrentPage:that.curJobPage
-      }
-      }).then(res => {
-      console.log(res)
-      let totalJob = ''+res.data.extendInfo.List.totalCount;
-        for(let i=0;i<8-totalJob.length;i++){
-          totalJob = '0'+totalJob;
-        }
-        if(!that.totalJobNum){
-          that.totalJobNum = totalJob;
-        }
-        that.jobList = res.data.extendInfo.List.lists;
-        console.log(that.jobList)
-    });
+      if (!that.nextPage) return;
+      that
+        .axios({
+          url: this.API.JOBS.GETJOBLIST,
+          methods: "GET",
+          params: {
+            PageSize: 15,
+            CurrentPage: that.curJobPage
+          }
+        })
+        .then(res => {
+          console.log(res);
+          let totalJob = "" + res.data.extendInfo.List.totalCount;
+          for (let i = 0; i < 8 - totalJob.length; i++) {
+            totalJob = "0" + totalJob;
+          }
+          if (!that.totalJobNum) {
+            that.totalJobNum = totalJob;
+          }
+          that.jobList = res.data.extendInfo.List.lists;
+          console.log(that.jobList);
+        });
     },
-    chageListType(index){
-      this.curJobIndex = index; 
+    chageListType(index) {
+      this.curJobIndex = index;
     }
   },
   data() {
     return {
-      totalJobNum:false,//总岗位数量
-      jobList:[],//职位列表
-      curJobPage:1,//当前职位列表页数
-      nextPage:true,//是否有下一页
-      curJobIndex:0 //当前职位列表类型
+      totalJobNum: false, //总岗位数量
+      jobList: [], //职位列表
+      curJobPage: 1, //当前职位列表页数
+      nextPage: true, //是否有下一页
+      curJobIndex: 0 //当前职位列表类型
     };
   }
 };
 </script>
 
 <style scoped>
-
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
@@ -505,7 +509,7 @@ export default {
 .header {
   width: 100%;
   height: 56px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #eaeaea;
 }
 .container {
   justify-content: space-between;
@@ -555,6 +559,7 @@ export default {
   align-items: center;
 }
 .top-bar {
+  margin-top: 20px;
   width: 100%;
   height: 120px;
   padding-top: 20px;
@@ -651,7 +656,6 @@ export default {
   border-right: none;
   border-left: none;
   z-index: 999;
-  
 }
 .type-item:hover .item-infor {
   display: block;
@@ -691,7 +695,7 @@ export default {
 .item-list > a:hover {
   text-decoration: underline;
 }
-.item-list :nth-child(1):hover{
+.item-list :nth-child(1):hover {
   text-decoration: none;
   cursor: default;
 }
@@ -710,9 +714,8 @@ export default {
   padding-bottom: 20px;
   box-sizing: border-box;
 }
-.ad-container{
-  margin-top:20px;
-  cursor: pointer;
+.ad-container {
+  margin-top: 20px;
 }
 .vip-companys {
   width: 100px;
@@ -753,20 +756,20 @@ export default {
   list-style: none;
   position: relative;
 }
- .tab-list .select{
-   background: #fff;
-  color:#0287ee;
- }
- .tab-list .select::before{
-   width:100%;
-   content:'';
-   height:4px;
-   background: #0287ee;
-   position: absolute;
-   top:0;
-   left:0;
- }
-  
+.tab-list .select {
+  background: #fff;
+  color: #0287ee;
+}
+.tab-list .select::before {
+  width: 100%;
+  content: "";
+  height: 4px;
+  background: #0287ee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .tab-list li:hover {
   color: #0287ee;
 }
@@ -782,6 +785,9 @@ export default {
   justify-content: space-between;
   margin-bottom: 50px;
 }
+.tab-content .el-carousel {
+  width: 100%;
+}
 .post {
   width: 32%;
   height: 195px;
@@ -796,7 +802,6 @@ export default {
   text-align: center;
   padding: 20px 0px;
   box-sizing: border-box;
-  
 }
 .post-head {
   width: 100%;
@@ -805,18 +810,20 @@ export default {
   justify-content: space-between;
 }
 .post-name {
-  width: 59%;
+  cursor: pointer;
+  max-width: 59%;
+  overflow: hidden;
   line-height: 30px;
   height: 30px;
   font-family: "微软雅黑";
   font-size: 18px;
   text-align: left;
   font-weight: bolder;
-  color:rgba(0,0,0,.7)
+  color: rgba(0, 0, 0, 0.7);
 }
-.post-sepLine{
-  height:1px;
-  width:100%;
+.post-sepLine {
+  height: 1px;
+  width: 100%;
   background: #dadada;
 }
 .post-pay {
@@ -825,7 +832,7 @@ export default {
   height: 30px;
   line-height: 30px;
   text-align: right;
-  color: #FD8150;
+  color: #fd8150;
 }
 .post-body {
   width: 80%;
@@ -843,10 +850,9 @@ export default {
 .post-other {
   color: #666;
   font-size: 14px;
-  margin-left:-2px;
+  margin-left: -2px;
 }
-.post-company{
-  
+.post-company {
   height: 90px;
   width: 100%;
   padding-top: 15px;
@@ -855,28 +861,28 @@ export default {
   display: flex;
   flex-direction: row;
 }
-.company-logo{
+.company-logo {
   width: 60px;
   height: 60px;
   overflow: hidden;
 }
-.company-logo>img{
+.company-logo > img {
   width: 100%;
 }
-.company-infor{
+.company-infor {
   width: 70%;
   height: 50px;
   padding-left: 20px;
 }
-.company-name{
+.company-name {
   height: 30px;
   line-height: 30px;
 }
-.company-name>a{ 
+.company-name > a {
   color: #0287ee;
   text-decoration: none;
 }
-.company-info{
+.company-info {
   height: 30px;
   color: #aaa;
   line-height: 30px;
