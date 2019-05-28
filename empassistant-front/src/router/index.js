@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import login from '@/components/login'
 import register from '@/components/register/register'
 import home from '@/components/home'
+import display from '@/components/display'
+import careerTalk from '@/components/careerTalk'
+import company from '@/components/company'
 
 Vue.use(Router)
 
@@ -23,6 +26,21 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/display',
+      name: 'display',
+      component: display
+    },
+    {
+      path: '/careerTalk',
+      name: 'careerTalk',
+      component: careerTalk
+    },
+    {
+      path: '/company',
+      name: 'company',
+      component: company
     }
   ]
 })
