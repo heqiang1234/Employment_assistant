@@ -50,6 +50,12 @@ public class JsonMsg {
         res.setMsg("操作失败！");
         return res;
     }
+    public static JsonMsg Lose(){
+        JsonMsg res = new JsonMsg();
+        res.setCode(2005);
+        res.setMsg("失效！");
+        return res;
+    }
 
     public JsonMsg addInfo(String key, Object obj){
         this.extendInfo.put(key, obj);

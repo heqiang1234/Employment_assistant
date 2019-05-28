@@ -1,11 +1,15 @@
  <template>
-  <div class="warp">
-    <div class="header">
+  <div class="warp" v-loading.fullscreen.lock="fullscreenLoading">
+    <div class="login-header">
       <div class="container">
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
+<<<<<<< HEAD
             <a href="http://localhost:8080/#/">首页</a>
+=======
+            <router-link :to="{name:'home'}">首页</router-link>
+>>>>>>> d8984ee5a6b24237238ca22a38c03fdb2264ead0
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -17,19 +21,19 @@
             <a href="#">藏经阁</a>
           </li>
         </ul>
-      </div> 
+      </div>
     </div>
-    <div class="login-box">
+    <div class="login-body">
       <div class="login-title">学生登录</div>
-      <input type="text" id="username" placeholder="请输入账号" autofocus>
-      <input type="password" id="password" placeholder="请输入密码">
+      <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
+      <input type="password" v-model="pwd" placeholder="请输入密码">
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
         <a href="http://localhost:8080/#/register" class="register">立即注册</a>
       </div>
-      <div class="submit">立即登录</div>
+      <div @click="login" class="submit">立即登录</div>
     </div>
-    <div class="login-bottom">
+    <div class="login-footer">
       <p>就业助手你的好帮手</p>
       <span>国内领先的实习生招聘平台</span>
     </div>
@@ -38,38 +42,76 @@
 
 <script>
 export default {
-name: "login",
+  name: "login",
   name: "HelloWorld",
   data() {
-    return {};
+    return {
+      fullscreenLoading: false, //页面显示加载中
+      userName: null, //表单用户名
+      pwd: null, //表单密码
+      timer: null //节流提交时间标记
+    };
   },
-  
-  created() {
-    this.axios(this.API.JOBS.GETJOBS).then(res => {
-      console.log(res);
-    });
-  },
+
   methods: {
-    login() { //提交登陆
+    login() {
+      //提交登陆
+      this.fullscreenLoading = true; //Loading效果
+      //--------节流处理
+      if (this.timer) {
+        return;
+      }
+      setTimeout(() => {
+        this.timer = 1;
+      }, 1000);
+      //--------
+      //--------简单校验
+      if (!this.userName) {
+        this.fullscreenLoading = false; //关闭Loading
+        this.$message({
+          showClose: true,
+          message: "帐号不能为空",
+          type: "error"
+        });
+        return;
+      }
+      if (!this.pwd) {
+        this.fullscreenLoading = false; //关闭Loading
+        this.$message({
+          showClose: true,
+          message: "密码不能为空",
+          type: "error"
+        });
+        return;
+      }
+      //---------
       console.log(this.userName);
       console.log(this.pwd);
-      let params = this.qs.stringify({
-          username: this.userName,
-          password: this.pwd
-        })
       this.axios({
         url: this.API.USER.LOGIN,
         methods: "POST",
         headers: { "Content-Type": "application/json" },
         params: {
-          username: this.userName,
-          password: this.pwd
-        },
+          UserName: this.userName,
+          Password: this.pwd
+        }
       })
         .then(res => {
+          this.fullscreenLoading = false; //关闭Loading
           console.log(res);
+          if (res.data.code == "200") {
+            this.$router.push({ name: "home" });
+          } else {
+            this.$message({
+              showClose: true,
+              message: res.data.extendInfo.login_error,
+              type: "error"
+            });
+            return;
+          }
         })
         .catch(err => {
+          this.fullscreenLoading = false; //关闭Loading
           console.log(err);
         });
     }
@@ -86,7 +128,7 @@ name: "login",
   background-repeat: no-repeat;
   background-size: 100%;
 }
-.header {
+.login-header {
   width: 100%;
   height: 56px;
   position: relative;
@@ -116,7 +158,7 @@ name: "login",
   text-decoration: none;
   display: inline-block;
   vertical-align: top;
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
   padding: 0 16px;
   height: 56px;
@@ -124,10 +166,10 @@ name: "login",
   margin: 0;
   cursor: pointer;
 }
-.container ul li a:hover{
+.container ul li a:hover {
   color: #fff;
 }
-.login-box {
+.login-body {
   width: 220px;
   height: 265px;
   background-color: #fff;
@@ -137,12 +179,12 @@ name: "login",
   position: absolute;
   right: 20%;
 }
-.login-title{
+.login-title {
   text-align: center;
   font-size: 20px;
   color: #0287ee;
 }
-.login-box input{
+.login-body input {
   margin-top: 20px;
   width: 100%;
   height: 25px;
@@ -154,21 +196,21 @@ name: "login",
   outline: none;
   border-bottom: 1px solid #0287ee;
 }
-.forget{
+.forget {
   text-decoration: none;
   display: inline-block;
-  color: rgba(38,38,38,.85);
+  color: rgba(38, 38, 38, 0.85);
   font-size: 14px;
   margin: 20px 50px 20px 5%;
 }
-.register{
+.register {
   text-decoration: none;
   display: inline-block;
   color: #0287ee;
   font-size: 14px;
   margin: 20px 5% 20px 0px;
 }
-.submit{
+.submit {
   font-size: 12px;
   color: #fff;
   width: 100%;
@@ -178,23 +220,23 @@ name: "login",
   background-color: #0287ee;
   cursor: pointer;
 }
-.login-bottom{
+.login-footer {
   position: absolute;
   width: 100%;
   bottom: 10%;
   text-align: center;
 }
-.login-bottom p{
+.login-footer p {
   font-family: "微软雅黑";
   font-size: 36px;
   font-weight: bold;
   color: #595959;
   display: block;
 }
-.login-bottom span{
+.login-footer span {
   margin-top: 10px;
   font-size: 14px;
-  color: rgba(38,38,38,.5);
+  color: rgba(38, 38, 38, 0.5);
   display: block;
 }
 </style>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.human.dao.CompanyDao">
+
+    <resultMap id="CompanyBaseMap" type="com.human.model.Company">
+        <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="career_talk_id" property="career_talk_id" jdbcType="VARCHAR"/>
+        <result column="company_id" property="company_id" jdbcType="VARCHAR"/>
+        <result column="school_id" property="school_id" jdbcType="VARCHAR"/>
+        <result column="company_name" property="company_name" jdbcType="VARCHAR"/>
+        <result column="logo" property="logo" jdbcType="VARCHAR"/>
+        <result column="setTime" property="setTime" jdbcType="VARCHAR"/>
+        <result column="companyType" property="companyType" jdbcType="VARCHAR"/>
+        <result column="companyTrade" property="companyTrade" jdbcType="VARCHAR"/>
+        <result column="companyProfile" property="companyProfile" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <!--sql查询公司所有信息-->
+    <select id="selectAllInfo" resultMap="CompanyBaseMap">
+        select * FROM company
+    </select>
+    <!--sql查询公司数量-->
+    <select id="CompanyCountAll" resultType="int">
+        select count(*)  FROM company
+    </select>
+    <!--sql查询某地区公司数量-->
+    <select id="CompanyCount" resultType="int">
+        select count(*) FROM company
+    </select>
+
+    <!--sqL根据宣讲会内公司ID查询具体公司信息-->
+    <select id="selectByCompanyId"  parameterType="Map" resultMap="CompanyBaseMap">
+          select *  FROM company
+          where company_id=#{CompanyId} and career_talk_id=#{Career_Talk_Id}
+    </select>
+
+    <!--sql查询某学校宣讲会公司信息-->
+    <select id="selectBySchool" resultMap="CompanyBaseMap">
+        select * FROM company
+        where school_id=#{SchoolAddress}
+    </select>
+    <!--sql根据行业查询宣讲会公司信息-->
+    <select id="selectByCompanyType" resultMap="CompanyBaseMap">
+        select * FROM company
+        where companyType like "%"#{CompanyType}"%"
+    </select>
+    <!-- 根据分页数据start 和size查询数据 -->
+    <select id="findByPage" parameterType="Map" resultMap="CompanyBaseMap">
+        select*
+        from company
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <!-- 根据分页数据start 和size查询数据 -->
+    <select id="findByPageBySchool" parameterType="Map" resultMap="CompanyBaseMap">
+        select *
+        from company
+        where school_id=#{school_id} order by school_id
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+</mapper>

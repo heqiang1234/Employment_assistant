@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -31,18 +32,42 @@ public class UserServiceImpl implements UserService {
         return userDao.selectUserByName(user_Name);
     }
 
+    public User getUserByNameNoPassword(String user_Name) {
+
+        return userDao.selectUserByNameNoPassword(user_Name);
+    }
+
     public int deleteUserById(int userId){
+
         return  userDao.deleteUserById(userId);
     }
 
     public void save(User user) {
+
         userDao.save(user);
     }
 
-    public void update(User user) {
+    @Override
+    public void updateUser(User user) {
 
-        userDao.update(user);
+        userDao.updateUser(user);
     }
+
+
+    @Override
+    public Set<String> findPermissionsByUserId(int user_Id) {
+
+        return userDao.findPermissionsByUserId(user_Id);
+
+    }
+
+    @Override
+    public void updateUserPassword(User user) {
+
+         userDao.updateUserPassword(user);
+    }
+
+
 }
 
 

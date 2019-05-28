@@ -10,6 +10,8 @@ public class PageBean<T> {
 
     private int currPage;//当前页数
     private int pageSize;//每页显示的记录数
+    private boolean isPreviousPage;//是否有前一页
+    private boolean isAfterPage;//是否有后一页
     private int totalCount;//总记录数
     private int totalPage;//总页数
     private List<T> lists;//每页的显示的数据
@@ -22,6 +24,14 @@ public class PageBean<T> {
         return currPage;
     }
 
+    public boolean isPreviousPage() {
+        return isPreviousPage;
+    }
+
+    public boolean isAfterPage() {
+        return isAfterPage;
+    }
+
     public void setCurrPage(int currPage) {
         this.currPage = currPage;
     }
@@ -32,6 +42,14 @@ public class PageBean<T> {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public void setPreviousPage(boolean previousPage) {
+        isPreviousPage = previousPage;
+    }
+
+    public void setAfterPage(boolean afterPage) {
+        isAfterPage = afterPage;
     }
 
     public int getTotalCount() {

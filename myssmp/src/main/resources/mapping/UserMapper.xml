@@ -10,9 +10,13 @@
         <result column="userRealName" property="user_RealName" jdbcType="VARCHAR"/>
         <result column="userSchool" property="user_School" jdbcType="VARCHAR"/>
         <result column="userMajor" property="user_Major" jdbcType="VARCHAR"/>
-        <result column="userIntentionalPost" property="user_IntentionPost" jdbcType="VARCHAR"/>
+        <result column="userIntentionalPost" property="user_IntentionalPost" jdbcType="VARCHAR"/>
         <result column="userEmail" property="user_Email" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <sql id="Base_Column_List">
+		userID,userName,userRealName,userSchool,userMajor,userIntentionalPost,userEmail
+	</sql>
 
     <select id="selectUserById" parameterType="int" resultMap="UserBaseMap">
         SELECT * FROM user
@@ -21,6 +25,13 @@
 
     <select id="selectUserByName"  resultMap="UserBaseMap">
         SELECT *  FROM user
+        WHERE userName = #{user_Name}
+    </select>
+
+    <select id="selectUserByNameNoPassword"  resultMap="UserBaseMap">
+        SELECT
+        <include refid="Base_Column_List" />
+          FROM user
         WHERE userName = #{user_Name}
     </select>
 
@@ -34,6 +45,11 @@
         SELECT * FROM user
     </select>
 
+    <select id="selectPermissionById" parameterType="String">
+        SELECT url FROM permission
+        where roleid=#{user_Id}
+    </select>
+
     <delete id="deleteUserById" parameterType="int"   >
         delete from user
         where userID = #{user_Id}
@@ -45,7 +61,25 @@
         (#{user_Name},#{user_Password})
     </insert>
 
-    <update id="update" parameterType="com.human.model.User">
-        update user set userName=#{user_Name},userPassword=#{user_Password} where userID = #{user_Id}
+    <update id="updateUser" parameterType="com.human.model.User">
+        update user
+        <set>
+        <if test="user_RealName !=null">userRealName=#{user_RealName},</if>
+        <if test="user_School !=null">userSchool=#{user_School},</if>
+        <if test="user_Major !=null">userMajor=#{user_Major},</if>
+        <if test="user_IntentionalPost !=null">userIntentionalPost=#{user_IntentionalPost},</if>
+        <if test="user_Email !=null">userEmail=#{user_Email}</if>
+        </set>
+      where  userName=#{user_Name}
+    </update>
+
+    <update id="updateUserPassword" parameterType="com.human.model.User">
+        update user
+        <set>
+       <if test="user_Password!=null">
+           userPassword=#{user_Password}
+       </if>
+    </set>
+         where userName=#{user_Name}
     </update>
 </mapper>

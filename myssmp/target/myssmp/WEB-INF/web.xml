@@ -9,7 +9,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-mybatis.xml</param-value>
+    <param-value>classpath:spring-mybatis.xml,classpath:spring-shiro.xml</param-value>
   </context-param>
 
   <context-param>
@@ -38,6 +38,31 @@
     <!--<init-param>-->
       <!--<param-name>allowHeaders</param-name>-->
       <!--<param-value>Content-Type</param-value>-->
+    <!--</init-param>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+    <!--<filter-name>corsFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
+
+  <!--<filter>-->
+    <!--<filter-name>corsFilter</filter-name>-->
+    <!--<filter-class>com.human.Filter.CorsFilter</filter-class>-->
+    <!--<init-param>-->
+      <!--<param-name>allowOrigin</param-name>-->
+      <!--<param-value>*</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowMethods</param-name>-->
+      <!--<param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowCredentials</param-name>-->
+      <!--<param-value>true</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>allowHeaders</param-name>-->
+      <!--<param-value>x-requested-with,Authorization,Content-Type</param-value>-->
     <!--</init-param>-->
   <!--</filter>-->
   <!--<filter-mapping>-->
@@ -102,19 +127,36 @@
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
   </servlet>
+  <!-- 配置由Spring提供的过滤器，用于整合shiro框架 -->
+  <!-- 在项目启动的过程中，当前过滤器会从Spring工厂中提取同名对象 -->
+  <!-- shiro权限管理-->
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
     <!-- 此处也可以配置成 *.do 形式 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <absolute-ordering />
-  <welcome-file-list>
-    <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
-  </welcome-file-list>
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>-->
+  <!--</welcome-file-list>-->
 
-  <!-- session配置 -->
-  <session-config>
-    <session-timeout>15</session-timeout>
-  </session-config>
+
+  <!--&lt;!&ndash; session配置 &ndash;&gt;-->
+  <!--<session-config>-->
+    <!--<session-timeout>3</session-timeout>-->
+  <!--</session-config>-->
 
 </web-app>
