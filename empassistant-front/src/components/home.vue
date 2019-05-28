@@ -5,16 +5,16 @@
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-            <a href="home.vue">首页</a>
+            <a href="http://localhost:8080/#/">首页</a>
           </li>
           <li>
-            <a href="#">我的简历</a>
+            <a href="http://localhost:8080/#/login">我的简历</a>
           </li>
           <li>
-            <a href="#">校园招聘会</a>
+            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
           </li>
           <li>
-            <a href="#">藏经阁</a>
+            <a href="http://localhost:8080/#/display">藏经阁</a>
           </li>
         </ul>
       </div>
@@ -387,7 +387,7 @@
     <div class="bottom-bar">
       <div class="container">
         <div class="vip-companys">
-          <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+          <img src="../assets/main-picture.png" alt="广告招聘">
         </div>
       </div>
     </div>
@@ -398,43 +398,93 @@
           <li>最新职业</li>
           <li>急招职业</li>
         </ul>
-        <ul class="tab-content">
-          <div v-for="(item,index) in arr" :key="index"  class="post">
-              <!-- 职位盒子 -->
-              <div class="post-title">
-                <div class="post-head">
-                  <div class="post-name">Web前端</div>
-                  <div class="post-pay">100-150￥/天</div>
-                </div>
-                <div class="post-body">
-                  <div class="post-others">
-                    <i class="el-icon-location-outline"></i>
-                    <span class="post-other">北京</span>
-                  </div>
-                  <div class="post-others">
-                    <i class="el-icon-time"></i>
-                    <span class="post-other">4天/周</span>
-                  </div>
-                  <div class="post-others">
-                    <i class="el-icon-date"></i>
-                    <span class="post-other">四个月</span>
-                  </div>
-                </div>
+        <div class="tab-content">
+          <div v-for="(item,index) in arr" :key="index" class="post">
+            <!-- 职位盒子 -->
+            <div class="post-title">
+              <div class="post-head">
+                <div class="post-name">Web前端</div>
+                <div class="post-pay">100-150￥/天</div>
               </div>
-              <hr>
-              <div class="post-company">
-                <div class="company-logo">
-                  <img src="../assets/aiqiyi.jpg" alt="">
+              <div class="post-body">
+                <div class="post-others">
+                  <i class="el-icon-location-outline"></i>
+                  <span class="post-other">北京</span>
                 </div>
-                <div class="company-infor">
-                  <div class="company-name"><a href="#">爱奇艺</a></div>
-                  <div class="company-info">互联网|2000人以上</div>
+                <div class="post-others">
+                  <i class="el-icon-time"></i>
+                  <span class="post-other">4天/周</span>
+                </div>
+                <div class="post-others">
+                  <i class="el-icon-date"></i>
+                  <span class="post-other">四个月</span>
                 </div>
               </div>
             </div>
-        </ul>
+            <hr>
+            <div class="post-company">
+              <div class="company-logo">
+                <img src="../assets/aiqiyi.jpg" alt>
+              </div>
+              <div class="company-infor">
+                <div class="company-name">
+                  <a href="#">爱奇艺</a>
+                </div>
+                <div class="company-info">互联网|2000人以上</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="foot">
+      <div class="container-tab">
+        <div class="foot-title">
+          <div class="ourselves">
+            <span class="ourselves-title">产品服务</span>
+            <a href="#" class="ourselves-body">找实习</a>
+            <a href="#" class="ourselves-body">宣讲会</a>
+            <a href="#" class="ourselves-body">找工作</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">旗下产品</span>
+            <a href="#" class="ourselves-body">找实习</a>
+            <a href="#" class="ourselves-body">宣讲会</a>
+            <a href="#" class="ourselves-body">找工作</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">关于我们</span>
+            <a href="#" class="ourselves-body">了解我们</a>
+            <div class="join-us">
+              <a href="#" class="ourselves-body">赞助我们</a>
+              <div class="join">
+                <img src="../assets/QQ.jpg" alt>
+              </div>
+            </div>
+            <a href="#" class="ourselves-body">加入我们</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">联系我们</span>
+            <div class="join-us">
+              <a href="#" class="ourselves-body">团队微信</a>
+              <div class="join">
+                <img src="../assets/weChat.jpg" alt>
+              </div>
+            </div>
+            <a href="#" class="ourselves-body">客户服务</a>
+            <a href="#" class="ourselves-body">商务合作</a>
+          </div>
+        </div>
+        <div class="foot-body">
+          <p> <span>&copy;2019.2-2019.6 就业助手</span> | <span>赣ICP备00000000号-1</span> | <span>联系我们：xxx@jiuyezhushou.com</span></p>
+          <p>玉屏西科技有限责任公司版权所有 | 全国领先的实习生平台</p>
+          <div class="internet"><img class="internetImg" src="../assets/record-icon.png" alt="">  <span>赣公网安备 00000000000000号</span></div>
+        </div>
+      </div>
+    </div>
+    <a class="goto-top" href="#"><img src="../assets/right-hn.png" alt="">
+      回到顶部
+    </a>
   </div>
 </template>
 
@@ -443,13 +493,13 @@ export default {
   name: "home",
   data() {
     return {
-      arr:[1,2,3,4]
+      arr: [1, 2, 3, 4]
     };
   }
 };
 </script>
 
-<style scope>
+<style scoped>
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
@@ -471,7 +521,6 @@ export default {
 .header {
   width: 100%;
   height: 56px;
-  border-bottom: 1px solid #aaa;
 }
 .container {
   justify-content: space-between;
@@ -684,7 +733,7 @@ export default {
 }
 .company-tab {
   width: 100%;
-  height: 920px;
+  max-height: 920px;
 }
 .container-tab {
   height: 100%;
@@ -713,9 +762,6 @@ export default {
   font-size: 16px;
   color: #0287ee;
   background: #eee;
-}
-.tab-list li:hover .line {
-  display: block;
 }
 .tab-content {
   display: block;
@@ -780,7 +826,7 @@ export default {
   font-size: 14px;
   padding-left: 5px;
 }
-.post-company{
+.post-company {
   height: 90px;
   width: 100%;
   padding-top: 15px;
@@ -789,29 +835,131 @@ export default {
   display: flex;
   flex-direction: row;
 }
-.company-logo{
+.company-logo {
   width: 60px;
   height: 60px;
 }
-.company-logo>img{
+.company-logo > img {
   width: 100%;
 }
-.company-infor{
+.company-infor {
   width: 70%;
   height: 50px;
   padding-left: 20px;
 }
-.company-name{
+.company-name {
   height: 30px;
   line-height: 30px;
 }
-.company-name>a{ 
+.company-name > a {
   color: #0287ee;
   text-decoration: none;
 }
-.company-info{
+.company-info {
   height: 30px;
   color: #aaa;
   line-height: 30px;
+}
+.foot {
+  width: 100%;
+  height: 250px;
+  margin-top: 30px;
+  background-color: #eee;
+}
+.foot-title {
+  width: 100%;
+  height: 150px;
+  box-sizing: border-box;
+}
+.ourselves {
+  width: 24%;
+  height: 150px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 20px 0px 0px 10%;
+}
+.ourselves-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+.ourselves-body {
+  list-style: none;
+  display: block;
+  color: #666;
+  margin-top: 5px;
+  text-decoration: none;
+}
+.ourselves-body:hover{
+  color: #0287ee;
+}
+.join-us {
+  width: 100%;
+  position: relative;
+}
+.join-us:hover {
+  color: #0287ee;
+}
+.join-us:hover .join {
+  display: block;
+}
+.join {
+  display: none;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: -110px;
+  top: -20px;
+  z-index: 99;
+}
+.join > img {
+  width: 100px;
+  height: 100px;
+}
+.foot-body{
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  padding-top:10px;
+  font-size: 13px;
+  color: #666;
+  box-sizing: border-box;
+
+}
+.internet{
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  padding: 5px 0;
+  position: relative;
+}
+.internetImg{
+  position: absolute;
+  right: 50%;
+  margin-right:90px; 
+}
+.internet>span{
+  height: 20px;
+  line-height: 20px;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  margin-left:-88px;
+}
+.goto-top{
+  width: 50px;
+  height: 43px;
+  font-size: 12px;
+  color: #999;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  right: 20px;
+  bottom: 100px;
+  z-index: 999;
+  position:fixed;
+}
+.goto-top:hover{
+  color: #0287ee;
 }
 </style>

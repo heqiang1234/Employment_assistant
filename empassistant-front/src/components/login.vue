@@ -5,7 +5,7 @@
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-            <a href="home.vue">首页</a>
+            <a href="http://localhost:8080/#/">首页</a>
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -77,7 +77,7 @@ name: "login",
 };
 </script>
 
-<style scope>
+<style scoped>
 .warp {
   overflow: hidden;
   width: 100%;
