@@ -789,7 +789,7 @@ export default {
   width: 100%;
 }
 .post {
-  width: 32%;
+  width: 380px;
   height: 195px;
   margin-top: 10px;
   padding: 0px 10px;
