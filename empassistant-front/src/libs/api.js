@@ -5,7 +5,8 @@ const API = {
     REGIST:api+'/Save' //注册用户
   },
   JOBS:{
-    GETJOBLIST:api+'/Position/selectAllPosition'
+    GETJOBLIST:api+'/Position/selectAllPosition',
+    SEARCHJOBS:api+'/Position/SearchPosition'
   },
   EMP:{
     GETEMP:api+'/Employment/ShowEmployment' //宣讲会分页
