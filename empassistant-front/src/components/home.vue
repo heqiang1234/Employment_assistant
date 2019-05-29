@@ -431,7 +431,6 @@
                     <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
                   </div>
                 </div>
-                <div class="company-info">互联网|2000人以上</div>
               </div>
             </ul>
       </div>

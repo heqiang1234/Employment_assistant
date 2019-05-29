@@ -5,11 +5,7 @@
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-<<<<<<< HEAD
-            <a href="http://localhost:8080/#/">首页</a>
-=======
             <router-link :to="{name:'home'}">首页</router-link>
->>>>>>> d8984ee5a6b24237238ca22a38c03fdb2264ead0
           </li>
           <li>
             <a href="#">我的简历</a>

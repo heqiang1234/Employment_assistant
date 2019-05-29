@@ -88,108 +88,27 @@
                 <img src="../assets/aiqiyi.jpg" alt>
               </div>
             </div>
-          </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          
+          </div> 
         </div>
+        <div class="no-reash">
+            <div class="rotate-words">
+              <div>
+                你想要的没有找到
+                <br>
+                <span>Sorry ~</span>
+              </div>
+              <div>
+                或者你试试别的吧
+                <br>
+                <span>Try ~</span>
+              </div>
+              <div>
+                期待下次有你想要
+                <br>
+                <span>Wait in hope ~</span>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
     <div class="foot">
@@ -244,7 +163,8 @@
         </div>
       </div>
     </div>
-    <a class="goto-top" href="#"><img src="../assets/right-hn.png" alt="">
+    <a class="goto-top" href="#">
+      <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
   </div>
@@ -359,8 +279,87 @@ export default {};
   display: block;
 }
 .tab-content {
+  display: none; 
   width: 90%;
-  max-height: 850px;
+  min-height: 500px;
+}
+.no-reash {
+  /* display: none;  */
+  margin-top: 15px;
+  width: 100%;
+  height: 500px;
+  background-image: url("../assets/sorry.gif");
+  background-size: 30%;
+  background-repeat: no-repeat;
+  color: #666;
+  overflow: hidden;
+  text-align: center;
+}
+.rotate-words {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 8% 0;
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+}
+.rotate-words>div>span {
+  display: block;
+  height: 50px;
+  font-size: 20px;
+  text-transform: lowercase;
+  opacity: 0.8;
+  font-family: "Rubik", sans-serif;
+}
+.rotate-words>div {
+  position: absolute;
+  left: 3vw;
+  width: 80vw;
+  font-size: 40px;
+  opacity: 0;
+  overflow: hidden;
+  line-height: 1.2em;
+  animation: rotate-word 15s linear infinite 0s;
+}
+@keyframes rotate-word {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+    filter: blur(10px);
+    transform: scale(1.2);
+  }
+  3% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+    transform: scale(0.9);
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+    transform: scale(1);
+  }
+  16% {
+    opacity: 0;
+    transform: translateX(0);
+    filter: blur(10px);
+    transform: scale(1.2);
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.rotate-words div:nth-child(1) {
+  animation-delay: 1s;
+}
+.rotate-words div:nth-child(2) {
+  animation-delay: 5s;
+}
+.rotate-words div:nth-child(3) {
+  animation-delay: 10s;
 }
 .post-card {
   width: 100%;
@@ -536,7 +535,7 @@ export default {};
   left: 50%;
   margin-left: -88px;
 }
-.goto-top{
+.goto-top {
   width: 50px;
   height: 43px;
   font-size: 12px;
@@ -547,9 +546,9 @@ export default {};
   right: 20px;
   bottom: 100px;
   z-index: 999;
-  position:fixed;
+  position: fixed;
 }
-.goto-top:hover{
+.goto-top:hover {
   color: #0287ee;
 }
 </style>
