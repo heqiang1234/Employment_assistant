@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" v-loading.fullscreen.lock="fullscreenLoading">
     <div class="header">
       <div class="container">
         <h1>实习助手</h1>
@@ -28,16 +28,21 @@
         </div>
         <div class="right-bar">
           <div class="form">
-            <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-              <el-select style="width:120px;" placeholder="选择地区" v-model="select" slot="prepend">
+            <el-input placeholder="请输入内容" v-model="searchContent" class="input-with-select">
+              <el-select
+                style="width:120px;"
+                v-model="searchPlace"
+                placeholder="选择地区"
+                slot="prepend"
+              >
                 <el-option label="全国" value="1"></el-option>
                 <el-option label="北京" value="2"></el-option>
               </el-select>
               <el-select
                 style="width:120px;margin-left:15px;"
                 placeholder="选择信息"
-                v-model="select"
                 slot="prepend"
+                v-model="searchType"
               >
                 <el-option label="搜职业" value="1"></el-option>
                 <el-option label="搜公司" value="2"></el-option>
@@ -67,7 +72,7 @@
             class="type-item"
             @click="searchJob"
           >
-            <a  v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
+            <a v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
             <div class="item-infor">
               <div v-for="(detail,index) in classfy.detailClsf" :key="index" class="item-list">
                 <a v-for="(item,index) in detail" :key="index" href="#">{{item}}</a>
@@ -103,7 +108,7 @@
           >{{item}}</li>
         </ul>
         <ul class="tab-content">
-          <div v-for="(item) in jobList" :key="item.career_talk_id" class="post">
+          <div v-for="(item,index) in jobList" :key="index" class="post">
             <!-- 职位盒子 -->
             <div class="post-title">
               <div class="post-head">
@@ -116,29 +121,37 @@
                   <span class="post-other">{{item.workPlace}}</span>
                 </div>
                 <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
+                  <i class="el-icon-view"></i>
+                  <span class="post-other">{{item.num}}</span>
                 </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
+
               </div>
             </div>
             <div class="post-sepLine"></div>
             <div class="post-company">
               <div class="company-logo">
-                <img :src="item.company_logo" alt>
+                <img :src="item.company.company_logo" alt>
               </div>
               <div class="company-infor">
                 <div class="company-name">
-                  <a href="#">{{item.companyType}}</a>
+                  <a href="#">{{item.company.company_name}}</a>
                 </div>
-                <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
+                <div
+                  class="company-info"
+                >{{item.company.companyType}} | {{item.company.company_size}}</div>
               </div>
             </div>
           </div>
         </ul>
+        <div class="jobs-pagetab">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="curJobPage"
+            :page-size="pageSize"
+            layout="prev, pager, next, jumper"
+            :page-count="totalPage"
+          ></el-pagination>
+        </div>
       </div>
     </div>
     <div class="foot">
@@ -205,6 +218,7 @@ export default {
   name: "home",
   created() {
     this.getJobList();
+    this.getDetail();
   },
   methods: {
     getJobList() {
@@ -217,43 +231,78 @@ export default {
           methods: "GET",
           params: {
             PageSize: 12,
-            CurrentPage: that.curJobPage
+            CurrentPage: that.curJobPage,
+            S_ID:'New'
           }
         })
         .then(res => {
           console.log(res);
-          let totalJob = "" + res.data.extendInfo.List.totalCount;
-          for (let i = 0; i < 8 - totalJob.length; i++) {
-            totalJob = "0" + totalJob;
-          }
-          if (!that.totalJobNum) {
-            that.totalJobNum = totalJob;
-          }
-          that.jobList = res.data.extendInfo.List.lists;
+          let totalJob = "" + res.data.extendInfo.pageBean_List.totalCount;
+          // for (let i = 0; i < 8 - totalJob.length; i++) {
+          //   totalJob = "0" + totalJob;
+          // }
+          that.totalJobNum = totalJob;
+          that.jobList = res.data.extendInfo.pageBean_List.lists;
+          that.totalPage = res.data.extendInfo.pageBean_List.totalPage;
         });
     },
-    chageListType(index) {//切换职位信息列表
+    chageListType(index) {
+      //切换职位信息列表
       this.curJobIndex = index;
     },
-    searchJob(e){//搜索相关职位
-    let that = this;
-      console.log(e);
-      that.axios({
-        url:that.API.JOBS.SEARCHJOBS,
-        methods:'GET',
-        params:{
-          CurrentPage:1,
-          PageSize:12,
-          Search_Id:'position_name',
-          Search_Name:e.target.innerText
-        }
-      })
-      .then((res)=>{
-        console.log(res);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+    searchJob(e) {
+      //搜索相关职位
+      let that = this;
+      let key = e.target.innerText
+      that
+        .axios({
+          url: that.API.JOBS.SEARCHJOBS,
+          methods: "GET",
+          params: {
+            CurrentPage: 1,
+            PageSize: that.pageSize,
+            Search_Id: "position_name",
+            Search_Name: key
+          }
+        })
+        .then(res => {
+          console.log(res);
+          if(res.data.code != "200"){
+            this.$message({
+              showClose: true,
+              message: res.data.extendInfo.login_error,
+              type: "error"
+            });
+            return;
+          }
+          let initInfo = res.data.extendInfo.pagebean_position_name
+          initInfo['searchKey'] = key;
+          this.$router.push({name:'jobs',params:initInfo})
+          })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleCurrentChange(val){
+      this.curJobPage = val;
+      this.getJobList();
+    },
+    getDetail(){
+      let that=this;
+        that
+        .axios({
+          url: that.API.JOBS.DETAILJOB,
+          methods: "POST",
+          params: {
+           Position_Id:28113,
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err=>{
+          console.log(err)
+        })
     }
   },
   data() {
@@ -261,8 +310,14 @@ export default {
       totalJobNum: false, //总岗位数量
       jobList: [], //职位列表
       curJobPage: 1, //当前职位列表页数
+      pageSize:12,//分页容量
       nextPage: true, //是否有下一页
       curJobIndex: 0, //当前职位列表类型
+      totalPage:100,//职位总页数
+      searchContent:'',//搜索框内容
+      searchPlace:'',//搜索地区范围
+      searchType:'',//搜索内容类型
+      fullscreenLoading:false,//加载框状态
       tabPages: [
         //职位信息标签页
       ],
@@ -289,9 +344,9 @@ export default {
         {
           ovallClsf: ["市场商务", "商务", "销售", "公关"],
           detailClsf: [
-            ["商务",'商务', "招投标"],
-            ["销售",'销售', "推广"],
-            ["公关", '公关',"媒介"],
+            ["商务", "商务", "招投标"],
+            ["销售", "销售", "推广"],
+            ["公关", "公关", "媒介"],
             ["客服", "客户服务", "销售支持"],
             ["市场", "渠道", "分析/调研", "策划", "品牌", "市场"]
           ]
@@ -349,26 +404,26 @@ export default {
             ["金融", "基金", "证券", "风控", "金融"],
             ["投资", "分析师", "投资"],
             ["法务", "合规", "律师", "法务"],
-            ['银行','客户经理','部门经理','贷款','大堂经理'],
-            ['保险','业务','保单'],
-            ['财会','审计','税务','财务','会计/出纳']
+            ["银行", "客户经理", "部门经理", "贷款", "大堂经理"],
+            ["保险", "业务", "保单"],
+            ["财会", "审计", "税务", "财务", "会计/出纳"]
           ]
         },
         {
           ovallClsf: ["教育咨询", "教育", "咨询"],
           detailClsf: [
-            ["教育", "教务", "教师", "幼教", "培训",'课程'],
-            ["咨询", "咨询/顾问"],
+            ["教育", "教务", "教师", "幼教", "培训", "课程"],
+            ["咨询", "咨询/顾问"]
           ]
         },
         {
-          ovallClsf: ["媒体设计", "广告", "编辑",'设计'],
+          ovallClsf: ["媒体设计", "广告", "编辑", "设计"],
           detailClsf: [
             ["广告", "创意", "策划", "AE"],
-            ["编辑", "编辑/采编",'校对/排版'],
-            ['设计','美术设计','工业设计','平面设计','视觉设计'],
-            ['艺术','记者','支持/播音','编导'],
-            ['艺术','演艺','摄影']
+            ["编辑", "编辑/采编", "校对/排版"],
+            ["设计", "美术设计", "工业设计", "平面设计", "视觉设计"],
+            ["艺术", "记者", "支持/播音", "编导"],
+            ["艺术", "演艺", "摄影"]
           ]
         }
       ]
@@ -558,7 +613,7 @@ export default {
   text-decoration: none;
   color: #555;
   padding-right: 10px;
-  cursor:pointer
+  cursor: pointer;
 }
 .type-item > a:hover {
   cursor: pointer;
@@ -666,7 +721,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-bottom: 50px;
 }
 .tab-content .el-carousel {
@@ -675,7 +730,7 @@ export default {
 .post {
   width: 380px;
   height: 195px;
-  margin: 5px 20px;
+  margin: 5px 0px;
   padding: 0px 10px;
   box-sizing: border-box;
   border: 1px solid #dadada;
@@ -722,7 +777,7 @@ export default {
   width: 80%;
   height: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .post-others {
   width: 30%;
@@ -761,6 +816,10 @@ export default {
 .company-name {
   height: 30px;
   line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color:#0287ee;
 }
 .company-name > a {
   color: #0287ee;
@@ -871,5 +930,8 @@ export default {
 }
 .goto-top:hover {
   color: #0287ee;
+}
+.jobs-pagetab {
+  text-align: center;
 }
 </style>

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import login from '@/components/login'
 import register from '@/components/register/register'
 import home from '@/components/home'
-import display from '@/components/display'
+import jobs from '@/components/jobs'
 import careerTalk from '@/components/careerTalk'
 import company from '@/components/company'
 
@@ -28,9 +28,9 @@ export default new Router({
       component: login
     },
     {
-      path: '/display',
-      name: 'display',
-      component: display
+      path: '/jobs',
+      name: 'jobs',
+      component: jobs
     },
     {
       path: '/careerTalk',

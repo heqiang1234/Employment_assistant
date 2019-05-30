@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading} from 'element-ui';
+import {Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Pagination} from 'element-ui';
 import axios from 'axios';
 import API from './libs/api.js'
 // axios.defaults.baseURL = 'http://120.79.15.183:8080/myssmp';
@@ -18,6 +18,7 @@ Vue.use(Carousel);
 Vue.use(CarouselItem);
 Vue.use(Icon);
 Vue.use(Loading);
+Vue.use(Pagination);
 Vue.prototype.$message = Message;//信息组件
 
 

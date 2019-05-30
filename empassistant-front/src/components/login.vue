@@ -5,11 +5,7 @@
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-<<<<<<< HEAD
-            <a href="http://localhost:8080/#/">首页</a>
-=======
             <router-link :to="{name:'home'}">首页</router-link>
->>>>>>> d8984ee5a6b24237238ca22a38c03fdb2264ead0
           </li>
           <li>
             <a href="#">我的简历</a>
@@ -56,18 +52,17 @@ export default {
   methods: {
     login() {
       //提交登陆
-      this.fullscreenLoading = true; //Loading效果
       //--------节流处理
       if (this.timer) {
         return;
       }
+      this.timer = true;
       setTimeout(() => {
-        this.timer = 1;
+        this.timer = false;
       }, 1000);
       //--------
       //--------简单校验
       if (!this.userName) {
-        this.fullscreenLoading = false; //关闭Loading
         this.$message({
           showClose: true,
           message: "帐号不能为空",
@@ -76,7 +71,6 @@ export default {
         return;
       }
       if (!this.pwd) {
-        this.fullscreenLoading = false; //关闭Loading
         this.$message({
           showClose: true,
           message: "密码不能为空",
@@ -85,6 +79,7 @@ export default {
         return;
       }
       //---------
+      this.fullscreenLoading = true; //Loading效果
       console.log(this.userName);
       console.log(this.pwd);
       this.axios({

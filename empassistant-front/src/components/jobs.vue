@@ -49,146 +49,44 @@
       </div>
     </div>
     <div class="show-post">
-      <div class="container">
-        <ul class="tab-list">
-          <li>综合排序</li>
-          <li>时间排序</li>
-          <li>相关度排序</li>
-        </ul>
+      <div class="container bd-box">
+
         <div class="tab-content">
-          <div class="post-card">
+          <div v-for="(item) in jobList" :key="item.positionID" class="post-card">
             <div class="post-info">
               <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
+                <div class="post-name">{{item.position_name}}</div>
+                <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
                 <div class="post-others">
                   <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
+                  <span class="post-other">{{item.workPlace}}</span>
                 </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
+                
               </div>
             </div>
             <div class="company-info">
               <div class="company-name">
-                <a href="#">爱奇艺</a>
+                <a href="#">{{item.company.company_name}}</a>
               </div>
-              <div class="company-infor">互联网|2000人以上</div>
+              <div class="company-infor">{{item.company.companyTrade}} | {{item.company.company_size}}</div>
             </div>
             <div class="company-logo">
               <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
+                <img :src="item.company.company_logo" alt>
               </div>
             </div>
           </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          <div class="post-card">
-            <div class="post-info">
-              <div class="post-head">
-                <div class="post-name">Web前端</div>
-                <div class="post-pay">100-150￥/天</div>
-              </div>
-              <div class="post-body">
-                <div class="post-others">
-                  <i class="el-icon-location-outline"></i>
-                  <span class="post-other">北京</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-time"></i>
-                  <span class="post-other">4天/周</span>
-                </div>
-                <div class="post-others">
-                  <i class="el-icon-date"></i>
-                  <span class="post-other">四个月</span>
-                </div>
-              </div>
-            </div>
-            <div class="company-info">
-              <div class="company-name">
-                <a href="#">爱奇艺</a>
-              </div>
-              <div class="company-infor">互联网|2000人以上</div>
-            </div>
-            <div class="company-logo">
-              <div class="logoImg">
-                <img src="../assets/aiqiyi.jpg" alt>
-              </div>
-            </div>
-          </div>
-          
+          <div class="jobs-pagetab">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="curPage"
+            :page-size="pageSize"
+            layout="prev, pager, next, jumper"
+            :total="totalCount"
+          ></el-pagination>
+        </div>
         </div>
       </div>
     </div>
@@ -250,7 +148,61 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  created(){
+    let options = this.$route.params
+    this.jobList = options.lists;
+    this.curPage = options.currPage;
+    this.key = options.searchKey
+    this.totalCount = parseInt(options.totalCount);
+  },
+  methods:{
+    getMethodList(){
+      //搜索相关职位
+      let that = this;
+      let key = this.key
+      that
+        .axios({
+          url: that.API.JOBS.SEARCHJOBS,
+          methods: "GET",
+          params: {
+            CurrentPage: that.curPage,
+            PageSize: that.pageSize,
+            Search_Id: "position_name",
+            Search_Name: key
+          }
+        })
+        .then(res => {
+          console.log(res);
+          if(res.data.code != "200"){
+            this.$message({
+              showClose: true,
+              message: res.data.extendInfo.log_error,
+              type: "error"
+            });
+            return;
+          }
+          that.jobList = res.data.extendInfo.pagebean_position_name.lists;
+          })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleCurrentChange(val){
+      this.curJobPage = val;
+      this.getMethodList();
+    }
+  },
+  data(){
+    return{
+      jobList:[],//职位列表
+      curPage:1,//当前页
+      totalCount:100,//总条目数
+      pageSize:12,//分页容量
+      key:''//搜索关键字
+    }
+  }
+};
 </script>
 <style scoped>
 .warp {
@@ -260,12 +212,15 @@ export default {};
 .header {
   width: 100%;
   height: 56px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #dadada;
 }
 .container {
   height: 100%;
   max-width: 90%;
   margin: 0px auto;
+}
+.bd-box{
+  min-height: 400px;
 }
 .container h1 {
   display: inline-block;
@@ -360,14 +315,14 @@ export default {};
 }
 .tab-content {
   width: 90%;
-  max-height: 850px;
 }
 .post-card {
   width: 100%;
   height: 120px;
   padding: 20px 0px;
   box-sizing: border-box;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #dadada;
+  position: relative;
 }
 .post-info {
   height: 100%;
@@ -382,13 +337,16 @@ export default {};
   justify-content: space-between;
 }
 .post-name {
-  width: 54%;
+  max-width: 70%;
   line-height: 40px;
   height: 40px;
   font-family: "微软雅黑";
   font-size: 18px;
   text-align: left;
   font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .post-pay {
   width: 45%;
@@ -416,9 +374,12 @@ export default {};
 }
 .company-info {
   height: 100%;
-  width: 29%;
+  max-width: 40%;
   display: inline-block;
   box-sizing: border-box;
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .company-name {
   height: 40px;
@@ -435,11 +396,11 @@ export default {};
   line-height: 39px;
 }
 .company-logo {
-  width: 29%;
+  /* width: 29%; */
   height: 100%;
   display: inline-block;
   box-sizing: border-box;
-  position: relative;
+  /* position: relative; */
 }
 .logoImg {
   width: 79px;
@@ -447,6 +408,7 @@ export default {};
   text-align: center;
   position: absolute;
   right: 20px;
+  line-height:79px;
 }
 .logoImg > img {
   width: 100%;
@@ -551,6 +513,10 @@ export default {};
 }
 .goto-top:hover{
   color: #0287ee;
+}
+.jobs-pagetab{
+  text-align: center;
+  margin-top:20px;
 }
 </style>
 
