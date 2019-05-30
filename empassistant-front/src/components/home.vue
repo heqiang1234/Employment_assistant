@@ -67,7 +67,7 @@
             class="type-item"
             @click="searchJob"
           >
-            <a  v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
+            <a v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
             <div class="item-infor">
               <div v-for="(detail,index) in classfy.detailClsf" :key="index" class="item-list">
                 <a v-for="(item,index) in detail" :key="index" href="#">{{item}}</a>
@@ -134,10 +134,7 @@
                 <div class="company-name">
                   <a href="#">{{item.companyType}}</a>
                 </div>
-<<<<<<< HEAD
-=======
                 <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
->>>>>>> 2ea261548839b760e3018752901d44d4e5dea92d
               </div>
             </div>
           </div>
@@ -200,6 +197,79 @@
       <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
+    <div class="self-mesg-input">
+      <div class="fundmation-mesg">
+        <div class="mesg-title">
+          <i class="el-icon-discount"></i>
+          <span>基本信息</span>
+        </div>
+        <div class="head-pic">
+          <el-upload
+            class="avatar-uploader"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture"
+            :show-file-list="false"
+            :on-preview="handlePictureCardPreview"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
+          </el-upload>
+        </div>
+        <div class="mesg-form">
+          <div class="line-form">
+            <span class="line-item">姓名</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">性别</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">生日</span>
+            <span class="line-ele">
+              <el-date-picker v-model="value3" type="year" placeholder="选择年"></el-date-picker>
+              <el-date-picker v-model="value2" type="month" placeholder="选择月"></el-date-picker>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">所在城市</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">手机号码</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+            <span class="line-item">常用邮箱</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -235,28 +305,36 @@ export default {
           that.jobList = res.data.extendInfo.List.lists;
         });
     },
-    chageListType(index) {//切换职位信息列表
+    chageListType(index) {
+      //切换职位信息列表
       this.curJobIndex = index;
     },
-    searchJob(e){//搜索相关职位
-    let that = this;
+    searchJob(e) {
+      //搜索相关职位
+      let that = this;
       console.log(e);
-      that.axios({
-        url:that.API.JOBS.SEARCHJOBS,
-        methods:'GET',
-        params:{
-          CurrentPage:1,
-          PageSize:12,
-          Search_Id:'position_name',
-          Search_Name:e.target.innerText
-        }
-      })
-      .then((res)=>{
-        console.log(res);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+      that
+        .axios({
+          url: that.API.JOBS.SEARCHJOBS,
+          methods: "GET",
+          params: {
+            CurrentPage: 1,
+            PageSize: 12,
+            Search_Id: "position_name",
+            Search_Name: e.target.innerText
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handlePictureCardPreview(file) {
+      //获取头像地址
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     }
   },
   data() {
@@ -292,9 +370,9 @@ export default {
         {
           ovallClsf: ["市场商务", "商务", "销售", "公关"],
           detailClsf: [
-            ["商务",'商务', "招投标"],
-            ["销售",'销售', "推广"],
-            ["公关", '公关',"媒介"],
+            ["商务", "商务", "招投标"],
+            ["销售", "销售", "推广"],
+            ["公关", "公关", "媒介"],
             ["客服", "客户服务", "销售支持"],
             ["市场", "渠道", "分析/调研", "策划", "品牌", "市场"]
           ]
@@ -352,35 +430,130 @@ export default {
             ["金融", "基金", "证券", "风控", "金融"],
             ["投资", "分析师", "投资"],
             ["法务", "合规", "律师", "法务"],
-            ['银行','客户经理','部门经理','贷款','大堂经理'],
-            ['保险','业务','保单'],
-            ['财会','审计','税务','财务','会计/出纳']
+            ["银行", "客户经理", "部门经理", "贷款", "大堂经理"],
+            ["保险", "业务", "保单"],
+            ["财会", "审计", "税务", "财务", "会计/出纳"]
           ]
         },
         {
           ovallClsf: ["教育咨询", "教育", "咨询"],
           detailClsf: [
-            ["教育", "教务", "教师", "幼教", "培训",'课程'],
-            ["咨询", "咨询/顾问"],
+            ["教育", "教务", "教师", "幼教", "培训", "课程"],
+            ["咨询", "咨询/顾问"]
           ]
         },
         {
-          ovallClsf: ["媒体设计", "广告", "编辑",'设计'],
+          ovallClsf: ["媒体设计", "广告", "编辑", "设计"],
           detailClsf: [
             ["广告", "创意", "策划", "AE"],
-            ["编辑", "编辑/采编",'校对/排版'],
-            ['设计','美术设计','工业设计','平面设计','视觉设计'],
-            ['艺术','记者','支持/播音','编导'],
-            ['艺术','演艺','摄影']
+            ["编辑", "编辑/采编", "校对/排版"],
+            ["设计", "美术设计", "工业设计", "平面设计", "视觉设计"],
+            ["艺术", "记者", "支持/播音", "编导"],
+            ["艺术", "演艺", "摄影"]
           ]
         }
-      ]
+      ],
+      imageUrl: ""
     };
   }
 };
 </script>
 
 <style scoped>
+.line-ele>el-input__inner{
+    height: 30px;
+    line-height: 30px;
+    width: 50%;
+}
+.mesg-form {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 50px;
+  height: 275px;
+  margin: 10px 0px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.line-item {
+  width: 100px;
+  display: inline-block;
+  height:40px;
+  line-height: 40px;
+  text-align: right;
+  padding-right: 20px;
+  color: #333;
+  font-family: "微软雅黑";
+}
+.line-ele {
+  width:500px;
+}
+.line-form {
+  height: 40px;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 106px;
+  height: 106px;
+  line-height: 106px;
+  text-align: center;
+}
+.avatar {
+  width: 106px;
+  height: 106px;
+  display: block;
+}
+.self-mesg-input {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.3);
+}
+.fundmation-mesg {
+  width: 700px;
+  height: 500px;
+  margin: 100px auto;
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.mesg-title {
+  width: 200px;
+  height: 50px;
+  padding: 20px 0px 0px 30px;
+  font-size: 20px;
+  box-sizing: border-box;
+  font-family: "黑体";
+  line-height: 30px;
+  color: #0287ee;
+}
+.mesg-title > span {
+  padding-left: 10px;
+  color: #000;
+}
+.head-pic {
+  margin: 30px auto 10px;
+  width: 106px;
+  height: 106px;
+  background-image: url("../assets/default_headpic.png");
+  background-size: 106px;
+  border-radius: 100%;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
@@ -397,6 +570,7 @@ export default {
 .wrap {
   width: 100%;
   min-width: 1080px;
+  position: relative;
 }
 .header {
   width: 100%;
@@ -521,7 +695,7 @@ export default {
   font-size: 14px;
   background: #fafafa;
   display: inline-block;
-  z-index: 999;
+  z-index: 10;
   box-sizing: border-box;
 }
 .list-title {
@@ -561,7 +735,7 @@ export default {
   text-decoration: none;
   color: #555;
   padding-right: 10px;
-  cursor:pointer
+  cursor: pointer;
 }
 .type-item > a:hover {
   cursor: pointer;
@@ -869,7 +1043,7 @@ export default {
   text-align: center;
   right: 20px;
   bottom: 100px;
-  z-index: 999;
+  z-index: 9;
   position: fixed;
 }
 .goto-top:hover {

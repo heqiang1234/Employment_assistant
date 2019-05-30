@@ -289,7 +289,7 @@ export default {};
   width: 100%;
   height: 500px;
   background-image: url("../assets/sorry.gif");
-  background-size: 30%;
+  background-size: 20%;
   background-repeat: no-repeat;
   color: #666;
   overflow: hidden;
