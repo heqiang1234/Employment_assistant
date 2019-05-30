@@ -2,62 +2,152 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.human.dao.PositionDao">
 
-    <!--<resultMap id="EmploymentBaseMap" type="com.human.model.Employment">-->
-        <!--&lt;!&ndash;<id column="id" property="id" jdbcType="BIGINT"/>&ndash;&gt;-->
-        <!--<id column="employment_id" property="employment_id" jdbcType="INTEGER" />-->
-        <!--<result column="school_id" property="school_id" jdbcType="VARCHAR"/>-->
-        <!--<result column="career_talk_id" property="career_talk_id" jdbcType="VARCHAR"/>-->
-        <!--<result column="company_id" property="company_id" jdbcType="VARCHAR"/>-->
-        <!--<result column="company_name" property="company_name" jdbcType="VARCHAR"/>-->
-        <!--<result column="logo" property="logo" jdbcType="VARCHAR"/>-->
-        <!--<result column="hitCount" property="hitCount" jdbcType="VARCHAR"/>-->
-        <!--<result column="professionals" property="professionals" jdbcType="VARCHAR"/>-->
-        <!--<result column="recruitPost" property="recruitPost" jdbcType="VARCHAR"/>-->
-        <!--<result column="meet_name" property="meet_name" jdbcType="VARCHAR"/>-->
-        <!--<result column="meet_time" property="meet_time" jdbcType="VARCHAR"/>-->
-        <!--<result column="meet_day" property="meet_day" jdbcType="VARCHAR"/>-->
-        <!--<result column="address" property="address" jdbcType="VARCHAR"/>-->
-        <!--<result column="presentLink" property="presentLink" jdbcType="VARCHAR"/>-->
-    <!--</resultMap>-->
+    <resultMap type="com.human.model.Position" id="PositionResultMap">
+        <id property="positionID" column="positionID" />
+        <id property="school_id" column="school_id" />
+        <id property="position_name" column="position_name" />
+        <id property="positionWage" column="positionWage" />
+        <id property="num" column="num" />
+        <result property="workPlace" column="workPlace" />
+        <association property="company" column="career_talk_id" javaType="com.human.model.Company">
+            <!--<id property="id" column="id" />-->
+            <!--<id property="career_talk_id" column="career_talk_id" />-->
+            <!--<id property="company_id" column="company_id" />-->
+            <id property="company_name" column="company_name" />
+            <id property="company_logo" column="company_logo" />
+            <id property="company_size" column="company_size" />
+            <id property="company_address" column="company_address" />
+            <!--<id property="setTime" column="setTime" />-->
+            <id property="companyType" column="companyType" />
+            <result property="companyTrade" column="companyTrade" />
+            <!--<id property="companyProfile" column="companyProfile" />-->
+        </association>
+    </resultMap>
+
+
+    <resultMap type="com.human.model.Position" id="PositionResultMap_ALL">
+        <id property="positionID" column="positionID" />
+        <id property="school_id" column="school_id" />
+        <id property="career_talk_id" column="career_talk_id" />
+        <id property="position_name" column="position_name" />
+        <id property="professionals" column="professionals" />
+        <id property="jobDescription" column="jobDescription" />
+        <id property="positionWage" column="positionWage" />
+        <!--<id property="company_logo" column="company_logo" />-->
+        <!--<id property="companyType" column="companyType" />-->
+        <!--<id property="company_size" column="company_size" />-->
+        <id property="num" column="num" />
+        <id property="workPlace" column="workPlace" />
+        <id property="positionTemptation" column="positionTemptation" />
+        <result property="salaryWelfare" column="salaryWelfare" />
+        <association property="company" column="career_talk_id" javaType="com.human.model.Company">
+            <!--<id property="id" column="id" />-->
+            <!--<id property="career_talk_id" column="career_talk_id" />-->
+            <id property="company_id" column="company_id" />
+            <id property="school_id" column="school_id" />
+            <id property="company_name" column="company_name" />
+            <id property="company_logo" column="company_logo" />
+            <id property="company_size" column="company_size" />
+            <id property="company_address" column="company_address" />
+            <id property="map_link" column="map_link" />
+            <id property="image_link" column="image_link" />
+            <id property="setTime" column="setTime" />
+            <id property="companyType" column="companyType" />
+            <id property="companyTrade" column="companyTrade" />
+            <id property="companyProfile" column="companyProfile" />
+            <result property="companyScore" column="companyScore" />
+        </association>
+
+    </resultMap>
+
 
     <sql id="Base_Column_List">
-		positionID,position_name,positionWage,company_logo,companyType,company_size,workPlace
+		p.positionID,p.position_name,p.positionWage,p.workPlace
 	</sql>
 
 
 
-    <!--<select id="selectAllEmployment" resultMap="EmploymentBaseMap">-->
-        <!--SELECT * FROM employment-->
-    <!--</select>-->
-
-
     <!-- 查询用户记录总数 -->
-    <select id="selectCountBytype" parameterType="Map" resultType="int">
+    <select id="selectCountBytype" parameterType="Map" resultType="int" >
         <if test="S_ID.toString()=='ALL'.toString()">
-            select count(*) from position
+            select count(*) from  position
         </if>
         <if test="S_ID.toString()=='position_name'.toString()">
-            select count(*) from position
-            where position_name LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+            select count(*) from  position
+            where position_name LIKE "%"#{S_Name}"%"
        </if>
         <if test="S_ID.toString()=='career_talk_id'.toString()">
             select count(*) from employment
             where career_talk_id =#{S_Name}
         </if>
         <if test="S_ID.toString()=='workPlace'.toString()">
-            select count(*) from position
+            select count(*) from  position
             where workPlace LIKE "%"#{S_Name}"%"
         </if>
-
+        <if test="S_ID.toString()=='Professional'.toString()">
+            select count(*) from  position
+            where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+        </if>
+        <if test="S_ID.toString()==NULL">
+            select count(*) from position
+        </if>
 	</select>
 
+    <!-- 搜索框查询用户记录总数 -->
+    <select id="selectAllCountBytype" parameterType="Map" resultType="int" >
+           select count(*)  from  position
+        <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
+        <if test="S_Name.toString()!=NULL">
+            WHERE position_name LIKE "%"#{S_Name}"%"  or (professionals LIKE "%"#{S_Name}"%")
+        </if>
+        </if>
+        <if test="S_ADDRESS_ID.toString()!='ALL'.toString()">
+            where workPlace  LIKE "%"#{S_ADDRESS_ID}"%"
+            <if test="S_Name.toString()!=NULL">
+                 and (position_name LIKE "%"#{S_Name}"%"  or  (professionals LIKE "%"#{S_Name}"%"))
+            </if>
+        </if>
+    </select>
 
+    <select id="selectAllPositionByType" parameterType="Map" resultMap="PositionResultMap">
+        select *  from  position p,company c
+        <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
+            <if test="S_Name.toString()!=NULL">
+                WHERE (p.position_name LIKE "%"#{S_Name}"%"  or  (p.professionals LIKE "%"#{S_Name}"%"  ))
+                and  c.career_talk_id=p.career_talk_id
+            </if>
+            <if test="start!=null and size!=null">
+                limit #{start},#{size}
+            </if>
+        </if>
+        <if test="S_ADDRESS_ID.toString()!='ALL'.toString()">
+            where p.workPlace like  "%"#{S_ADDRESS_ID}"%"
+            <if test="S_Name.toString()!=NULL">
+                 and (p.position_name LIKE "%"#{S_Name}"%"  or  (p.professionals LIKE "%"#{S_Name}"%" )
+                 and  c.career_talk_id=p.career_talk_id)
+            </if>
+            <if test="start!=null and size!=null">
+                limit #{start},#{size}
+            </if>
+        </if>
+    </select>
 
-    <select id="selectAllPosition" parameterType="Map" resultType="com.human.model.Position">
-        select
-        <include refid="Base_Column_List" />
-        from  position
-             order by positionWage desc
+    <!--p.positionID,p.position_name,p.positionWage,p.workPlace,p.num,c.company_name,c.company_logo,c.company_size,c.company_address,c.companyType-->
+
+    <select id="selectAllPosition" parameterType="Map" resultMap="PositionResultMap">
+        select  p.positionID,p.school_id,p.position_name,p.positionWage ,p.num, p.workPlace ,c.company_name ,c.company_logo ,c.company_size ,c.company_address ,c.companyTrade ,c.companyType from  position p,company c
+        <if test="S_ID.toString()=='Hot'.toString()">
+            where  p.career_talk_id=c.career_talk_id
+         order by p.positionWage desc
+        </if>
+        <if test="S_ID.toString()=='New'.toString()">
+            where   p.career_talk_id=c.career_talk_id
+            order by c.company_id
+        </if>
+        <if test="S_ID.toString()=='Quick'.toString()">
+            where   p.career_talk_id=c.career_talk_id
+             order by p.num  desc
+        </if>
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
@@ -65,82 +155,32 @@
 
 
 
-    <select id="selectPositionByType" parameterType="Map" resultType="com.human.model.Position">
-        select * from  position
-        <if test="S_ID.toString()=='position_name'.toString()">
-            where companyType LIKE "%"#{S_Name}"%"  or  position_name LIKE "%"#{S_Name}"%"  or jobDescription LIKE "%"#{S_Name}"%"  or professionals LIKE "%"#{S_Name}"%"
-        </if>
-        <if test="S_ID.toString()=='workPlace'.toString()">
-            where workPlace LIKE  "%"#{S_Name}"%"
-        </if>
-        order by positionWage desc
-        <if test="start!=null and size!=null">
-            limit #{start},#{size}
-        </if>
+    <select id="selectPositionByType" parameterType="Map" resultMap="PositionResultMap">
+        select *  from  position p,company c
+            <if test="S_ID.toString()=='position_name'.toString()">
+                where p.position_name LIKE "%"#{S_Name}"%" and
+            </if>
+            <if test="S_ID.toString()=='Professional'.toString()">
+                where  (p.professionals LIKE "%"#{S_Name}"%" or p.professionals like '%不限专业%' or p.professionals ='')  and
+            </if>
+            <if test="S_ID.toString()==NULL">
+                where  c.career_talk_id=p.career_talk_id and c.school_id=p.school_id
+            </if>
+            <if test="S_ID.toString()!=NULL">
+                (c.career_talk_id=p.career_talk_id and c.school_id=p.school_id)
+            </if>
+            <if test="start!=null and size!=null">
+                limit #{start},#{size}
+            </if>
     </select>
 
-    <select id="selectPositionById" parameterType="Map" resultType="com.human.model.Position">
+
+
+    <select id="selectPositionById" parameterType="Map" resultMap="PositionResultMap_ALL">
         select  *
-        from  position
-        where  positionID= #{position_Id}
+        from  position p,company c
+        where  c.career_talk_id=p.career_talk_id and c.school_id=p.school_id and positionID= #{position_Id}
     </select>
-
-
-
-    <select id="selectPositionToTald_Id" parameterType="Map" resultType="com.human.model.Position">
-        select *
-        from  position
-       where position_name LIKE "%"#{position_name}"%" or professionals like '%不限专业%' or professionals ='' order by professionals desc
-        <if test="start!=null and size!=null">
-        limit #{start},#{size}
-        </if>
-    </select>
-
-
-    
-
-
-    <!--&lt;!&ndash; 查询用户记录根据类型 &ndash;&gt;-->
-    <!--<select id="selectCountById" resultType="int">-->
-        <!--select count(*) from employment-->
-        <!--where-->
-        <!--<if test="S_ID.toString()=='address'.toString()">-->
-            <!--address like   "%"#{S_Name}"%"-->
-        <!--</if>-->
-        <!--<if test="S_ID.toString()=='Professional'.toString()">-->
-            <!--professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''-->
-        <!--</if>-->
-        <!--<if test="S_ID.toString()=='School'.toString()">-->
-            <!--school_id like   "%"#{S_Name}"%"-->
-        <!--</if>-->
-        <!--<if test="S_ID.toString()=='CompanyName'.toString()">-->
-            <!--company_name like  "%"#{S_Name}"%"-->
-        <!--</if>-->
-    <!--</select>-->
-
-
-    <!--&lt;!&ndash; 根据分页数据start 和size查询数据 &ndash;&gt;-->
-    <!--<select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap">-->
-        <!--select-->
-        <!--<include refid="Base_Column_List" />-->
-        <!--from employment-->
-        <!--order by meet_day desc-->
-        <!--<if test="start!=null and size!=null">-->
-            <!--limit #{start},#{size}-->
-        <!--</if>-->
-    <!--</select>-->
-
-    <!--&lt;!&ndash; 根据地址分页查询数据start 和size查询数据 &ndash;&gt;-->
-    <!--<select id="selectEmploymentByAddress" parameterType="Map" resultMap="EmploymentBaseMap">-->
-        <!--select-->
-        <!--<include refid="Base_Column_List" />-->
-        <!--from employment-->
-        <!--where address like    "%"#{address}"%"  order by meet_day desc-->
-        <!--<if test="start!=null and size!=null">-->
-            <!--limit #{start},#{size}-->
-        <!--</if>-->
-    <!--</select>-->
-
 
 
 </mapper>

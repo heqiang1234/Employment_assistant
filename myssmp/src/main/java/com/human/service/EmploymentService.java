@@ -2,12 +2,12 @@ package com.human.service;
 
 import com.human.model.Employment;
 import com.human.model.PageBean;
+import com.human.model.Position;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface EmploymentService {
-    List<Employment> selectAllEmployment();
 
     int selectCount();
 
@@ -18,25 +18,31 @@ public interface EmploymentService {
      */
     int selectCountById(String S_ID,String S_Name);
 
+    /**
+     * 搜索框查询数据记录总数根据条件
+     * @return
+     */
+    int selectAllCountById(String S_address_id,String S_Name);
+
     PageBean<Employment> findByPage(int currentPage,int  pagesize);
+
+
     /**
      *
-     * 根据地址查询宣讲会
+     * 根据条件查询岗位
      */
-    PageBean<Employment> selectEmploymentByAddress(int currentPage,int pagesize,String address);
+    PageBean<Employment> selectEmploymentByType(int currentPage, int pagesize, String S_id, String S_name);
     /**
      *
-     * 根据专业查询宣讲会
+     * 根据条件查询岗位
      */
-    PageBean<Employment> selectEmploymentByPro(int currentPage,int pagesize,String address);
+    PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Address_Id, String S_name);
+
     /**
-     *
-     * 根据学校查询宣讲会
+     * 根据宣讲会ID进入查询详细信息
+     * @param
+     * @return
      */
-    PageBean<Employment> selectEmploymentBySchool(int currentPage,int pagesize,String School);
-    /**
-     *
-     * 根据公司名查询宣讲会
-     */
-    PageBean<Employment> selectEmploymentByCompanyName(int currentPage,int pagesize,String CompanyName);
+    List<Employment> selectEmploymentById(String career_talk_id);
+
 }

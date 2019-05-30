@@ -28,26 +28,6 @@ public class PositionController {
 
 
     /**
-     * 根据专业查询岗位
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/SelectByName")
-    @ResponseBody
-    public JsonMsg SelectByid(HttpServletRequest request)
-    {
-        log.info("根据专业查询岗位");
-        String Search_Id=request.getParameter("Search_Id_Name");
-        String currentPage=request.getParameter("CurrentPage");
-        String pageSize=request.getParameter("PageSize");
-        int cur = Integer.parseInt(currentPage);
-        int pag = Integer.parseInt(pageSize);
-        PageBean<Position> lists=positionService.selectPositionToTald_Id(cur,pag,Search_Id);
-        return JsonMsg.success().addInfo("List",lists);
-    }
-
-
-    /**
      *
      * 查询数据数量
      * @param request
@@ -57,10 +37,10 @@ public class PositionController {
     @ResponseBody
     public JsonMsg SelectCount(HttpServletRequest request)
     {
+
         log.info("查询数据数量");
         String S_ID=request.getParameter("S_ID");
         String S_Name=request.getParameter("S_Name");
-
         int  count_s=positionService.selectCountBytype(S_ID,S_Name);
         return JsonMsg.success().addInfo("count_s",count_s);
     }
@@ -96,10 +76,12 @@ public class PositionController {
         log.info("展示粗略岗位信息");
         String currentPage=request.getParameter("CurrentPage");
         String pageSize=request.getParameter("PageSize");
+        String S_ID=request.getParameter("S_ID");
         int cur = Integer.parseInt(currentPage);
         int pag = Integer.parseInt(pageSize);
-        PageBean<Position> lists=positionService.selectAllPosition(cur,pag);
-        return JsonMsg.success().addInfo("List",lists);
+        PageBean pageBean=new PageBean();
+        pageBean=positionService.selectAllPosition(cur,pag,S_ID);
+        return JsonMsg.success().addInfo("pageBean_List",pageBean);
     }
 
 
@@ -112,32 +94,50 @@ public class PositionController {
     @ResponseBody
     public JsonMsg selectByPositionId(HttpServletRequest request)
     {
-        log.info("根据岗位ID查询详细数据");
-        String position_Id=request.getParameter("Position_Id");
-          List<Position> lists=positionService.selectPositionById(position_Id);
-        return JsonMsg.success().addInfo("List",lists);
+        try {
+            log.info("根据岗位ID查询详细数据");
+            String position_Id = request.getParameter("Position_Id");
+            List<Position> lists = positionService.selectPositionById(position_Id);
+            return JsonMsg.success().addInfo("List", lists);
+        }
+        catch (Exception e)
+        {
+            return JsonMsg.fail().addInfo("log_error","查询失败");
+        }
     }
-
-
 
     @RequestMapping(value = "/SearchPosition")
     @ResponseBody
-    public  JsonMsg SearchEmployment(HttpServletRequest request, Model model){
+    public  JsonMsg SearchEmploymentByType(HttpServletRequest request, Model model){
         try {
-            log.info("查询岗位信息");
+            log.info("根据类型查询查询岗位信息");
             String currentPage = request.getParameter("CurrentPage");
             String pageSize = request.getParameter("PageSize");
             String Search_Id = request.getParameter("Search_Id");
             String Search_Name = request.getParameter("Search_Name");
             int cur = Integer.parseInt(currentPage);
             int pag = Integer.parseInt(pageSize);
-            if(Search_Id!=null||Search_Id.trim().length()!=0) {
-                log.info("查询宣讲会信息"+Search_Id);
-                PageBean pagebean= positionService.selectPositionByType(cur, pag,Search_Id,Search_Name);
-                return JsonMsg.success().addInfo("pagebean_",pagebean);
+            PageBean pageBean=new PageBean();
+            if(Search_Id=="position_name"||Search_Id.equals("position_name"))
+            {
+                log.info("根据岗位名称查询岗位信息");
+                pageBean=positionService.selectPositionByType(cur,pag,Search_Id,Search_Name);
+                return JsonMsg.success().addInfo("pagebean_position_name",pageBean);
             }
-            PageBean pagebean = positionService.selectAllPosition(cur, pag);
-            return JsonMsg.success().addInfo("pagebean",pagebean);
+            if(Search_Id=="workPlace"||Search_Id.equals("workPlace"))
+            {
+                log.info("根据工作地点查询岗位信息");
+                pageBean=positionService.selectPositionByType(cur,pag,Search_Id,Search_Name);
+                return JsonMsg.success().addInfo("pagebean_workPlace",pageBean);
+            }
+            if(Search_Id=="Professional"||Search_Id.equals("Professional"))
+            {
+                log.info("根据专业查询岗位信息");
+                pageBean=positionService.selectPositionByType(cur,pag,Search_Id,Search_Name);
+                return JsonMsg.success().addInfo("pagebean_Professional",pageBean);
+            }
+            pageBean=positionService.selectPositionByType(cur,pag,Search_Id,Search_Name);
+            return JsonMsg.success().addInfo("pagebean",pageBean);
         }
         catch (Exception e)
         {
