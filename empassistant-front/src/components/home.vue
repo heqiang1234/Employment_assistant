@@ -1,36 +1,30 @@
 <template>
-  <div class="warp">
+  <div class="wrap">
     <div class="header">
       <div class="container">
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-            <a href="home.vue">首页</a>
+            <router-link :to="{name:'home'}">首页</router-link>
           </li>
           <li>
-            <a href="#">我的简历</a>
+            <a href="http://localhost:8080/#/login">我的简历</a>
           </li>
           <li>
-            <a href="#">校园招聘会</a>
+            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
           </li>
           <li>
-            <a href="#">藏经阁</a>
+            <a href="http://localhost:8080/#/display">藏经阁</a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="top-header">
-      <div class="container">
-        <div class="leftImg">
-          <img src="../assets/main-picture.png" alt>
-        </div>
-      </div>
-    </div>
+
     <div class="top-bar">
       <div class="container">
         <div class="left-bar">
-          <div class="user-count">0018983</div>
-          <div class="user-count-num">共计0018983个热门职业等着你</div>
+          <div class="user-count">{{totalJobNum}}</div>
+          <div class="user-count-num">共计{{totalJobNum}}个热门职业等着你</div>
         </div>
         <div class="right-bar">
           <div class="form">
@@ -67,372 +61,213 @@
       <div class="container">
         <div class="list">
           <div class="list-title">全部分类</div>
-          <div class="type-item" data-type="IT互联网">
-            <a href="#">IT互联网</a>
-            <a href="#">软件</a>
-            <a href="#">运营</a>
-            <a href="#">硬件</a>
+          <div
+            v-for="(classfy,index) in jobClassfy"
+            :key="index"
+            class="type-item"
+            @click="searchJob"
+          >
+            <a v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
             <div class="item-infor">
-              <div class="item-list">
-                <a href="#">软件</a>
-                <a href="#">数据库</a>
-                <a href="#">C#/.NET</a>
-                <a href="#">Android</a>
-                <a href="#">算法</a>
-                <a href="#">运维</a>
-                <a href="#">前端</a>
-              </div>
-              <div class="item-list">
-                <a href="#">运营</a>
-                <a href="#">新媒体</a>
-                <a href="#">内容运营</a>
-                <a href="#">编辑</a>
-                <a href="#">SEO</a>
-                <a href="#">产品运营</a>
-                <a href="#">前端</a>
-              </div>
-              <div class="item-list">
-                <a href="#">硬件</a>
-                <a href="#">嵌入式</a>
-                <a href="#">集成电路</a>
-              </div>
-              <div class="item-list">
-                <a href="#">设计</a>
-                <a href="#">Flash</a>
-                <a href="#">UI/UE</a>
-                <a href="#">特效</a>
-                <a href="#">网页/美工</a>
-                <a href="#">2D/3D</a>
-              </div>
-              <div class="item-list">
-                <a href="#">通信</a>
-                <a href="#">物联网</a>
-                <a href="#">通信</a>
-                <a href="#">射频</a>
-              </div>
-              <div class="item-list">
-                <a href="#">产品</a>
-                <a href="#">用户研究</a>
-                <a href="#">产品助理</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="市场商务">
-            <a href="#">市场商务</a>
-            <a href="#">商务</a>
-            <a href="#">销售</a>
-            <a href="#">公关</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">商务</a>
-                <a href="#">商务</a>
-                <a href="#">招投标</a>
-              </div>
-              <div class="item-list">
-                <a href="#">销售</a>
-                <a href="#">推广</a>
-                <a href="#">销售</a>
-              </div>
-              <div class="item-list">
-                <a href="#">公关</a>
-                <a href="#">媒介</a>
-                <a href="#">公关</a>
-              </div>
-              <div class="item-list">
-                <a href="#">客服</a>
-                <a href="#">客户服务</a>
-                <a href="#">销售支持</a>
-              </div>
-              <div class="item-list">
-                <a href="#">市场</a>
-                <a href="#">渠道</a>
-                <a href="#">分析/调研</a>
-                <a href="#">策划</a>
-                <a href="#">品牌</a>
-                <a href="#">市场</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="电子电器">
-            <a href="#">电子电气</a>
-            <a href="#">电子</a>
-            <a href="#">电气</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">电子</a>
-                <a href="#">光电</a>
-                <a href="#">半导体/芯片</a>
-                <a href="#">电子工程</a>
-              </div>
-              <div class="item-list">
-                <a href="#">电气</a>
-                <a href="#">电子设计</a>
-                <a href="#">电气工程</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="其他类型">
-            <a href="#">其他类型</a>
-            <a href="#">体育快消</a>
-            <a href="#">机械</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">体育快消</a>
-                <a href="#">快消</a>
-                <a href="#">体育</a>
-              </div>
-              <div class="item-list">
-                <a href="#">机械制造</a>
-                <a href="#">质量</a>
-                <a href="#">机械设计</a>
-                <a href="#">生产</a>
-                <a href="#">安全</a>
-                <a href="#">设备</a>
-                <a href="#">自动化</a>
-              </div>
-              <div class="item-list">
-                <a href="#">物流采购</a>
-                <a href="#">采购</a>
-                <a href="#">供应链</a>
-                <a href="#">物流</a>
-              </div>
-              <div class="item-list">
-                <a href="#">建筑房产</a>
-                <a href="#">城规/市政</a>
-                <a href="#">工程造价</a>
-                <a href="#">建筑</a>
-                <a href="#">土木</a>
-                <a href="#">园林</a>
-                <a href="#">土地开发</a>
-                <a href="#">房产销售</a>
-                <a href="#">给排水</a>
-                <a href="#">物业管理</a>
-              </div>
-              <div class="item-list">
-                <a href="#">生物医疗</a>
-                <a href="#">医生</a>
-                <a href="#">医药</a>
-                <a href="#">生物</a>
-                <a href="#">护理</a>
-              </div>
-              <div class="item-list">
-                <a href="#">能源环保</a>
-                <a href="#">矿产</a>
-                <a href="#">能源</a>
-                <a href="#">环保</a>
-              </div>
-              <div class="item-list">
-                <a href="#">食品材料</a>
-                <a href="#">材料</a>
-                <a href="#">食品</a>
-              </div>
-              <div class="item-list">
-                <a href="#">NGO公益</a>
-                <a href="#">志愿者</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="人事行政">
-            <a href="#">人力资源</a>
-            <a href="#">猎头</a>
-            <a href="#">行政</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">人力资源</a>
-                <a href="#">人事/HR</a>
-                <a href="#">招聘</a>
-                <a href="#">企业文化</a>
-              </div>
-              <div class="item-list">
-                <a href="#">猎头</a>
-                <a href="#">猎头</a>
-              </div>
-              <div class="item-list">
-                <a href="#">行政</a>
-                <a href="#">行政</a>
-                <a href="#">前台</a>
-                <a href="#">助理</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="外语外贸">
-            <a href="#">外语外贸</a>
-            <a href="#">外语</a>
-            <a href="#">外贸</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">外语</a>
-                <a href="#">英语</a>
-                <a href="#">日语</a>
-                <a href="#">翻译</a>
-              </div>
-              <div class="item-list">
-                <a href="#">外贸</a>
-                <a href="#">报关员</a>
-                <a href="#">外贸专员</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="金融法务">
-            <a href="#">财经法务</a>
-            <a href="#">金融</a>
-            <a href="#">投资</a>
-            <a href="#">法务</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">金融</a>
-                <a href="#">基金</a>
-                <a href="#">证券</a>
-                <a href="#">风控</a>
-                <a href="#">金融</a>
-              </div>
-              <div class="item-list">
-                <a href="#">投资</a>
-                <a href="#">分析师</a>
-                <a href="#">投资</a>
-              </div>
-              <div class="item-list">
-                <a href="#">法务</a>
-                <a href="#">合规</a>
-                <a href="#">律师</a>
-                <a href="#">法务</a>
-              </div>
-              <div class="item-list">
-                <a href="#">银行</a>
-                <a href="#">客户经理</a>
-                <a href="#">部门经理</a>
-                <a href="#">贷款</a>
-                <a href="#">大堂经理</a>
-              </div>
-              <div class="item-list">
-                <a href="#">保险</a>
-                <a href="#">业务</a>
-                <a href="#">保单</a>
-              </div>
-              <div class="item-list">
-                <a href="#">财会</a>
-                <a href="#">审计</a>
-                <a href="#">税务</a>
-                <a href="#">财务</a>
-                <a href="#">会计/出纳</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="教育咨询">
-            <a href="#">教育咨询</a>
-            <a href="#">教育</a>
-            <a href="#">咨询</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">教育</a>
-                <a href="#">教务</a>
-                <a href="#">教师</a>
-                <a href="#">幼教</a>
-                <a href="#">培训</a>
-                <a href="#">课程</a>
-              </div>
-              <div class="item-list">
-                <a href="#">咨询</a>
-                <a href="#">咨询/顾问</a>
-              </div>
-            </div>
-          </div>
-          <div class="type-item" data-type="媒体设计">
-            <a href="#">媒体设计</a>
-            <a href="#">广告</a>
-            <a href="#">编辑</a>
-            <a href="#">设计</a>
-            <div class="item-infor">
-              <div class="item-list">
-                <a href="#">广告</a>
-                <a href="#">创意</a>
-                <a href="#">策划</a>
-                <a href="#">AE</a>
-              </div>
-              <div class="item-list">
-                <a href="#">编辑</a>
-                <a href="#">编辑/采编</a>
-                <a href="#">校队/排版</a>
-              </div>
-              <div class="item-list">
-                <a href="#">设计</a>
-                <a href="#">美术设计</a>
-                <a href="#">工业设计</a>
-                <a href="#">平面设计</a>
-                <a href="#">视觉设计</a>
-              </div>
-              <div class="item-list">
-                <a href="#">艺术</a>
-                <a href="#">记者</a>
-                <a href="#">支持/播音</a>
-                <a href="#">编导</a>
-              </div>
-              <div class="item-list">
-                <a href="#">艺术</a>
-                <a href="#">演艺</a>
-                <a href="#">摄影</a>
+              <div v-for="(detail,index) in classfy.detailClsf" :key="index" class="item-list">
+                <a v-for="(item,index) in detail" :key="index" href="#">{{item}}</a>
               </div>
             </div>
           </div>
         </div>
         <div class="swiper">
-          <el-carousel>
+          <el-carousel height="288px">
             <el-carousel-item v-for="item in 4" :key="item">
               <h3>{{ item }}</h3>
             </el-carousel-item>
           </el-carousel>
-        </div>
-      </div>
-    </div>
-    <div class="bottom-bar">
-      <div class="container">
-        <div class="vip-companys">
-          <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+          <div class="ad-bar">
+            <div class="ad-container">
+              <div class="vip-companys">
+                <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="company-tab">
       <div class="container-tab">
         <ul class="tab-list">
-          <li>热门职业</li>
-          <li>最新职业</li>
-          <li>急招职业</li>
+          <li
+            @click="chageListType(index)"
+            :data-index="index"
+            v-for="(item,index) in ['热门职业','最新职业','急招职业']"
+            :key="index"
+            :class="curJobIndex===index?'select':''"
+          >{{item}}</li>
         </ul>
         <ul class="tab-content">
-          <div v-for="(item,index) in arr" :key="index"  class="post">
-              <!-- 职位盒子 -->
-              <div class="post-title">
-                <div class="post-head">
-                  <div class="post-name">Web前端</div>
-                  <div class="post-pay">100-150￥/天</div>
-                </div>
-                <div class="post-body">
-                  <div class="post-others">
-                    <i class="el-icon-location-outline"></i>
-                    <span class="post-other">北京</span>
-                  </div>
-                  <div class="post-others">
-                    <i class="el-icon-time"></i>
-                    <span class="post-other">4天/周</span>
-                  </div>
-                  <div class="post-others">
-                    <i class="el-icon-date"></i>
-                    <span class="post-other">四个月</span>
-                  </div>
-                </div>
+          <div v-for="(item) in jobList" :key="item.career_talk_id" class="post">
+            <!-- 职位盒子 -->
+            <div class="post-title">
+              <div class="post-head">
+                <div class="post-name">{{item.position_name}}</div>
+                <div class="post-pay">{{item.positionWage}}</div>
               </div>
-              <hr>
-              <div class="post-company">
-                <div class="company-logo">
-                  <img src="../assets/aiqiyi.jpg" alt="">
+              <div class="post-body">
+                <div class="post-others">
+                  <i class="el-icon-location-outline"></i>
+                  <span class="post-other">{{item.workPlace}}</span>
                 </div>
-                <div class="company-infor">
-                  <div class="company-name"><a href="#">爱奇艺</a></div>
-                  <div class="company-info">互联网|2000人以上</div>
+                <div class="post-others">
+                  <i class="el-icon-time"></i>
+                  <span class="post-other">4天/周</span>
+                </div>
+                <div class="post-others">
+                  <i class="el-icon-date"></i>
+                  <span class="post-other">四个月</span>
                 </div>
               </div>
             </div>
+            <div class="post-sepLine"></div>
+            <div class="post-company">
+              <div class="company-logo">
+                <img :src="item.company_logo" alt>
+              </div>
+              <div class="company-infor">
+                <div class="company-name">
+                  <a href="#">{{item.companyType}}</a>
+                </div>
+                <div class="company-info">{{item.companyType}} || {{item.company_size}}</div>
+              </div>
+            </div>
+          </div>
         </ul>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="container-tab">
+        <div class="foot-title">
+          <div class="ourselves">
+            <span class="ourselves-title">产品服务</span>
+            <a href="#" class="ourselves-body">找实习</a>
+            <a href="#" class="ourselves-body">宣讲会</a>
+            <a href="#" class="ourselves-body">找工作</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">旗下产品</span>
+            <a href="#" class="ourselves-body">找实习</a>
+            <a href="#" class="ourselves-body">宣讲会</a>
+            <a href="#" class="ourselves-body">找工作</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">关于我们</span>
+            <a href="#" class="ourselves-body">了解我们</a>
+            <div class="join-us">
+              <a href="#" class="ourselves-body">赞助我们</a>
+              <div class="join">
+                <img src="../assets/QQ.jpg" alt>
+              </div>
+            </div>
+            <a href="#" class="ourselves-body">加入我们</a>
+          </div>
+          <div class="ourselves">
+            <span class="ourselves-title">联系我们</span>
+            <div class="join-us">
+              <a href="#" class="ourselves-body">团队微信</a>
+              <div class="join">
+                <img src="../assets/weChat.jpg" alt>
+              </div>
+            </div>
+            <a href="#" class="ourselves-body">客户服务</a>
+            <a href="#" class="ourselves-body">商务合作</a>
+          </div>
+        </div>
+        <div class="foot-body">
+          <p>
+            <span>&copy;2019.2-2019.6 就业助手</span> |
+            <span>赣ICP备00000000号-1</span> |
+            <span>联系我们：xxx@jiuyezhushou.com</span>
+          </p>
+          <p>玉屏西科技有限责任公司版权所有 | 全国领先的实习生平台</p>
+          <div class="internet">
+            <img class="internetImg" src="../assets/record-icon.png" alt>
+            <span>赣公网安备 00000000000000号</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="goto-top" href="#">
+      <img src="../assets/right-hn.png" alt>
+      回到顶部
+    </a>
+    <div class="self-mesg-input">
+      <div class="fundmation-mesg">
+        <div class="mesg-title">
+          <i class="el-icon-discount"></i>
+          <span>基本信息</span>
+        </div>
+        <div class="head-pic">
+          <el-upload
+            class="avatar-uploader"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture"
+            :show-file-list="false"
+            :on-preview="handlePictureCardPreview"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
+          </el-upload>
+        </div>
+        <div class="mesg-form">
+          <div class="line-form">
+            <span class="line-item">姓名</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">性别</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">生日</span>
+            <span class="line-ele">
+              <el-date-picker v-model="value3" type="year" placeholder="选择年"></el-date-picker>
+              <el-date-picker v-model="value2" type="month" placeholder="选择月"></el-date-picker>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">所在城市</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">手机号码</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+            <span class="line-item">常用邮箱</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -441,20 +276,289 @@
 <script>
 export default {
   name: "home",
+  created() {
+    this.getJobList();
+  },
+  methods: {
+    getJobList() {
+      //获取职位列表
+      let that = this;
+      if (!that.nextPage) return;
+      that
+        .axios({
+          url: this.API.JOBS.GETJOBLIST,
+          methods: "GET",
+          params: {
+            PageSize: 12,
+            CurrentPage: that.curJobPage
+          }
+        })
+        .then(res => {
+          console.log(res);
+          let totalJob = "" + res.data.extendInfo.List.totalCount;
+          for (let i = 0; i < 8 - totalJob.length; i++) {
+            totalJob = "0" + totalJob;
+          }
+          if (!that.totalJobNum) {
+            that.totalJobNum = totalJob;
+          }
+          that.jobList = res.data.extendInfo.List.lists;
+        });
+    },
+    chageListType(index) {
+      //切换职位信息列表
+      this.curJobIndex = index;
+    },
+    searchJob(e) {
+      //搜索相关职位
+      let that = this;
+      console.log(e);
+      that
+        .axios({
+          url: that.API.JOBS.SEARCHJOBS,
+          methods: "GET",
+          params: {
+            CurrentPage: 1,
+            PageSize: 12,
+            Search_Id: "position_name",
+            Search_Name: e.target.innerText
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handlePictureCardPreview(file) {
+      //获取头像地址
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    }
+  },
   data() {
     return {
-      arr:[1,2,3,4]
+      totalJobNum: false, //总岗位数量
+      jobList: [], //职位列表
+      curJobPage: 1, //当前职位列表页数
+      nextPage: true, //是否有下一页
+      curJobIndex: 0, //当前职位列表类型
+      tabPages: [
+        //职位信息标签页
+      ],
+      jobClassfy: [
+        //职位分类
+        {
+          ovallClsf: [
+            //总体分类
+            "IT互联网",
+            "软件",
+            "运营",
+            "硬件"
+          ],
+          detailClsf: [
+            //具体分类
+            ["软件", "数据库", "C#/.NET", "Android", "算法", "运维", "前端"],
+            ["运营", "新媒体", "内容运营", "编辑", "SEO", "产品运营"],
+            ["硬件", "嵌入式", "集成电路"],
+            ["设计", "Flash", "UI/UE", "特效", "网页/美工", "2D/3D"],
+            ["通信", "物联网", "通信", "射频"],
+            ["产品", "用户研究", "产品助理"]
+          ]
+        },
+        {
+          ovallClsf: ["市场商务", "商务", "销售", "公关"],
+          detailClsf: [
+            ["商务", "商务", "招投标"],
+            ["销售", "销售", "推广"],
+            ["公关", "公关", "媒介"],
+            ["客服", "客户服务", "销售支持"],
+            ["市场", "渠道", "分析/调研", "策划", "品牌", "市场"]
+          ]
+        },
+        {
+          ovallClsf: ["电子电器", "电子", "电气"],
+          detailClsf: [
+            ["电子", "光电", "半导体/芯片", "电子工程"],
+            ["电气", "电子设计", "电气工程"]
+          ]
+        },
+        {
+          ovallClsf: ["其它类型", "体育快消", "机械"],
+          detailClsf: [
+            ["体育快消", "快消", "体育"],
+            ["机械制造", "质量", "机械设计", "生产", "安全", "设备", "自动化"],
+            ["物流采购", "采购", "供应链", "物流"],
+            [
+              "建筑/房产",
+              "城规/市规",
+              "工程造价",
+              "建筑",
+              "土木",
+              "园林",
+              "土地开发",
+              "房产销售",
+              "排水",
+              "物业管理"
+            ],
+            ["生物医疗", "医生", "医药", "生物", "护理"],
+            ["能源环保", "矿产", "能源", "环保"],
+            ["食品材料", "材料", "食品"],
+            ["NGO公益", "志愿者"]
+          ]
+        },
+        {
+          ovallClsf: ["人力资源", "猎头", "行政"],
+          detailClsf: [
+            ["人力资源", "人事/HR", "招聘", "企业文化"],
+            ["猎头", "猎头"],
+            ["物流采购", "采购", "供应链", "物流"],
+            ["行政", "行政", "前台", "助理"]
+          ]
+        },
+        {
+          ovallClsf: ["外语外贸", "外语", "外贸"],
+          detailClsf: [
+            ["外语", "英语", "日语", "翻译"],
+            ["外贸", "报关员", "外贸专员"]
+          ]
+        },
+        {
+          ovallClsf: ["金融法务", "金融", "投资", "法务"],
+          detailClsf: [
+            ["金融", "基金", "证券", "风控", "金融"],
+            ["投资", "分析师", "投资"],
+            ["法务", "合规", "律师", "法务"],
+            ["银行", "客户经理", "部门经理", "贷款", "大堂经理"],
+            ["保险", "业务", "保单"],
+            ["财会", "审计", "税务", "财务", "会计/出纳"]
+          ]
+        },
+        {
+          ovallClsf: ["教育咨询", "教育", "咨询"],
+          detailClsf: [
+            ["教育", "教务", "教师", "幼教", "培训", "课程"],
+            ["咨询", "咨询/顾问"]
+          ]
+        },
+        {
+          ovallClsf: ["媒体设计", "广告", "编辑", "设计"],
+          detailClsf: [
+            ["广告", "创意", "策划", "AE"],
+            ["编辑", "编辑/采编", "校对/排版"],
+            ["设计", "美术设计", "工业设计", "平面设计", "视觉设计"],
+            ["艺术", "记者", "支持/播音", "编导"],
+            ["艺术", "演艺", "摄影"]
+          ]
+        }
+      ],
+      imageUrl: ""
     };
   }
 };
 </script>
 
-<style scope>
+<style scoped>
+.line-ele>el-input__inner{
+    height: 30px;
+    line-height: 30px;
+    width: 50%;
+}
+.mesg-form {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 50px;
+  height: 275px;
+  margin: 10px 0px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.line-item {
+  width: 100px;
+  display: inline-block;
+  height:40px;
+  line-height: 40px;
+  text-align: right;
+  padding-right: 20px;
+  color: #333;
+  font-family: "微软雅黑";
+}
+.line-ele {
+  width:500px;
+}
+.line-form {
+  height: 40px;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 106px;
+  height: 106px;
+  line-height: 106px;
+  text-align: center;
+}
+.avatar {
+  width: 106px;
+  height: 106px;
+  display: block;
+}
+.self-mesg-input {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.3);
+}
+.fundmation-mesg {
+  width: 700px;
+  height: 500px;
+  margin: 100px auto;
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.mesg-title {
+  width: 200px;
+  height: 50px;
+  padding: 20px 0px 0px 30px;
+  font-size: 20px;
+  box-sizing: border-box;
+  font-family: "黑体";
+  line-height: 30px;
+  color: #0287ee;
+}
+.mesg-title > span {
+  padding-left: 10px;
+  color: #000;
+}
+.head-pic {
+  margin: 30px auto 10px;
+  width: 106px;
+  height: 106px;
+  background-image: url("../assets/default_headpic.png");
+  background-size: 106px;
+  border-radius: 100%;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
-  line-height: 300px;
+  line-height: 288px;
   margin: 0;
 }
 .el-carousel__item:nth-child(2n) {
@@ -463,15 +567,15 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.warp {
+.wrap {
   width: 100%;
   min-width: 1080px;
-  background: #f1f4f6;
+  position: relative;
 }
 .header {
   width: 100%;
   height: 56px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #eaeaea;
 }
 .container {
   justify-content: space-between;
@@ -521,6 +625,7 @@ export default {
   align-items: center;
 }
 .top-bar {
+  margin-top: 20px;
   width: 100%;
   height: 120px;
   padding-top: 20px;
@@ -530,11 +635,13 @@ export default {
   width: 23%;
   height: 100px;
   padding-top: 20px;
-  background: #eee;
+  background: #fafafa;
   display: inline-block;
   box-sizing: border-box;
 }
 .user-count {
+  font-weight: 400;
+  letter-spacing: 5px;
   width: 95%;
   height: 50px;
   color: #0287ee;
@@ -543,7 +650,7 @@ export default {
   line-height: 30px;
   padding: 10px 0px;
   margin: 0px auto;
-  background: #f1f4f6;
+  background: #fff;
   box-sizing: border-box;
 }
 .user-count-num {
@@ -579,8 +686,7 @@ export default {
 }
 .mid-bar {
   width: 100%;
-  height: 463px;
-  padding: 20px 0px 25px 0px;
+  padding: 20px 0px 20px 0px;
   box-sizing: border-box;
 }
 .list {
@@ -589,7 +695,7 @@ export default {
   font-size: 14px;
   background: #fafafa;
   display: inline-block;
-  z-index: 999;
+  z-index: 10;
   box-sizing: border-box;
 }
 .list-title {
@@ -609,9 +715,10 @@ export default {
   border-bottom: solid 1px #eee;
   position: relative;
 }
+
 .type-item:hover {
   background-color: #fff;
-  border: solid 1px #999;
+  border: solid 1px #f5f5f5;
   border-right: none;
   border-left: none;
   z-index: 999;
@@ -628,8 +735,10 @@ export default {
   text-decoration: none;
   color: #555;
   padding-right: 10px;
+  cursor: pointer;
 }
 .type-item > a:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
 .item-infor {
@@ -638,7 +747,7 @@ export default {
   top: -10px;
   width: 250%;
   background-color: #fff;
-  border: solid 1px #999;
+  border: solid 1px #d5d5d5;
   z-index: 99;
   display: none;
 }
@@ -653,6 +762,7 @@ export default {
 .item-list > a:hover {
   text-decoration: underline;
 }
+
 .item-list :nth-child(1) {
   color: #000;
   font-size: 15px;
@@ -662,11 +772,14 @@ export default {
   width: 75%;
   height: 408px;
 }
-.bottom-bar {
+.ad-bar {
   width: 100%;
   height: 120px;
   padding-bottom: 20px;
   box-sizing: border-box;
+}
+.ad-container {
+  margin-top: 20px;
 }
 .vip-companys {
   width: 100px;
@@ -680,11 +793,9 @@ export default {
   height: 40px;
 }
 .vip-companys:hover {
-  background: #0287ee;
 }
 .company-tab {
   width: 100%;
-  height: 920px;
 }
 .container-tab {
   height: 100%;
@@ -693,46 +804,59 @@ export default {
   margin: 0px auto;
 }
 .tab-list {
-  height: 50px;
+  height: 40px;
   width: 100%;
+  font-size: 14px;
   text-align: center;
-  line-height: 50px;
-  font-family: "微软雅黑";
+  line-height: 40px;
+  font-family: "Microsoft Yahei";
+  background: #f3f3f3;
 }
 .tab-list li {
   float: left;
-  width: 150px;
+  width: 100px;
   height: 100%;
-  border-top-left-radius: 20% 100%;
-  border-bottom-right-radius: 20% 100%;
   cursor: pointer;
-  background-color: #ccc;
   list-style: none;
+  position: relative;
 }
-.tab-list li:hover {
-  font-size: 16px;
+.tab-list .select {
+  background: #fff;
   color: #0287ee;
-  background: #eee;
 }
-.tab-list li:hover .line {
-  display: block;
+.tab-list .select::before {
+  width: 100%;
+  content: "";
+  height: 4px;
+  background: #0287ee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tab-list li:hover {
+  color: #0287ee;
 }
 .tab-content {
   display: block;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
-  max-height: 850px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin-bottom: 50px;
+}
+.tab-content .el-carousel {
+  width: 100%;
 }
 .post {
-  width: 32%;
+  width: 380px;
   height: 195px;
-  margin-top: 10px;
+  margin: 5px 20px;
   padding: 0px 10px;
   box-sizing: border-box;
-  border: 1px solid #666;
+  border: 1px solid #dadada;
+  background: #fff;
 }
 .post-title {
   height: 100px;
@@ -747,20 +871,29 @@ export default {
   justify-content: space-between;
 }
 .post-name {
-  width: 59%;
+  cursor: pointer;
+  max-width: 59%;
+  overflow: hidden;
   line-height: 30px;
   height: 30px;
   font-family: "微软雅黑";
   font-size: 18px;
   text-align: left;
   font-weight: bolder;
+  color: rgba(0, 0, 0, 0.7);
+}
+.post-sepLine {
+  height: 1px;
+  width: 100%;
+  background: #dadada;
 }
 .post-pay {
+  font-size: 14px;
   width: 40%;
   height: 30px;
   line-height: 30px;
   text-align: right;
-  color: orangered;
+  color: #fd8150;
 }
 .post-body {
   width: 80%;
@@ -778,9 +911,9 @@ export default {
 .post-other {
   color: #666;
   font-size: 14px;
-  padding-left: 5px;
+  margin-left: -2px;
 }
-.post-company{
+.post-company {
   height: 90px;
   width: 100%;
   padding-top: 15px;
@@ -789,29 +922,131 @@ export default {
   display: flex;
   flex-direction: row;
 }
-.company-logo{
+.company-logo {
   width: 60px;
   height: 60px;
+  overflow: hidden;
 }
-.company-logo>img{
+.company-logo > img {
   width: 100%;
 }
-.company-infor{
+.company-infor {
   width: 70%;
   height: 50px;
   padding-left: 20px;
 }
-.company-name{
+.company-name {
   height: 30px;
   line-height: 30px;
 }
-.company-name>a{ 
+.company-name > a {
   color: #0287ee;
   text-decoration: none;
 }
-.company-info{
+.company-info {
   height: 30px;
   color: #aaa;
   line-height: 30px;
+}
+.foot {
+  width: 100%;
+  height: 250px;
+  margin-top: 30px;
+  background-color: #eee;
+}
+.foot-title {
+  width: 100%;
+  height: 150px;
+  box-sizing: border-box;
+}
+.ourselves {
+  width: 24%;
+  height: 150px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 20px 0px 0px 10%;
+}
+.ourselves-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+.ourselves-body {
+  list-style: none;
+  display: block;
+  color: #666;
+  margin-top: 5px;
+  text-decoration: none;
+}
+.ourselves-body:hover {
+  color: #0287ee;
+}
+.join-us {
+  width: 100%;
+  position: relative;
+}
+.join-us:hover {
+  color: #0287ee;
+}
+.join-us:hover .join {
+  display: block;
+}
+.join {
+  display: none;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: -110px;
+  top: -20px;
+  z-index: 99;
+}
+.join > img {
+  width: 100px;
+  height: 100px;
+}
+.foot-body {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #666;
+  box-sizing: border-box;
+}
+.internet {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  padding: 5px 0;
+  position: relative;
+}
+.internetImg {
+  position: absolute;
+  right: 50%;
+  margin-right: 90px;
+}
+.internet > span {
+  height: 20px;
+  line-height: 20px;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  margin-left: -88px;
+}
+.goto-top {
+  width: 50px;
+  height: 43px;
+  font-size: 12px;
+  color: #999;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  right: 20px;
+  bottom: 100px;
+  z-index: 9;
+  position: fixed;
+}
+.goto-top:hover {
+  color: #0287ee;
 }
 </style>
