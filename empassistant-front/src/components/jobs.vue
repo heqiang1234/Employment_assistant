@@ -40,18 +40,18 @@
           </el-input>
         </div>
         <div class="search-likely">
-          <span likely-title>相似搜索：</span>
+          <span likely-title>热门搜索：</span>
           <a href="#">计算机</a>
-          <a href="#">软件测试</a>
-          <a href="#">哈哈哈</a>
-          <a href="#">嘿嘿嘿</a>
+          <a href="#">前端</a>
+          <a href="#">JAVA</a>
+          <a href="#">测试</a>
         </div>
       </div>
     </div>
     <div class="show-post">
       <div class="container bd-box">
 
-        <div class="tab-content">
+        <div v-if="jobList.length>0" class="tab-content">
           <div v-for="(item) in jobList" :key="item.positionID" class="post-card">
             <div class="post-info">
               <div class="post-head">
@@ -78,6 +78,17 @@
               </div>
             </div>
           </div>
+          
+        </div>
+        <div v-else class="no-reash">
+            <div>
+              <i>
+                你想要的没有找到
+                <br>
+                <span>Sorry~QAQ</span>
+              </i>
+            </div>
+          </div>
           <div class="jobs-pagetab">
           <el-pagination
             @current-change="handleCurrentChange"
@@ -85,9 +96,10 @@
             :page-size="pageSize"
             layout="prev, pager, next, jumper"
             :total="totalCount"
-          ></el-pagination>
+          >
+          </el-pagination>
         </div>
-        </div>
+        
       </div>
     </div>
     <div class="foot">
@@ -142,7 +154,8 @@
         </div>
       </div>
     </div>
-    <a class="goto-top" href="#"><img src="../assets/right-hn.png" alt="">
+    <a class="goto-top" href="#">
+      <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
   </div>
@@ -151,6 +164,7 @@
 export default {
   created(){
     let options = this.$route.params
+    if(JSON.stringify(options)==='{}')return;
     this.jobList = options.lists;
     this.curPage = options.currPage;
     this.key = options.searchKey
@@ -197,7 +211,7 @@ export default {
     return{
       jobList:[],//职位列表
       curPage:1,//当前页
-      totalCount:100,//总条目数
+      totalCount:1,//总条目数
       pageSize:12,//分页容量
       key:''//搜索关键字
     }
@@ -268,6 +282,7 @@ export default {
   text-align: center;
 }
 .search-likely {
+  margin-left:20px;
   width: 100%;
   height: 50px;
   padding: 10px 0px;
@@ -314,8 +329,20 @@ export default {
   display: block;
 }
 .tab-content {
+  display: none; 
   width: 90%;
+  min-height: 500px;
 }
+.no-reash {
+  /* display: none;  */
+  color:#dfdfdf;
+  font-size: 20px;
+  text-align: center;
+  height:300px;
+  padding-top:150px;
+  box-sizing: border-box;
+}
+
 .post-card {
   width: 100%;
   height: 120px;
@@ -498,7 +525,7 @@ export default {
   left: 50%;
   margin-left: -88px;
 }
-.goto-top{
+.goto-top {
   width: 50px;
   height: 43px;
   font-size: 12px;
@@ -509,9 +536,9 @@ export default {
   right: 20px;
   bottom: 100px;
   z-index: 999;
-  position:fixed;
+  position: fixed;
 }
-.goto-top:hover{
+.goto-top:hover {
   color: #0287ee;
 }
 .jobs-pagetab{

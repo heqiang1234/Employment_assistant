@@ -112,7 +112,7 @@
             <!-- 职位盒子 -->
             <div class="post-title">
               <div class="post-head">
-                <div class="post-name">{{item.position_name}}</div>
+                <div @click="getDetail(item)" :data-job="item" class="post-name">{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
@@ -218,7 +218,6 @@ export default {
   name: "home",
   created() {
     this.getJobList();
-    this.getDetail();
   },
   methods: {
     getJobList() {
@@ -287,18 +286,22 @@ export default {
       this.curJobPage = val;
       this.getJobList();
     },
-    getDetail(){
+    getDetail(item){
+      // console.log(item);
+      let id = item.positionID
       let that=this;
         that
         .axios({
           url: that.API.JOBS.DETAILJOB,
           methods: "POST",
           params: {
-           Position_Id:28113,
+           Position_Id:id,
           }
         })
         .then(res => {
           console.log(res);
+          let job = res.data.extendInfo.List[0];
+          this.$router.push({name:'post',params:job})
         })
         .catch(err=>{
           console.log(err)

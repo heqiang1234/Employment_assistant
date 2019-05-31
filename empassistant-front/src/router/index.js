@@ -6,10 +6,9 @@ import home from '@/components/home'
 import jobs from '@/components/jobs'
 import careerTalk from '@/components/careerTalk'
 import company from '@/components/company'
+import post from '@/components/post'
 
 Vue.use(Router)
-
-
 export default new Router({
   routes: [
     {
@@ -41,6 +40,11 @@ export default new Router({
       path: '/company',
       name: 'company',
       component: company
-    }
+    },
+    {
+      path: '/post',
+      name: 'post',
+      component: post
+    },
   ]
 })
