@@ -1,5 +1,7 @@
 package com.human.model;
 
+import java.util.List;
+
 /**
  *
  * 2019/5/20 0:37 create by HQ
@@ -13,11 +15,64 @@ public class Company {
     private String company_id;
     private String school_id;
     private String company_name;
-    private String logo;
+    private String company_logo;
+    private String company_size;
+    private String company_address;
+    private String map_link;
+    private String image_link;
     private String setTime;
     private String companyType;
     private String companyTrade;
     private String companyProfile;
+    private String companyScore;
+
+    public String getCompany_logo() {
+        return company_logo;
+    }
+
+    public void setCompany_logo(String company_logo) {
+        this.company_logo = company_logo;
+    }
+
+    public String getCompany_size() {
+        return company_size;
+    }
+
+    public void setCompany_size(String company_size) {
+        this.company_size = company_size;
+    }
+
+    public String getCompany_address() {
+        return company_address;
+    }
+
+    public void setCompany_address(String company_address) {
+        this.company_address = company_address;
+    }
+
+    public String getMap_link() {
+        return map_link;
+    }
+
+    public void setMap_link(String map_link) {
+        this.map_link = map_link;
+    }
+
+    public String getImage_link() {
+        return image_link;
+    }
+
+    public void setImage_link(String image_link) {
+        this.image_link = image_link;
+    }
+
+    public String getCompanyScore() {
+        return companyScore;
+    }
+
+    public void setCompanyScore(String companyScore) {
+        this.companyScore = companyScore;
+    }
 
     public int getId() {
         return id;
@@ -57,14 +112,6 @@ public class Company {
 
     public void setCompany_name(String company_name) {
         this.company_name = company_name;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public String getSetTime() {

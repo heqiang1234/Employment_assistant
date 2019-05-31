@@ -1,9 +1,13 @@
 package com.human.service.impl;
 
+import com.human.controller.EmploymentController;
 import com.human.dao.EmploymentDao;
 import com.human.model.Employment;
 import com.human.model.PageBean;
 import com.human.service.EmploymentService;
+import com.human.util.JsonMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +19,12 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class EmploymentServiceImpl implements EmploymentService {
 
+
+    private static final Logger log = LoggerFactory.getLogger(EmploymentServiceImpl.class);
+
     @Resource
     private EmploymentDao employmentDao;
 
-    @Override
-    public List<Employment> selectAllEmployment() {
-
-        return employmentDao.selectAllEmployment();
-    }
 
     @Override
     public int selectCount() {
@@ -34,8 +36,66 @@ public class EmploymentServiceImpl implements EmploymentService {
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("S_ID",S_ID);
         map.put("S_Name",S_Name);
-        System.out.println("655555122222");
         return employmentDao.selectCountById(map);
+    }
+
+    @Override
+    public int selectAllCountById(String S_ADDRESS_ID, String S_Name) {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("S_ADDRESS_ID",S_ADDRESS_ID);
+        map.put("S_Name",S_Name);
+        log.info("selectAllCountById        "+S_ADDRESS_ID+"    "+S_Name);
+        return employmentDao.selectAllCountById(map);
+    }
+
+    /**
+     *分页的tenp类，减少代码冗余
+     * @param currentPage
+     * @param pagesize
+     * @return
+     */
+    public PageBean<Employment> PageBean_temp(int currentPage,int pagesize,String temp_Id,String temp_Name)
+    {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        PageBean<Employment> pageBean = new PageBean<Employment>();
+
+        //封装当前页数
+        pageBean.setCurrPage(currentPage);
+
+        //判断是否有前一页,然后进行赋值操作，回显前台
+        if(currentPage>1)
+            pageBean.setPreviousPage(true);
+        else
+            pageBean.setPreviousPage(false);
+
+        //每页显示的数据
+        int pageSize=pagesize;
+        pageBean.setPageSize(pageSize);
+
+        //封装总记录数
+        int totalCount = selectCountById(temp_Id,temp_Name);
+        pageBean.setTotalCount(totalCount);
+
+        //封装总页数
+        double tc = totalCount;
+        Double num =Math.ceil(tc/pageSize);//向上取整
+        pageBean.setTotalPage(num.intValue());
+
+
+        if(currentPage<=num.intValue()-1)
+            pageBean.setAfterPage(true);
+        else
+            pageBean.setAfterPage(false);
+        map.put("start",(currentPage-1)*pageSize);
+        map.put("size", pageBean.getPageSize());
+        map.put("S_ID", temp_Id);
+        map.put("S_Name", temp_Name);
+        //封装每页显示的数据
+        List<Employment> lists = employmentDao.selectEmploymentByType(map);
+        pageBean.setLists(lists);
+
+        return pageBean;
+
     }
 
     /**
@@ -46,98 +106,55 @@ public class EmploymentServiceImpl implements EmploymentService {
      */
     @Override
     public PageBean<Employment> findByPage(int currentPage,int pagesize) {
-        HashMap<String,Object> map = new HashMap<String,Object>();
-        PageBean<Employment> pageBean = new PageBean<Employment>();
-
-        //封装当前页数
-        pageBean.setCurrPage(currentPage);
-
-        //判断是否有前一页,然后进行赋值操作，回显前台
-        if(currentPage>1)
-            pageBean.setPreviousPage(true);
-        else
-            pageBean.setPreviousPage(false);
-
-        //每页显示的数据
-        int pageSize=pagesize;
-        pageBean.setPageSize(pageSize);
-
-        //封装总记录数
-        int totalCount = employmentDao.selectCount();
-        pageBean.setTotalCount(totalCount);
-
-        //封装总页数
-        double tc = totalCount;
-        Double num =Math.ceil(tc/pageSize);//向上取整
-        pageBean.setTotalPage(num.intValue());
-
-         if(currentPage<=num.intValue()-1)
-             pageBean.setAfterPage(true);
-         else
-             pageBean.setAfterPage(false);
-
-        map.put("start",(currentPage-1)*pageSize);
-        map.put("size", pageBean.getPageSize());
-        //封装每页显示的数据
-        List<Employment> lists = employmentDao.findByPage(map);
-        pageBean.setLists(lists);
-
+        PageBean<Employment> pageBean = PageBean_temp(currentPage,pagesize,"ALL","");
         return pageBean;
     }
 
     /**
-     * 根据地址分页查询宣讲会信息
+     * 根据类型查询宣讲会信息
      * @param currentPage
      * @param pagesize
-     * @param address
+     * @param S_id
+     * @param S_name
      * @return
      */
     @Override
-    public PageBean<Employment> selectEmploymentByAddress(int currentPage, int pagesize, String address) {
-        HashMap<String,Object> map = new HashMap<String,Object>();
+    public PageBean<Employment> selectEmploymentByType(int currentPage, int pagesize, String S_id, String S_name) {
         PageBean<Employment> pageBean = new PageBean<Employment>();
-
-        //封装当前页数
-        pageBean.setCurrPage(currentPage);
-
-        //判断是否有前一页,然后进行赋值操作，回显前台
-        if(currentPage>1)
-            pageBean.setPreviousPage(true);
+        if(S_id=="Company"||S_id.equals("Company")) {
+            log.info("公司查询宣讲会信息");
+            pageBean= PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
         else
-            pageBean.setPreviousPage(false);
-
-        //每页显示的数据
-        int pageSize=pagesize;
-        pageBean.setPageSize(pageSize);
-
-        //封装总记录数
-        int totalCount = selectCountById("address",address);
-        pageBean.setTotalCount(totalCount);
-
-        //封装总页数
-        double tc = totalCount;
-        Double num =Math.ceil(tc/pageSize);//向上取整
-        pageBean.setTotalPage(num.intValue());
-
-        map.put("start",(currentPage-1)*pageSize);
-        map.put("size", pageBean.getPageSize());
-        map.put("address", address);
-
-        //封装每页显示的数据
-        List<Employment> lists = employmentDao.selectEmploymentByAddress(map);
-        pageBean.setLists(lists);
+        if(S_id=="School"||S_id.equals("School"))
+        {
+            log.info("学校查询宣讲会信息");
+            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
+        else
+        if(S_id=="Position"||S_id.equals("Position"))
+        {
+            log.info("岗位查询宣讲会信息");
+            pageBean= PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
+        else
+        if(S_id=="Professional"||S_id.equals("Professional"))
+        {
+            log.info("专业查询宣讲会信息");
+            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
+        else
+        if(S_id=="address"||S_id.equals("address"))
+        {
+            log.info("地址查询宣讲会信息");
+            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
         return pageBean;
     }
 
-    /**
-     * 根据专业分页查询宣讲会信息
-     * @param currentPage
-     * @param pagesize
-     * @param pro
-     * @return
-     */
     @Override
-    public PageBean<Employment> selectEmploymentByPro(int currentPage, int pagesize, String pro) {
+    public PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Address_Id, String S_Name) {
+        log.info("S搜索框查询宣讲会信息");
         HashMap<String,Object> map = new HashMap<String,Object>();
         PageBean<Employment> pageBean = new PageBean<Employment>();
 
@@ -153,127 +170,44 @@ public class EmploymentServiceImpl implements EmploymentService {
         //每页显示的数据
         int pageSize=pagesize;
         pageBean.setPageSize(pageSize);
-
+        log.info("DSADAFE");
         //封装总记录数
-        int totalCount = selectCountById("Professional",pro);
+        int totalCount = selectAllCountById(S_Address_Id,S_Name);
         pageBean.setTotalCount(totalCount);
-
+        log.info("SDSADADASDAD框查询宣讲会信息   "+totalCount);
         //封装总页数
         double tc = totalCount;
         Double num =Math.ceil(tc/pageSize);//向上取整
         pageBean.setTotalPage(num.intValue());
+
 
         if(currentPage<=num.intValue()-1)
             pageBean.setAfterPage(true);
         else
             pageBean.setAfterPage(false);
-
         map.put("start",(currentPage-1)*pageSize);
         map.put("size", pageBean.getPageSize());
-        map.put("pro", pro);
+        map.put("S_ADDRESS_ID", S_Address_Id);
+        map.put("S_Name", S_Name);
         //封装每页显示的数据
-        List<Employment> lists = employmentDao.selectEmploymentByPro(map);
+        System.out.println("12121212");
+        List<Employment> lists = employmentDao.selectAllEmploymentByType(map);
         pageBean.setLists(lists);
 
         return pageBean;
     }
 
     /**
-     * 根据学校分页查询宣讲会信息
-     * @param currentPage
-     * @param pagesize
-     * @param School
+     * 查询详细的宣讲会信息
+     * @param career_talk_id
      * @return
      */
     @Override
-    public PageBean<Employment> selectEmploymentBySchool(int currentPage, int pagesize, String School) {
+    public List<Employment> selectEmploymentById(String career_talk_id) {
         HashMap<String,Object> map = new HashMap<String,Object>();
-        PageBean<Employment> pageBean = new PageBean<Employment>();
+        map.put("career_talk_id",career_talk_id);
+        return employmentDao.selectEmploymentById(map);
 
-        //封装当前页数
-        pageBean.setCurrPage(currentPage);
-
-        //判断是否有前一页,然后进行赋值操作，回显前台
-        if(currentPage>1)
-            pageBean.setPreviousPage(true);
-        else
-            pageBean.setPreviousPage(false);
-
-        //每页显示的数据
-        int pageSize=pagesize;
-        pageBean.setPageSize(pageSize);
-
-        //封装总记录数
-        int totalCount = selectCountById("School",School);
-        pageBean.setTotalCount(totalCount);
-
-        //封装总页数
-        double tc = totalCount;
-        Double num =Math.ceil(tc/pageSize);//向上取整
-        pageBean.setTotalPage(num.intValue());
-
-        if(currentPage<=num.intValue()-1)
-            pageBean.setAfterPage(true);
-        else
-            pageBean.setAfterPage(false);
-
-        map.put("start",(currentPage-1)*pageSize);
-        map.put("size", pageBean.getPageSize());
-        map.put("School",School);
-        //封装每页显示的数据
-        System.out.println("=---------------------------");
-        List<Employment> lists = employmentDao.selectEmploymentBySchool(map);
-        pageBean.setLists(lists);
-
-        return pageBean;
     }
 
-    /**
-     * 根据公司名分页查询宣讲会信息
-     * @param currentPage
-     * @param pagesize
-     * @param CompanyName
-     * @return
-     */
-    @Override
-    public PageBean<Employment> selectEmploymentByCompanyName(int currentPage, int pagesize, String CompanyName) {
-        HashMap<String,Object> map = new HashMap<String,Object>();
-        PageBean<Employment> pageBean = new PageBean<Employment>();
-
-        //封装当前页数
-        pageBean.setCurrPage(currentPage);
-
-        //判断是否有前一页,然后进行赋值操作，回显前台
-        if(currentPage>1)
-            pageBean.setPreviousPage(true);
-        else
-            pageBean.setPreviousPage(false);
-
-        //每页显示的数据
-        int pageSize=pagesize;
-        pageBean.setPageSize(pageSize);
-
-        //封装总记录数
-        int totalCount = selectCountById("CompanyName",CompanyName);
-        pageBean.setTotalCount(totalCount);
-
-        //封装总页数
-        double tc = totalCount;
-        Double num =Math.ceil(tc/pageSize);//向上取整
-        pageBean.setTotalPage(num.intValue());
-
-        if(currentPage<=num.intValue()-1)
-            pageBean.setAfterPage(true);
-        else
-            pageBean.setAfterPage(false);
-
-        map.put("start",(currentPage-1)*pageSize);
-        map.put("size", pageBean.getPageSize());
-        map.put("CompanyName",CompanyName);
-        //封装每页显示的数据
-        List<Employment> lists = employmentDao.selectEmploymentByCompanyName(map);
-        pageBean.setLists(lists);
-
-        return pageBean;
-    }
 }

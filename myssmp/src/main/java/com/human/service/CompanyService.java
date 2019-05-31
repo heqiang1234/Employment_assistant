@@ -28,4 +28,7 @@ public interface CompanyService {
     //根据行业查询宣讲会公司信息
     PageBean<Company> selectByCompanyId(int currentPage, int  pagesize,String  CompanyId,String Career_Talk_Id);
 
+
+
+
 }

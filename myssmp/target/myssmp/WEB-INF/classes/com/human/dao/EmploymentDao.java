@@ -1,6 +1,7 @@
 package com.human.dao;
 
 import com.human.model.Employment;
+import com.human.model.Position;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,30 +26,39 @@ public interface EmploymentDao {
      * @return
      */
     int selectCountById(HashMap<String,Object> map);
+
+    /**
+     * 搜索框查询数据记录总数根据条件
+     * @return
+     */
+    int selectAllCountById(HashMap<String,Object> map);
+
     /**
      * 分页操作，调用findByPage limit分页方法
      * @param map
      * @return
      */
     List<Employment> findByPage(HashMap<String,Object> map);
+
     /**
-     *
-     * 根据地址查询宣讲会
+     * 根据类型来查找宣讲会信息
+     * @param map
+     * @return
      */
-    List<Employment> selectEmploymentByAddress(HashMap<String,Object> map);
+    List<Employment> selectEmploymentByType(HashMap<String,Object> map);
+
     /**
-     *
-     * 根据专业查询宣讲会
+     * 搜索框根据类型来查找宣讲会信息
+     * @param map
+     * @return
      */
-    List<Employment> selectEmploymentByPro(HashMap<String,Object> map);
+    List<Employment> selectAllEmploymentByType(HashMap<String,Object> map);
+
+
     /**
-     *
-     * 根据学校查询宣讲会
+     * 根据宣讲会ID进入查询详细信息
+     * @param
+     * @return
      */
-    List<Employment> selectEmploymentBySchool(HashMap<String,Object> map);
-    /**
-     *
-     * 根据公司名查询宣讲会
-     */
-    List<Employment> selectEmploymentByCompanyName(HashMap<String,Object> map);
+    List<Employment> selectEmploymentById(HashMap<String,Object> map);
 }
