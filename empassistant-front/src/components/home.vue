@@ -253,6 +253,7 @@ export default {
       //搜索相关职位
       let that = this;
       let key = e.target.innerText
+      console.log(key)
       that
         .axios({
           url: that.API.JOBS.SEARCHJOBS,

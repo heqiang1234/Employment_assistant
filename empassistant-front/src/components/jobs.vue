@@ -50,12 +50,11 @@
     </div>
     <div class="show-post">
       <div class="container bd-box">
-
-        <div v-if="jobList.length>0" class="tab-content">
+        <div v-if="jobList.length>0"  class="tab-content">
           <div v-for="(item) in jobList" :key="item.positionID" class="post-card">
             <div class="post-info">
               <div class="post-head">
-                <div class="post-name">{{item.position_name}}</div>
+                <div @click="toJobDetail(item)" class="post-name">{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
@@ -63,7 +62,6 @@
                   <i class="el-icon-location-outline"></i>
                   <span class="post-other">{{item.workPlace}}</span>
                 </div>
-                
               </div>
             </div>
             <div class="company-info">
@@ -163,7 +161,8 @@
 <script>
 export default {
   created(){
-    let options = this.$route.params
+    let options = this.$route.params;
+    console.log(options);
     if(JSON.stringify(options)==='{}')return;
     this.jobList = options.lists;
     this.curPage = options.currPage;
@@ -171,6 +170,9 @@ export default {
     this.totalCount = parseInt(options.totalCount);
   },
   methods:{
+    toJobDetail(val){
+      console.log(val);
+    },
     getMethodList(){
       //搜索相关职位
       let that = this;
@@ -329,7 +331,7 @@ export default {
   display: block;
 }
 .tab-content {
-  display: none; 
+
   width: 90%;
   min-height: 500px;
 }
@@ -364,6 +366,7 @@ export default {
   justify-content: space-between;
 }
 .post-name {
+  cursor: pointer;
   max-width: 70%;
   line-height: 40px;
   height: 40px;
