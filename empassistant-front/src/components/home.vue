@@ -210,6 +210,88 @@
       <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
+    <div class="self-mesg-input">
+      <div class="fundmation-mesg">
+        <div class="mesg-title">
+          <i class="el-icon-discount"></i>
+          <span>基本信息</span>
+        </div>
+        <div class="head-pic">
+          <el-upload
+            class="avatar-uploader"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture"
+            :show-file-list="false"
+            :on-preview="handlePictureCardPreview"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
+          </el-upload>
+        </div>
+        <div class="mesg-form">
+          <div class="line-form">
+            <span class="line-item">姓名</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">性别</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">生日</span>
+            <span class="line-ele">
+              <el-date-picker v-model="value3" type="year" placeholder="选择年"></el-date-picker>
+              <el-date-picker v-model="value2" type="month" placeholder="选择月"></el-date-picker>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">所在城市</span>
+            <span class="line-ele">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">求职意向</span>
+            <span class="line-ele">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item-phone">手机号码</span>
+            <span class="line-element">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+            <span class="line-item-phone">常用邮箱</span>
+            <span class="line-element">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+        </div>
+        <div class="mesg-form-bot">
+          <el-button type="primary" round>保存</el-button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -674,8 +756,6 @@ export default {
   width: 100px;
   height: 40px;
 }
-.vip-companys:hover {
-}
 .company-tab {
   width: 100%;
 }
@@ -935,7 +1015,125 @@ export default {
 .goto-top:hover {
   color: #0287ee;
 }
-.jobs-pagetab {
+.el-input .el-input__inner{
+    width: 400px;
+}
+.mesg-form {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 50px;
+  height: 320px;
+  margin: 10px 0px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.line-item {
+  width: 120px;
+  display: inline-block;
+  height:40px;
+  line-height: 40px;
+  text-align: right;
+  padding-right: 15px;
+  color: #333;
+  font-family: "微软雅黑";
+  box-sizing: border-box;
+}
+.line-item-phone{
+  display: inline-block;
+  height:40px;
+  width: 120px;
+  line-height: 40px;
+  text-align: right;
+  padding: 0px 15px;
+  color: #333;
+  font-family: "微软雅黑";
+  box-sizing: border-box;
+}
+.line-ele {
+  width:450px;
+}
+.line-form {
+  height: 40px;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: start;
+}
+.line-ele .el-date-editor {
+  width: 197px;
+}
+.line-ele .el-select {
+  width: 197px;
+}
+.line-element .el-input{
+  width: 165px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 106px;
+  height: 106px;
+  line-height: 106px;
   text-align: center;
+}
+.avatar {
+  width: 106px;
+  height: 106px;
+  display: block;
+}
+.self-mesg-input {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.3);
+}
+.fundmation-mesg {
+  width: 700px;
+  height: 600px;
+  margin: 60px auto;
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.mesg-title {
+  width: 200px;
+  height: 50px;
+  padding: 20px 0px 0px 30px;
+  font-size: 20px;
+  box-sizing: border-box;
+  font-family: "黑体";
+  line-height: 30px;
+  color: #0287ee;
+}
+.mesg-title > span {
+  padding-left: 10px;
+  color: #000;
+}
+.head-pic {
+  margin: 5px auto 10px;
+  width: 106px;
+  height: 106px;
+  background-image: url("../assets/default_headpic.png");
+  background-size: 106px;
+  border-radius: 100%;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.mesg-form-bot{
+  width: 100px;
+  height: 40px;
+  margin: 35px auto;
+}
+.mesg-form-bot .el-button.is-round{
+  width: 100px;
 }
 </style>
