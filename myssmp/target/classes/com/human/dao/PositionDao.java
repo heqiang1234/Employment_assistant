@@ -68,4 +68,10 @@ public interface PositionDao {
      */
     List<Position> selectAllPositionByType(HashMap<String,Object> map);
 
+    /**
+     *
+     * 根据position——name和professionals查询ID返回到Employmrnt
+     */
+    List<Position> selectPositionToEmail(HashMap<String,Object> map);
+
 }

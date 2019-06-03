@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,7 @@ public class UserController {
     @Resource
     @Autowired
     private UserService userService;
+    @Autowired
     private SessionDao sessionDao;
 
 
@@ -42,7 +45,6 @@ public class UserController {
     @RequestMapping(value = "/ShowUser")
     @ResponseBody
     public  List<User> showUser(HttpServletRequest request, Model model){
-
        log.info("查询所有用户信息");
         List<User> userList = userService.getAllUser();
         return userList;
@@ -191,19 +193,36 @@ public class UserController {
             log.info("修改用户信息");
             // Subject currentUser = SecurityUtils.getSubject();
             // 登录后存放进shiro token
-            String UserName = request.getParameter("UserName");
+            Subject currentUser = SecurityUtils.getSubject();
+            String  username=currentUser.getPrincipal().toString();
+            log.info(username+"                                ");
+            String UserName = username;
+            String UserSex = request.getParameter("UserSex");
             String UserRealName = request.getParameter("UserRealName");
             String UserSchool = request.getParameter("UserSchool");
             String UserMajor = request.getParameter("UserMajor");
             String UserIntentionalPost = request.getParameter("UserIntentionalPost");
+            String userCity = request.getParameter("userCity");
+            String userImg = request.getParameter("userImg");
             String UserMail = request.getParameter("UserMail");
+            System.out.println("----- 插入图片 -------");
+            try{
+                    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+                MultipartFile file = multipartRequest.getFile("imgFile");
+                byte[] photo = file.getBytes();
+           //     boolean result = serv.insertUserPhoto( photo);
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            System.out.println("----- 插入图片end -------");
             if (UserName == null || UserName.trim().length() == 0 ) {
 
                 return JsonMsg.fail().addInfo("login_error", "修改失败，请重新输入！");
 
             }
             User user = new User();
-            user.setUser_Name(UserName);
+            user.setUser_Sex(UserSex);
             user.setUser_RealName(UserRealName);
             user.setUser_School(UserSchool);
             user.setUser_Major(UserMajor);
@@ -237,6 +256,9 @@ public class UserController {
             return JsonMsg.fail().addInfo("log_error","退出失败");
         }
     }
+
+
+
 
 
 }

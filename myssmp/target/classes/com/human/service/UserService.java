@@ -21,7 +21,11 @@ public interface UserService {
 
     void updateUser(User user);
 
+    void saveImg(String url,String userName);
+
     Set<String> findPermissionsByUserId(int user_Id);
 
     void updateUserPassword(User user);
+
+    void updateEmploymentId(User user);
 }
