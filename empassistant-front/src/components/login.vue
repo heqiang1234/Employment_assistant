@@ -52,18 +52,17 @@ export default {
   methods: {
     login() {
       //提交登陆
-      this.fullscreenLoading = true; //Loading效果
       //--------节流处理
       if (this.timer) {
         return;
       }
+      this.timer = true;
       setTimeout(() => {
-        this.timer = 1;
+        this.timer = false;
       }, 1000);
       //--------
       //--------简单校验
       if (!this.userName) {
-        this.fullscreenLoading = false; //关闭Loading
         this.$message({
           showClose: true,
           message: "帐号不能为空",
@@ -72,7 +71,6 @@ export default {
         return;
       }
       if (!this.pwd) {
-        this.fullscreenLoading = false; //关闭Loading
         this.$message({
           showClose: true,
           message: "密码不能为空",
@@ -81,6 +79,7 @@ export default {
         return;
       }
       //---------
+      this.fullscreenLoading = true; //Loading效果
       console.log(this.userName);
       console.log(this.pwd);
       this.axios({

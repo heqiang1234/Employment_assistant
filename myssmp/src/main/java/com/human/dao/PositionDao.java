@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface PositionDao {
-    /**
-     * 查询到岗位所对应的宣讲会ID
-     * @param
-     * @return
-     */
-    List<Position> selectPositionToTald_Id(HashMap<String,Object> map);
+//    /**
+//     * 查询到岗位所对应的宣讲会ID
+//     * @param
+//     * @return
+//     */
+//    List<Position> selectPositionToTald_Id(HashMap<String,Object> map);
 
     /**
      * 查询到岗位ID所对应的宣讲会ID
@@ -50,9 +50,22 @@ public interface PositionDao {
     int selectCountBytype(HashMap<String,Object> map);
 
     /**
+     * 搜索框返回相应的数量
+     * @param map
+     * @return
+     */
+    int selectAllCountBytype(HashMap<String,Object> map);
+
+    /**
      *
      * 根据条件查询岗位
      */
     List<Position> selectPositionByType(HashMap<String,Object> map);
+
+    /**
+     *
+     * 搜索框查询的总接口
+     */
+    List<Position> selectAllPositionByType(HashMap<String,Object> map);
 
 }

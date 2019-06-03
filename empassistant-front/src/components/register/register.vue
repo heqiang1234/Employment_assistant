@@ -20,76 +20,100 @@
 </template>
 
 <script>
-import {canvas} from './canvas';
+import { canvas } from "./canvas";
 export default {
   mounted() {
     canvas();
   },
-  methods:{
-    regist(){
-      console.log(this.mkSubmit)
-      if(this.mkSubmit) {
+  methods: {
+    regist() {
+      let that = this;
+      //------节流处理
+      if (this.mkSubmit) {
         return;
+      } else {
+        this.mkSubmit = true;
+        setTimeout(() => {
+          this.mkSubmit = false;
+        }, 1000);
       }
-      else{
-        this.mkSubmit = 1;
-        setTimeout(()=>{
-          this.mkSubmit = null;
-        },1000)
-      }
-      if(!this.userName || !this.pwd||!this.rePassword){
+      //--------------
+      //--------简单校验
+      if (!this.userName || !this.pwd || !this.rePassword) {
         this.$message({
           showClose: true,
-          message: '信息未完整填写~',
-          type: 'error'
+          message: "信息未完整填写~",
+          type: "error"
+        });
+        return;
+      } else if (this.rePassword !== this.pwd) {
+        this.$message({
+          showClose: true,
+          message: "两次输入的密码不一致~",
+          type: "error"
         });
         return;
       }
-      else if(this.rePassword !== this.pwd){
-        this.$message({
-          showClose: true,
-          message: '两次输入的密码不一致~',
-          type: 'error'
-        });
-        return;
-      };
-     this.axios({
-        url: "http://120.79.15.183:8080/myssmp/save",
+      //--------------
+      this.fullscreenLoading = true; //Loading效果
+      this.axios({
+        url: that.API.USER.REGIST,
         methods: "post",
         headers: { "Content-Type": "application/json" },
         params: {
-          username: this.userName,
-          password: this.pwd
-        },
+          UserName: this.userName,
+          Password: this.pwd
+        }
       })
         .then(res => {
           console.log(res);
+          this.fullscreenLoading = false;
+          this.mkSubmit = 1;
+          if (res.data.code != "200") {
+            this.$message({
+              showClose: true,
+              message: res.data.extendInfo.login_error,
+              type: "error"
+            });
+            return;
+          }
+          that.$message({
+            showClose: true,
+            message: "注册成功，正在跳转至登陆页面",
+            type: "success",
+            duration: 1500
+          });
+          setTimeout(() => {
+            that.$router.push({
+              path: "/login"
+            });
+          }, 1000);
         })
         .catch(err => {
+          this.fullscreenLoading = false;
           console.log(err);
         });
     }
   },
-  data(){
-    return{
+  data() {
+    return {
       userName: "",
       pwd: "",
-      rePassword:"",
-      mkSubmit:null
-    }
+      rePassword: "",
+      mkSubmit: false
+    };
   }
-}
+};
 </script>
 
 <style>
-
 .regi-body {
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 ::-webkit-scrollbar {
-display: none;
+  display: none;
 }
 .bg {
   width: 100%;
@@ -102,23 +126,23 @@ display: none;
   list-style: none;
 }
 
-canvas{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .regi-box {
   position: absolute;
   width: 350px;
   height: 400px;
-  background-color: rgba(255,255,255,.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 6px;
   top: 15%;
   right: 0%;
-  left:0%;
-  margin:auto;
+  left: 0%;
+  margin: auto;
   z-index: 999;
 }
 .regi-title {
@@ -135,7 +159,7 @@ canvas{
   margin: 0 auto;
 }
 .regi-input > input {
-  background-color:inherit;
+  background-color: inherit;
   margin-top: 20px;
   width: 100%;
   height: 25px;

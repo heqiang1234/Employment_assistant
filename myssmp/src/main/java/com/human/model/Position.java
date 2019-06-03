@@ -9,35 +9,44 @@ public class Position {
     private String professionals;
     private String jobDescription;
     private String positionWage;
-    private String company_logo;
-    private String companyType;
-    private String company_size;
+//    private String company_logo;
+//    private String companyType;
+//    private String company_size;
     private String num;
     private String workPlace;
+    private String positionTemptation;
     private String salaryWelfare;
 
-    public String getCompany_logo() {
-        return company_logo;
+    private Company company;
+
+//    private Employment employment;
+//
+//    public Employment getEmployment() {
+//        return employment;
+//    }
+//
+//    public void setEmployment(Employment employment) {
+//        this.employment = employment;
+//    }
+
+    public String getPositionTemptation() {
+        return positionTemptation;
     }
 
-    public void setCompany_logo(String company_logo) {
-        this.company_logo = company_logo;
+    public void setPositionTemptation(String positionTemptation) {
+        this.positionTemptation = positionTemptation;
     }
 
-    public String getCompanyType() {
-        return companyType;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setCompanyType(String companyType) {
-        this.companyType = companyType;
+    public Company getCompany() {
+        return company;
     }
 
-    public String getCompany_size() {
-        return company_size;
-    }
-
-    public void setCompany_size(String company_size) {
-        this.company_size = company_size;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public int getPositionID() {

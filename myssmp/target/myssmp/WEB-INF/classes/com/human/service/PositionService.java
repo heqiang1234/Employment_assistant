@@ -10,14 +10,6 @@ public interface PositionService {
 
     /**
      * 查询到岗位所对应的宣讲会ID
-     * @param position_name
-     * @return
-     */
-    PageBean<Position> selectPositionToTald_Id(int currentPage, int pagesize , String position_name);
-
-
-    /**
-     * 查询到岗位所对应的宣讲会ID
      * @param position_Id
      * @return
      */
@@ -30,12 +22,21 @@ public interface PositionService {
      */
     int selectCountBytype(String S_ID,String S_Name);
 
+
+    /**
+     * 搜索框返回相应的数量
+     * @param S_address_id
+     * @param S_Name
+     * @return
+     */
+    int selectAllCountBytype(String S_address_id,String S_Name);
+
     /**
      * 展示所有岗位的粗略信息
      * @param
      * @return
      */
-    PageBean<Position> selectAllPosition(int currentPage, int pagesize);
+    PageBean<Position> selectAllPosition(int currentPage, int pagesize,String S_ID);
 
     /**
      * 根据岗位ID进入查询详细信息
@@ -49,4 +50,10 @@ public interface PositionService {
      * 根据条件查询岗位
      */
     PageBean<Position> selectPositionByType(int currentPage, int pagesize,String S_id,String S_name);
+
+    /**
+     *
+     * 搜索框根据条件查询岗位
+     */
+    PageBean<Position> selectAllPositionByType(int currentPage, int pagesize,String address_id,String S_name);
 }

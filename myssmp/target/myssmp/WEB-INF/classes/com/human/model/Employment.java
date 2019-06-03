@@ -21,6 +21,16 @@ public class Employment {
     private String address;
     private String presentLink;
 
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public String getLogo() {
         return logo;
     }
