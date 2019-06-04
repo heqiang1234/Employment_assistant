@@ -1,24 +1,6 @@
 <template>
   <div class="warp">
-    <div class="header">
-      <div class="container">
-        <h1>实习助手</h1>
-        <ul class="subnav">
-          <li>
-            <a href="http://localhost:8080/#/">首页</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/login">我的简历</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/display">藏经阁</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+   <Header></Header>
     <div class="search">
       <div class="container">
         <div class="search-input">
@@ -54,7 +36,7 @@
           <div v-for="(item) in jobList" :key="item.positionID" class="post-card">
             <div class="post-info">
               <div class="post-head">
-                <div @click="toJobDetail(item)" class="post-name">{{item.position_name}}</div>
+                <div @click="linkTo({name:'post',params:item})" class="post-name">{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
@@ -93,7 +75,7 @@
             :current-page.sync="curPage"
             :page-size="pageSize"
             layout="prev, pager, next, jumper"
-            :total="totalCount"
+            :page-count="pageCount"
           >
           </el-pagination>
         </div>
@@ -159,20 +141,27 @@
   </div>
 </template>
 <script>
+import Header from './common/header.vue'
 export default {
+  components:{Header},
   created(){
     let options = this.$route.params;
     console.log(options);
-    if(JSON.stringify(options)==='{}')return;
+    if(JSON.stringify(options)==='{}'){
+      this.getMethodList();
+      return;
+    }
     this.jobList = options.lists;
     this.curPage = options.currPage;
     this.key = options.searchKey
-    this.totalCount = parseInt(options.totalCount);
+    if(options.totalCount > this.curPage+9){
+      this.pageCount = this.curPage+9;
+    }
+    else{
+      this.pageCount = options.totalPage
+    }
   },
   methods:{
-    toJobDetail(val){
-      console.log(val);
-    },
     getMethodList(){
       //搜索相关职位
       let that = this;
@@ -199,6 +188,13 @@ export default {
             return;
           }
           that.jobList = res.data.extendInfo.pagebean_position_name.lists;
+          that.curPage = res.data.extendInfo.pagebean_position_name.currPage;
+          if(res.data.extendInfo.pagebean_position_name.totalPage > that.curPage+9){
+            that.pageCount = that.curPage+9;
+          }
+          else{
+            that.pageCount = res.data.extendInfo.pagebean_position_name.totalPage
+          }
           })
         .catch(err => {
           console.log(err);
@@ -215,6 +211,7 @@ export default {
       curPage:1,//当前页
       totalCount:1,//总条目数
       pageSize:12,//分页容量
+      pageCount:10, //分页数量
       key:''//搜索关键字
     }
   }
@@ -230,41 +227,19 @@ export default {
   height: 56px;
   border-bottom: 1px solid #dadada;
 }
-.container {
-  height: 100%;
-  max-width: 90%;
-  margin: 0px auto;
-}
+
 .bd-box{
   min-height: 400px;
 }
-.container h1 {
-  display: inline-block;
-  position: absolute;
-  top: -9999px;
-}
-.subnav {
-  list-style: none;
+.container {
+  justify-content: space-between;
+  display: flex;
   height: 100%;
+  max-width: 90%;
+  align-items: center;
+  flex-direction: column;
 }
-.subnav li {
-  height: 100%;
-  float: left;
-}
-.subnav li a {
-  text-decoration: none;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 16px;
-  color: #222;
-  padding: 0 16px;
-  line-height: 56px;
-  margin: 0;
-  cursor: pointer;
-}
-.subnav a:hover {
-  color: #0287ee;
-}
+
 .search {
   width: 100%;
   height: 100px;

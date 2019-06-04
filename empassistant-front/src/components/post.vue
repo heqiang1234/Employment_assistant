@@ -36,7 +36,7 @@
             <i class="el-icon-school"></i>
             <span class="degree">{{jobInfo.professionals}}</span>
           </div>
-          <div  v-if="jobInfo.positionTemptation" class="bonus">福利待遇：{{jobInfo.positionTemptation}}</div>
+          <div v-if="jobInfo.positionTemptation" class="bonus">福利待遇：{{jobInfo.positionTemptation}}</div>
           <div v-if="jobInfo.salaryWelfare" class="bonus">{{jobInfo.salaryWelfare}}</div>
           <div class="publish-time">招聘人数：{{jobInfo.num}}</div>
         </div>
@@ -61,8 +61,15 @@
           <p>规模：{{jobInfo.company.company_size}}</p>
           <p>地址：{{jobInfo.company.company_address}}</p>
         </div>
-        <div class="com-map"></div>
-        
+        <div class="com-map">
+          <a
+            class="map-img"
+            :href="jobInfo.company.map_link"
+            target="_blank"
+            :style="{backgroundImage:'url('+jobInfo.company.image_link+')'}"
+            alt
+          ></a>
+        </div>
       </div>
     </div>
     <div class="foot">
@@ -123,21 +130,33 @@
 export default {
   created() {
     let options = this.$route.params;
-    options.jobDescription = options.jobDescription.replace(/\n|\r\n/g,"<br/>").replace( /[;；]/g,"<br/>").replace( "[' ']+","<br/>").replace(/['\u3002']/g,"。<br>").replace("<br>\s*(<br>\s*)+","<br/>")
-    options.company.companyProfile = options.company.companyProfile.replace(/\n|\r\n/g,"<br/>")
-    this.jobInfo = options;
-    console.log(this.jobInfo)
+      options.jobDescription = options.jobDescription
+        .replace(/\n|\r\n/g, "<br/>")
+        .replace(/[;；]/g, "<br/>")
+        .replace(/[-]/g, "<br/>")
+        .replace("[' ']+", "<br/>")
+        .replace(/['\u3002']/g, "。<br>")
+        .replace("<br>s*(<br>s*)+", "<br/>");
+      options.company.companyProfile = options.company.companyProfile.replace(
+        /\n|\r\n/g,
+        "<br/>"
+      );
+      this.jobInfo = options;
+      console.log(this.jobInfo);
   },
-  data(){
+  method(){
+
+  },
+  data() {
     return {
-      jobInfo:{}
-    }
+      jobInfo: {}
+    };
   }
-}
+};
 </script>
 
 <style scoped>
-.warp { 
+.warp {
   width: 100%;
   min-width: 1080px;
 }
@@ -193,9 +212,7 @@ export default {
 }
 .post-title {
   padding-right: 50px;
-  
   display: inline-block;
-  overflow: hidden;
   background-color: #0287ee;
   height: 75px;
   margin-top: 15px;
@@ -211,9 +228,9 @@ export default {
   line-height: 20px;
   font: 16px "黑体";
 }
-.degree{
+.degree {
   display: inline-block;
-  max-width:300px;
+  max-width: 300px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -304,7 +321,6 @@ export default {
 .com-title {
   display: block;
   margin-top: 15px;
-  height: 120px;
   text-decoration: none;
   color: orangered;
   text-align: center;
@@ -340,6 +356,11 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
+.map-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .com-credit {
   width: 255px;
   height: 185px;
@@ -350,30 +371,30 @@ export default {
   border-radius: 5px;
   text-align: center;
 }
-.com-grade{
+.com-grade {
   padding-top: 50px;
-  color: #E98F36;
+  color: #e98f36;
   font-size: 24px;
 }
-.com-credit>p{
-    margin-bottom: 10px;
+.com-credit > p {
+  margin-bottom: 10px;
 }
-.com-grade-text{
-    font-size: 18px;
+.com-grade-text {
+  font-size: 18px;
 }
-.com-text{
-    font-size: 14px;
+.com-text {
+  font-size: 14px;
 }
-.com-text>span{
-    color: #E98F36;
+.com-text > span {
+  color: #e98f36;
 }
-.com-text>a{
-    color: #1e649f;
-    text-decoration: none;
-    font-size: 13px;
+.com-text > a {
+  color: #1e649f;
+  text-decoration: none;
+  font-size: 13px;
 }
-.com-text>a:hover{
-    text-decoration:#1e649f underline;
+.com-text > a:hover {
+  text-decoration: #1e649f underline;
 }
 .foot {
   width: 100%;
