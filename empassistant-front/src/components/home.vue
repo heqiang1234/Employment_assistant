@@ -658,7 +658,7 @@ export default {
   font-size: 14px;
   background: #fafafa;
   display: inline-block;
-  z-index: 999;
+  z-index: 9;
   box-sizing: border-box;
 }
 .list-title {
