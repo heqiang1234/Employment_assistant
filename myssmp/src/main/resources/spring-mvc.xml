@@ -58,8 +58,17 @@
         <!-- 上传文件大小限制为31M，31*1024*1024 -->
         <property name="maxUploadSize" value="32505856"/>
         <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="4096"/>
+        <property name="maxInMemorySize" value="-1"/>
     </bean>
+
+    <!--&lt;!&ndash; 上传文件 &ndash;&gt;-->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="defaultEncoding" value="utf-8"/>-->
+        <!--&lt;!&ndash; 最大内存大小 &ndash;&gt;-->
+        <!--<property name="maxInMemorySize" value="10240"/>-->
+        <!--&lt;!&ndash; 最大文件大小，-1为不限制大小 &ndash;&gt;-->
+        <!--<property name="maxUploadSize" value="-1"/>-->
+    <!--</bean>-->
 
 
     <!-- 解决输出乱码 -->

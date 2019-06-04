@@ -64,11 +64,11 @@
     <update id="updateUser" parameterType="com.human.model.User">
         update user
         <set>
-        <if test="user_RealName !=null">userRealName=#{user_RealName},</if>
-        <if test="user_School !=null">userSchool=#{user_School},</if>
-        <if test="user_Major !=null">userMajor=#{user_Major},</if>
-        <if test="user_IntentionalPost !=null">userIntentionalPost=#{user_IntentionalPost},</if>
-        <if test="user_Email !=null">userEmail=#{user_Email}</if>
+        <if test="user_RealName !=null and  user_RealName.length()>0">userRealName=#{user_RealName},</if>
+        <if test="user_School !=null and  user_School.length()>0">userSchool=#{user_School},</if>
+        <if test="user_Major !=null and  user_Major.length()>0">userMajor=#{user_Major},</if>
+        <if test="user_IntentionalPost !=null and  user_IntentionalPost.length()>0">userIntentionalPost=#{user_IntentionalPost},</if>
+        <if test="user_Email.toString() !=null and  user_Email.length()>0">userEmail=#{user_Email}</if>
         </set>
       where  userName=#{user_Name}
     </update>
@@ -82,4 +82,25 @@
     </set>
          where userName=#{user_Name}
     </update>
+
+    <update id="updateEmploymentId" parameterType="com.human.model.User">
+        update user
+        <set>
+            <if test="user_Employment_Id!=null">
+                userEmployment_Id=#{user_Employment_Id}
+            </if>
+        </set>
+        where userName=#{user_Name}
+    </update>
+
+    <update id="saveImg" parameterType="com.human.model.User">
+        update user
+        <set>
+            <if test="url!=null">
+                userImg=#{url}
+            </if>
+        </set>
+        where userName=#{userName}
+    </update>
+
 </mapper>

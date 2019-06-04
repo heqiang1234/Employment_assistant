@@ -45,6 +45,16 @@ public interface PositionService {
      */
     List<Position> selectPositionById(String position_Id);
 
+
+
+    /**
+     * 查找岗位信息的宣讲会
+     * @param
+     * @return
+     */
+    List<Position> selectPositionToEmail(String position_name,String professionals);
+
+
     /**
      *
      * 根据条件查询岗位

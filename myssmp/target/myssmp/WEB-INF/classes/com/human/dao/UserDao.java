@@ -28,10 +28,14 @@ public interface UserDao {
 
     int deleteUserById(@Param("user_Id") int user_Id);
 
+    void updateEmploymentId(User user);
+
     //添加用户保存数据
     void save(User user);
 
     void updateUser(User user);
+
+    void  saveImg(String url,String userName);
 
     void updateUserPassword(User user);
 }

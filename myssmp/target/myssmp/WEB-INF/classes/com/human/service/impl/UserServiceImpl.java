@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
         userDao.updateUser(user);
     }
 
+    @Override
+    public void saveImg(String url,String userName) {
+        userDao.saveImg(url,userName);
+    }
+
 
     @Override
     public Set<String> findPermissionsByUserId(int user_Id) {
@@ -65,6 +70,11 @@ public class UserServiceImpl implements UserService {
     public void updateUserPassword(User user) {
 
          userDao.updateUserPassword(user);
+    }
+
+    @Override
+    public void updateEmploymentId(User user) {
+        userDao.updateEmploymentId(user);
     }
 
 

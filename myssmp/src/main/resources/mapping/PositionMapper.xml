@@ -41,8 +41,8 @@
         <id property="positionTemptation" column="positionTemptation" />
         <result property="salaryWelfare" column="salaryWelfare" />
         <association property="company" column="career_talk_id" javaType="com.human.model.Company">
-            <!--<id property="id" column="id" />-->
-            <!--<id property="career_talk_id" column="career_talk_id" />-->
+            <id property="id" column="id" />
+            <id property="career_talk_id" column="career_talk_id" />
             <id property="company_id" column="company_id" />
             <id property="school_id" column="school_id" />
             <id property="company_name" column="company_name" />
@@ -109,7 +109,7 @@
         </if>
     </select>
 
-    <select id="selectAllPositionByType" parameterType="Map" resultMap="PositionResultMap">
+    <select id="selectAllPositionByType" parameterType="Map" resultMap="PositionResultMap_ALL">
         select *  from  position p,company c
         <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
             <if test="S_Name.toString()!=NULL">
@@ -133,20 +133,20 @@
     </select>
 
     <!--p.positionID,p.position_name,p.positionWage,p.workPlace,p.num,c.company_name,c.company_logo,c.company_size,c.company_address,c.companyType-->
-
-    <select id="selectAllPosition" parameterType="Map" resultMap="PositionResultMap">
-        select  p.positionID,p.school_id,p.position_name,p.positionWage ,p.num, p.workPlace ,c.company_name ,c.company_logo ,c.company_size ,c.company_address ,c.companyTrade ,c.companyType from  position p,company c
+    <!--p.positionID,p.school_id,p.position_name,p.positionWage ,p.num, p.workPlace ,c.company_name ,c.company_logo ,c.company_size ,c.company_address,c.companyTrade ,c.companyType-->
+    <select id="selectAllPosition" parameterType="Map" resultMap="PositionResultMap_ALL">
+        select  * from  position p,company c
         <if test="S_ID.toString()=='Hot'.toString()">
             where  p.career_talk_id=c.career_talk_id
-         order by p.positionWage desc
+--          order by p.positionWage desc
         </if>
         <if test="S_ID.toString()=='New'.toString()">
             where   p.career_talk_id=c.career_talk_id
-            order by c.company_id
+--             order by c.company_id
         </if>
         <if test="S_ID.toString()=='Quick'.toString()">
             where   p.career_talk_id=c.career_talk_id
-             order by p.num  desc
+--              order by p.num  desc
         </if>
         <if test="start!=null and size!=null">
             limit #{start},#{size}
@@ -155,7 +155,7 @@
 
 
 
-    <select id="selectPositionByType" parameterType="Map" resultMap="PositionResultMap">
+    <select id="selectPositionByType" parameterType="Map" resultMap="PositionResultMap_ALL">
         select *  from  position p,company c
             <if test="S_ID.toString()=='position_name'.toString()">
                 where p.position_name LIKE "%"#{S_Name}"%" and
@@ -180,6 +180,21 @@
         select  *
         from  position p,company c
         where  c.career_talk_id=p.career_talk_id and c.school_id=p.school_id and positionID= #{position_Id}
+    </select>
+
+
+    <select id="selectPositionToEmail" parameterType="Map" resultMap="PositionResultMap">
+        select  MAX(positionID) AS  positionID from  position
+       <where>
+            <if test="position_name.toString()!=NULL">
+            position_name like "%"#{position_name}"%"
+            </if>
+            <if test="professionals.toString()!=NULL">
+            and  professionals like "%"#{professionals}"%"
+            </if>
+       </where>
+
+
     </select>
 
 

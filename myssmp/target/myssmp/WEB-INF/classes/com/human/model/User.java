@@ -1,6 +1,7 @@
 package com.human.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
@@ -16,10 +17,46 @@ public class User implements Serializable {
     private String user_Name;
     private String user_Password;
     private String user_RealName;
+    private String user_Sex;
+    private String user_City;
     private String user_School;
     private String user_Major;
     private String user_IntentionalPost;
     private String user_Email;
+    private String user_Employment_Id;
+    private MultipartFile file;
+
+    public String getUser_City() {
+        return user_City;
+    }
+
+    public void setUser_City(String user_City) {
+        this.user_City = user_City;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public String getUser_Sex() {
+        return user_Sex;
+    }
+
+    public void setUser_Sex(String user_Sex) {
+        this.user_Sex = user_Sex;
+    }
+
+    public String getUser_Employment_Id() {
+        return user_Employment_Id;
+    }
+
+    public void setUser_Employment_Id(String user_Employment_Id) {
+        this.user_Employment_Id = user_Employment_Id;
+    }
 
     public Integer getUser_Id() {
         return user_Id;
