@@ -1,25 +1,6 @@
 <template>
   <div class="wrap" v-loading.fullscreen.lock="fullscreenLoading">
-    <div class="header">
-      <div class="container">
-        <h1>实习助手</h1>
-        <ul class="subnav">
-          <li>
-            <router-link :to="{name:'home'}">首页</router-link>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/login">我的简历</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/display">藏经阁</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
+    <Header></Header>
     <div class="top-bar">
       <div class="container">
         <div class="left-bar">
@@ -28,10 +9,14 @@
         </div>
         <div class="right-bar">
           <div class="form">
-            <el-input placeholder="请输入内容" v-model="searchContent" class="input-with-select">
+            <el-input
+              placeholder="请输入内容"
+              v-model="searchInfo.searchContent"
+              class="input-with-select"
+            >
               <el-select
                 style="width:120px;"
-                v-model="searchPlace"
+                v-model="searchInfo.searchPlace"
                 placeholder="选择地区"
                 slot="prepend"
               >
@@ -42,7 +27,7 @@
                 style="width:120px;margin-left:15px;"
                 placeholder="选择信息"
                 slot="prepend"
-                v-model="searchType"
+                v-model="searchInfo.searchType"
               >
                 <el-option label="搜职业" value="1"></el-option>
                 <el-option label="搜公司" value="2"></el-option>
@@ -112,7 +97,11 @@
             <!-- 职位盒子 -->
             <div class="post-title">
               <div class="post-head">
-                <div @click="getDetail(item)" :data-job="item" class="post-name">{{item.position_name}}</div>
+                <div
+                  @click="getDetail(item)"
+                  :data-job="item"
+                  class="post-name"
+                >{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
@@ -124,7 +113,6 @@
                   <i class="el-icon-view"></i>
                   <span class="post-other">{{item.num}}</span>
                 </div>
-
               </div>
             </div>
             <div class="post-sepLine"></div>
@@ -146,10 +134,10 @@
         <div class="jobs-pagetab">
           <el-pagination
             @current-change="handleCurrentChange"
-            :current-page.sync="curJobPage"
-            :page-size="pageSize"
+            :current-page.sync="pagination.curJobPage"
+            :page-size="pagination.pageSize"
             layout="prev, pager, next, jumper"
-            :page-count="totalPage"
+            :page-count="pagination.totalPage"
           ></el-pagination>
         </div>
       </div>
@@ -210,7 +198,7 @@
       <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
-    <div class="self-mesg-input">
+    <div v-if="newUser" class="self-mesg-input">
       <div class="fundmation-mesg">
         <div class="mesg-title">
           <i class="el-icon-discount"></i>
@@ -219,71 +207,73 @@
         <div class="head-pic">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="this.API.UPLOAD.UPIMG"
+            name="UserImg"
             list-type="picture"
             :show-file-list="false"
-            :on-preview="handlePictureCardPreview"
             :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
+            :on-progress="onUploadAvt"
           >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <img v-if="userInfo.avtUrl" :src="userInfo.avtUrl" class="avatar">
+            <i class="el-icon-loading loadingUp" v-else-if="onUploadImg"></i>
             <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
           </el-upload>
         </div>
         <div class="mesg-form">
           <div class="line-form">
             <span class="line-item">姓名</span>
-            <span class="line-ele">
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            <span class="line-input">
+              <el-input v-model="userInfo.name" placeholder="请输入内容"></el-input>
             </span>
           </div>
           <div class="line-form">
             <span class="line-item">性别</span>
             <span class="line-ele">
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
+              <el-select v-model="userInfo.sex" placeholder="请选择">
+                <el-option label="男" value="male"></el-option>
+                <el-option label="女" value="female"></el-option>
               </el-select>
             </span>
           </div>
-          <div class="line-form">
+          <!-- <div class="line-form">
             <span class="line-item">生日</span>
             <span class="line-ele">
               <el-date-picker v-model="value3" type="year" placeholder="选择年"></el-date-picker>
               <el-date-picker v-model="value2" type="month" placeholder="选择月"></el-date-picker>
             </span>
-          </div>
+          </div>-->
           <div class="line-form">
             <span class="line-item">所在城市</span>
             <span class="line-ele">
-              <el-select v-model="value" placeholder="请选择">
+              <el-select @change="changeProvince" v-model="userInfo.province" placeholder="请选择省">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in allCity"
+                  :key="item.province"
+                  :label="item.province"
+                  :value="item.province"
                 ></el-option>
+              </el-select>
+              <el-select v-model="userInfo.city" placeholder="请选择市">
+                <el-option v-for="item in curCity" :key="item" :label="item" :value="item"></el-option>
               </el-select>
             </span>
           </div>
           <div class="line-form">
             <span class="line-item">求职意向</span>
-            <span class="line-ele">
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            <span class="line-input">
+              <el-input v-model="userInfo.want" placeholder="请输入内容"></el-input>
             </span>
           </div>
           <div class="line-form">
             <span class="line-item-phone">手机号码</span>
             <span class="line-element">
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.mobile" placeholder="请输入内容"></el-input>
             </span>
+          </div>
+          <div class="line-form">
             <span class="line-item-phone">常用邮箱</span>
             <span class="line-element">
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.email" placeholder="请输入内容"></el-input>
             </span>
           </div>
         </div>
@@ -296,8 +286,10 @@
 </template>
 
 <script>
+import Header from "./common/header.vue";
 export default {
   name: "home",
+  components: { Header },
   created() {
     this.getJobList();
   },
@@ -305,15 +297,15 @@ export default {
     getJobList() {
       //获取职位列表
       let that = this;
-      if (!that.nextPage) return;
+      if (!that.pagination.nextPage) return;
       that
         .axios({
           url: this.API.JOBS.GETJOBLIST,
           methods: "GET",
           params: {
-            PageSize: 12,
-            CurrentPage: that.curJobPage,
-            S_ID:'New'
+            PageSize: that.pagination.pageSize,
+            CurrentPage: that.pagination.curJobPage,
+            S_ID: "New"
           }
         })
         .then(res => {
@@ -324,7 +316,8 @@ export default {
           // }
           that.totalJobNum = totalJob;
           that.jobList = res.data.extendInfo.pageBean_List.lists;
-          that.totalPage = res.data.extendInfo.pageBean_List.totalPage;
+          that.pagination.totalPage =
+            res.data.extendInfo.pageBean_List.totalPage;
         });
     },
     chageListType(index) {
@@ -334,21 +327,22 @@ export default {
     searchJob(e) {
       //搜索相关职位
       let that = this;
-      let key = e.target.innerText
+      let key = e.target.innerText;
+      console.log(key);
       that
         .axios({
           url: that.API.JOBS.SEARCHJOBS,
           methods: "GET",
           params: {
             CurrentPage: 1,
-            PageSize: that.pageSize,
+            PageSize: that.pagination.pageSize,
             Search_Id: "position_name",
             Search_Name: key
           }
         })
         .then(res => {
           console.log(res);
-          if(res.data.code != "200"){
+          if (res.data.code != "200") {
             this.$message({
               showClose: true,
               message: res.data.extendInfo.login_error,
@@ -356,56 +350,90 @@ export default {
             });
             return;
           }
-          let initInfo = res.data.extendInfo.pagebean_position_name
-          initInfo['searchKey'] = key;
-          this.$router.push({name:'jobs',params:initInfo})
-          })
+          let initInfo = res.data.extendInfo.pagebean_position_name;
+          initInfo["searchKey"] = key;
+          this.linkTo({ name: "jobs", params: initInfo });
+        })
         .catch(err => {
           console.log(err);
         });
     },
-    handleCurrentChange(val){
-      this.curJobPage = val;
+    handleCurrentChange(val) {
+      //跳转页数
+      this.pagination.curJobPage = val;
       this.getJobList();
     },
-    getDetail(item){
+    getDetail(item) {
+      //跳转职位详情页
       // console.log(item);
-      let id = item.positionID
-      let that=this;
-        that
+      let id = item.positionID;
+      let that = this;
+      that
         .axios({
           url: that.API.JOBS.DETAILJOB,
           methods: "POST",
           params: {
-           Position_Id:id,
+            Position_Id: id
           }
         })
         .then(res => {
           console.log(res);
           let job = res.data.extendInfo.List[0];
-          this.$router.push({name:'post',params:job})
+          this.linkTo({ name: "post", params: job });
         })
-        .catch(err=>{
-          console.log(err)
-        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleAvatarSuccess(res, file) {
+      //上传头像更改
+      this.userInfo.avtUrl = URL.createObjectURL(file.raw);
+    },
+    changeProvince(val) {
+      let that = this;
+      let province = that.allCity;
+      for (let i = 0; i < province.length; i++) {
+        if (province[i].province === val) {
+          that.curCity = province[i].children;
+          that.userInfo.city = province[i].children[0];
+        }
+      }
+    },
+    onUploadAvt() {
+      this.onUploadImg = true;
     }
   },
   data() {
     return {
       totalJobNum: false, //总岗位数量
-      jobList: [], //职位列表
-      curJobPage: 1, //当前职位列表页数
-      pageSize:12,//分页容量
-      nextPage: true, //是否有下一页
       curJobIndex: 0, //当前职位列表类型
-      totalPage:100,//职位总页数
-      searchContent:'',//搜索框内容
-      searchPlace:'',//搜索地区范围
-      searchType:'',//搜索内容类型
-      fullscreenLoading:false,//加载框状态
-      tabPages: [
-        //职位信息标签页
-      ],
+      jobList: [], //职位列表
+      fullscreenLoading: false, //加载框状态
+      pagination: {
+        //分页相关
+        curJobPage: 1, //当前职位列表页数
+        pageSize: 12, //分页容量
+        nextPage: true, //是否有下一页
+        totalPage: 100 //职位总页数
+      },
+      searchInfo: {
+        //搜索相关
+        searchContent: "", //搜索框内容
+        searchPlace: "", //搜索地区范围
+        searchType: "" //搜索内容类型
+      },
+      userInfo: {
+        //用户信息
+        avtUrl: "", //用户信息头像链接
+        name: "", //用户姓名
+        sex: "", //用户性别
+        province: "", //用户所在省份
+        city: "", //用户所在城市
+        want: "", //求职意向
+        mobile: "" //手机号
+      },
+      newUser: true,
+      onUploadImg: false,
       jobClassfy: [
         //职位分类
         {
@@ -511,7 +539,654 @@ export default {
             ["艺术", "演艺", "摄影"]
           ]
         }
-      ]
+      ],
+      allCity: [
+        //全国省市区
+        {
+          province: "北京",
+          children: [
+            "东城区",
+            "西城区",
+            "崇文区",
+            "宣武区",
+            "朝阳区",
+            "海淀区",
+            "丰台区",
+            "石景山区",
+            "房山区",
+            "通州区",
+            "顺义区",
+            "门头沟区",
+            "昌平区",
+            "大兴区",
+            "怀柔区",
+            "平谷区",
+            "密云县",
+            "延庆县"
+          ]
+        },
+        {
+          province: "上海",
+          children: [
+            "黄浦区",
+            "卢湾区",
+            "徐汇区",
+            "长宁区",
+            "静安区",
+            "普陀区",
+            "闸北区",
+            "虹口区",
+            "杨浦区",
+            "宝山区",
+            "闵行区",
+            "嘉定区",
+            "浦东新区",
+            "金山区",
+            "松江区",
+            "青浦区",
+            "南汇区",
+            "奉贤区",
+            "崇明县"
+          ]
+        },
+        {
+          province: "天津",
+          children: [
+            "和平区",
+            "河东区",
+            "河西区",
+            "南开区",
+            "河北区",
+            "红桥区",
+            "塘沽区",
+            "汉沽区",
+            "大港区",
+            "东丽区",
+            "西青区",
+            "津南区",
+            "北辰区",
+            "武清区",
+            "宝坻区",
+            "宁河县",
+            "静海县",
+            "蓟县"
+          ]
+        },
+        {
+          province: "重庆",
+          children: [
+            "渝中区",
+            "大渡口区",
+            "江北区",
+            "沙坪坝区",
+            "九龙坡区",
+            "南岸区",
+            "北碚区",
+            "万盛区",
+            "双桥区",
+            "渝北区",
+            "巴南区",
+            "万县区",
+            "涪陵区",
+            "永川",
+            "合川",
+            "江津",
+            "南川",
+            "长寿县",
+            "綦江县",
+            "潼南县",
+            "荣昌县",
+            "壁山县",
+            "大足县",
+            "铜梁县",
+            "梁平县",
+            "城口县",
+            "垫江县",
+            "武隆县",
+            "丰都县",
+            "忠 县",
+            "开 县",
+            "云阳县",
+            "青龙镇青龙嘴",
+            "奉节县",
+            "巫山县",
+            "巫溪县",
+            "南宾镇",
+            "中和镇",
+            "钟多镇",
+            "联合镇",
+            "汉葭镇"
+          ]
+        },
+        {
+          province: "河北",
+          children: [
+            "石家庄",
+            "唐山",
+            "秦皇岛",
+            "邯郸",
+            "邢台",
+            "保定",
+            "张家口",
+            "承德",
+            "沧州",
+            "廊坊",
+            "衡水"
+          ]
+        },
+        {
+          province: "山西",
+          children: [
+            "太原",
+            "大同",
+            "阳泉",
+            "长治",
+            "晋城",
+            "朔州",
+            "晋中",
+            "运城",
+            "忻州",
+            "临汾",
+            "吕梁"
+          ]
+        },
+        {
+          province: "辽宁",
+          children: [
+            "沈阳",
+            "大连",
+            "鞍山",
+            "抚顺",
+            "本溪",
+            "丹东",
+            "锦州",
+            "营口",
+            "阜新",
+            "辽阳",
+            "盘锦",
+            "铁岭",
+            "朝阳",
+            "葫芦岛"
+          ]
+        },
+        {
+          province: "吉林",
+          children: [
+            "长春",
+            "吉林",
+            "四平",
+            "辽源",
+            "通化",
+            "白山",
+            "松原",
+            "白城",
+            "延边朝鲜族自治州"
+          ]
+        },
+        {
+          province: "河南",
+          children: [
+            "郑州",
+            "开封",
+            "洛阳",
+            "平顶山",
+            "安阳",
+            "鹤壁",
+            "新乡",
+            "焦作",
+            "濮阳",
+            "许昌",
+            "漯河",
+            "三门峡",
+            "南阳",
+            "商丘",
+            "信阳",
+            "周口",
+            "驻马店",
+            "济源"
+          ]
+        },
+        {
+          province: "江苏",
+          children: [
+            "南京",
+            "无锡",
+            "徐州",
+            "常州",
+            "苏州",
+            "南通",
+            "连云港",
+            "淮安",
+            "盐城",
+            "扬州",
+            "镇江",
+            "泰州",
+            "宿迁"
+          ]
+        },
+        {
+          province: "浙江",
+          children: [
+            "杭州",
+            "宁波",
+            "温州",
+            "嘉兴",
+            "湖州",
+            "绍兴",
+            "金华",
+            "衢州",
+            "舟山",
+            "台州",
+            "丽水"
+          ]
+        },
+        {
+          province: "安徽",
+          children: [
+            "合肥",
+            "芜湖",
+            "蚌埠",
+            "淮南",
+            "马鞍山",
+            "淮北",
+            "铜陵",
+            "安庆",
+            "黄山",
+            "滁州",
+            "阜阳",
+            "宿州",
+            "巢湖",
+            "六安",
+            "亳州",
+            "池州",
+            "宣城"
+          ]
+        },
+        {
+          province: "福建",
+          children: [
+            "福州",
+            "厦门",
+            "莆田",
+            "三明",
+            "泉州",
+            "漳州",
+            "南平",
+            "龙岩",
+            "宁德"
+          ]
+        },
+        {
+          province: "江西",
+          children: [
+            "南昌",
+            "景德镇",
+            "萍乡",
+            "九江",
+            "新余",
+            "鹰潭",
+            "赣州",
+            "吉安",
+            "宜春",
+            "抚州",
+            "上饶"
+          ]
+        },
+        {
+          province: "山东",
+          children: [
+            "济南",
+            "青岛",
+            "淄博",
+            "枣庄",
+            "东营",
+            "烟台",
+            "潍坊",
+            "威海",
+            "济宁",
+            "泰安",
+            "日照",
+            "莱芜",
+            "临沂",
+            "德州",
+            "聊城",
+            "滨州",
+            "菏泽"
+          ]
+        },
+        {
+          province: "湖北",
+          children: [
+            "武汉",
+            "黄石",
+            "襄樊",
+            "十堰",
+            "荆州",
+            "宜昌",
+            "荆门",
+            "鄂州",
+            "孝感",
+            "黄冈",
+            "咸宁",
+            "随州",
+            "恩施州",
+            "仙桃",
+            "潜江",
+            "天门",
+            "神农架林区"
+          ]
+        },
+        {
+          province: "湖南",
+          children: [
+            "长沙",
+            "株洲",
+            "湘潭",
+            "衡阳",
+            "邵阳",
+            "岳阳",
+            "常德",
+            "张家界",
+            "益阳",
+            "郴州",
+            "永州",
+            "怀化",
+            "娄底",
+            "湘西州"
+          ]
+        },
+        {
+          province: "广东",
+          children: [
+            "广州",
+            "深圳",
+            "珠海",
+            "汕头",
+            "韶关",
+            "佛山",
+            "江门",
+            "湛江",
+            "茂名",
+            "肇庆",
+            "惠州",
+            "梅州",
+            "汕尾",
+            "河源",
+            "阳江",
+            "清远",
+            "东莞",
+            "中山",
+            "潮州",
+            "揭阳",
+            "云浮"
+          ]
+        },
+        {
+          province: "海南",
+          children: ["海口", "龙华区", "秀英区", "琼山区", "美兰区", "三亚"]
+        },
+        {
+          province: "四川",
+          children: [
+            "成都",
+            "自贡",
+            "攀枝花",
+            "泸州",
+            "德阳",
+            "绵阳",
+            "广元",
+            "遂宁",
+            "内江",
+            "乐山",
+            "南充",
+            "宜宾",
+            "广安",
+            "达州",
+            "眉山",
+            "雅安",
+            "巴中",
+            "资阳",
+            "阿坝州",
+            "甘孜州",
+            "凉山州"
+          ]
+        },
+        {
+          province: "贵州",
+          children: [
+            "贵阳",
+            "六盘水",
+            "遵义",
+            "安顺",
+            "铜仁地区",
+            "毕节地区",
+            "黔西南州",
+            "黔东南州",
+            "黔南州"
+          ]
+        },
+        {
+          province: "云南",
+          children: [
+            "昆明",
+            "大理",
+            "曲靖",
+            "玉溪",
+            "昭通",
+            "楚雄",
+            "红河",
+            "文山",
+            "思茅",
+            "西双版纳",
+            "保山",
+            "德宏",
+            "丽江",
+            "怒江",
+            "迪庆",
+            "临沧"
+          ]
+        },
+        {
+          province: "陕西",
+          children: [
+            "西安",
+            "铜川",
+            "宝鸡",
+            "咸阳",
+            "渭南",
+            "延安",
+            "汉中",
+            "榆林",
+            "安康",
+            "商洛"
+          ]
+        },
+        {
+          province: "甘肃",
+          children: [
+            "兰州",
+            "嘉峪关",
+            "金昌",
+            "白银",
+            "天水",
+            "武威",
+            "张掖",
+            "平凉",
+            "酒泉",
+            "庆阳",
+            "定西",
+            "陇南",
+            "临夏州",
+            "甘南州"
+          ]
+        },
+        {
+          province: "青海",
+          children: [
+            "西宁",
+            "海东地区",
+            "海北州",
+            "黄南州",
+            "海南州",
+            "果洛州",
+            "玉树州",
+            "海西州"
+          ]
+        },
+        {
+          province: "黑龙江",
+          children: [
+            "哈尔滨",
+            "齐齐哈尔",
+            "鸡西",
+            "鹤岗",
+            "双鸭山",
+            "大庆",
+            "伊春",
+            "佳木斯",
+            "七台河",
+            "牡丹江",
+            "黑河",
+            "绥化",
+            "大兴安岭地区"
+          ]
+        },
+        {
+          province: "内蒙古自治区",
+          children: [
+            "呼和浩特",
+            "包头",
+            "乌海",
+            "赤峰",
+            "通辽",
+            "鄂尔多斯",
+            "呼伦贝尔",
+            "巴彦淖尔",
+            "乌兰察布",
+            "兴安盟",
+            "锡林郭勒盟",
+            "阿拉善盟"
+          ]
+        },
+        {
+          province: "广西",
+          children: [
+            "南宁",
+            "柳州",
+            "桂林",
+            "梧州",
+            "北海",
+            "防城港",
+            "钦州",
+            "贵港",
+            "玉林",
+            "百色",
+            "贺州",
+            "河池",
+            "来宾",
+            "崇左"
+          ]
+        },
+        {
+          province: "西藏自治区",
+          children: [
+            "拉萨",
+            "昌都地区",
+            "山南地区",
+            "日喀则地区",
+            "那曲地区",
+            "阿里地区",
+            "林芝地区"
+          ]
+        },
+        {
+          province: "宁夏自治区",
+          children: ["银川", "石嘴山", "吴忠", "固原", "中卫"]
+        },
+        {
+          province: "新疆维吾尔自治区",
+          children: [
+            "乌鲁木齐",
+            "克拉玛依",
+            "吐鲁番地区",
+            "哈密地区",
+            "和田地区",
+            "阿克苏地区",
+            "喀什地区",
+            "克孜勒苏柯尔克孜自治州",
+            "巴音郭楞蒙古自治州",
+            "昌吉回族自治州",
+            "博尔塔拉蒙古自治州",
+            "伊犁哈萨克自治州",
+            "塔城地区",
+            "阿勒泰地区",
+            "石河子",
+            "阿拉尔",
+            "图木舒克",
+            "五家渠"
+          ]
+        },
+        {
+          province: "台湾",
+          children: [
+            "台北",
+            "高雄",
+            "基隆",
+            "台中",
+            "台南",
+            "新竹",
+            "嘉义",
+            "台北县",
+            "宜兰县",
+            "桃园县",
+            "新竹县",
+            "苗栗县",
+            "台中县",
+            "彰化县",
+            "南投县",
+            "云林县",
+            "嘉义县",
+            "台南县",
+            "高雄县",
+            "屏东县",
+            "澎湖县",
+            "台东县",
+            "花莲县"
+          ]
+        },
+        {
+          province: "香港",
+          childrem: [
+            "中西区",
+            "东区",
+            "九龙城区",
+            "观塘区",
+            "南区",
+            "深水埗区",
+            "黄大仙区",
+            "湾仔区",
+            "油尖旺区",
+            "离岛区",
+            "葵青区",
+            "北区",
+            "西贡区",
+            "沙田区",
+            "屯门区",
+            "大埔区",
+            "荃湾区",
+            "元朗区"
+          ]
+        },
+        {
+          province: "澳门地区",
+          children: []
+        },
+        {
+          province: "其它地区",
+          children: []
+        }
+      ],
+      curCity: ["请选择"] //当前选中的省的市级列表
     };
   }
 };
@@ -535,10 +1210,11 @@ export default {
   width: 100%;
   min-width: 1080px;
 }
-.header {
+
+.top-header {
   width: 100%;
-  height: 56px;
-  border-bottom: 1px solid #eaeaea;
+  height: 172px;
+  background: #67b0e7;
 }
 .container {
   justify-content: space-between;
@@ -546,38 +1222,6 @@ export default {
   height: 100%;
   max-width: 90%;
   margin: 0px auto;
-}
-.container h1 {
-  display: inline-block;
-  position: absolute;
-  top: -9999px;
-}
-.subnav {
-  list-style: none;
-  height: 100%;
-}
-.subnav li {
-  height: 100%;
-  float: left;
-}
-.subnav li a {
-  text-decoration: none;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 16px;
-  color: #222;
-  padding: 0 16px;
-  line-height: 56px;
-  margin: 0;
-  cursor: pointer;
-}
-.subnav a:hover {
-  color: #0287ee;
-}
-.top-header {
-  width: 100%;
-  height: 172px;
-  background: #67b0e7;
 }
 .leftImg {
   width: 23%;
@@ -615,6 +1259,11 @@ export default {
   margin: 0px auto;
   background: #fff;
   box-sizing: border-box;
+}
+.loadingUp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 .user-count-num {
   line-height: 24px;
@@ -902,7 +1551,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color:#0287ee;
+  color: #0287ee;
 }
 .company-name > a {
   color: #0287ee;
@@ -1014,21 +1663,20 @@ export default {
 .goto-top:hover {
   color: #0287ee;
 }
-.el-input .el-input__inner{
-    width: 400px;
+.el-input .el-input__inner {
+  width: 400px;
 }
 .mesg-form {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 50px;
-  height: 320px;
-  margin: 10px 0px;
+  margin: 20px 0px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 .line-item {
   width: 120px;
   display: inline-block;
-  height:40px;
+  height: 40px;
   line-height: 40px;
   text-align: right;
   padding-right: 15px;
@@ -1036,9 +1684,9 @@ export default {
   font-family: "微软雅黑";
   box-sizing: border-box;
 }
-.line-item-phone{
+.line-item-phone {
   display: inline-block;
-  height:40px;
+  height: 40px;
   width: 120px;
   line-height: 40px;
   text-align: right;
@@ -1047,8 +1695,10 @@ export default {
   font-family: "微软雅黑";
   box-sizing: border-box;
 }
+.line-input {
+  width: 350px;
+}
 .line-ele {
-  width:450px;
 }
 .line-form {
   height: 40px;
@@ -1062,8 +1712,8 @@ export default {
 .line-ele .el-select {
   width: 197px;
 }
-.line-element .el-input{
-  width: 165px;
+.line-element .el-input {
+  width: 350px;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
@@ -1099,10 +1749,10 @@ export default {
 }
 .fundmation-mesg {
   width: 700px;
-  height: 600px;
   margin: 60px auto;
   background: #fff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
 }
 .mesg-title {
   width: 200px;
@@ -1119,6 +1769,7 @@ export default {
   color: #000;
 }
 .head-pic {
+  position: relative;
   margin: 5px auto 10px;
   width: 106px;
   height: 106px;
@@ -1127,12 +1778,14 @@ export default {
   border-radius: 100%;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
-.mesg-form-bot{
+.mesg-form-bot {
   width: 100px;
-  height: 40px;
-  margin: 35px auto;
+  margin: 0px auto;
 }
-.mesg-form-bot .el-button.is-round{
+.mesg-form-bot .el-button.is-round {
   width: 100px;
+}
+.jobs-pagetab {
+  text-align: center;
 }
 </style>

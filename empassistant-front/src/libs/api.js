@@ -11,6 +11,9 @@ const API = {
   },
   EMP:{
     GETEMP:api+'/Employment/ShowEmployment' //宣讲会分页
+  },
+  UPLOAD:{
+    UPIMG:api+'/Upload/UploadImg'
   }
 }
 module.exports = API;

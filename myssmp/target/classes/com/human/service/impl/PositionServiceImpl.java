@@ -144,6 +144,14 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
+    public List<Position> selectPositionToEmail(String position_name, String professionals) {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("position_name",position_name);
+        map.put("professionals",professionals);
+        return  positionDao.selectPositionToEmail(map);
+    }
+
+    @Override
     public PageBean<Position> selectAllPositionByType(int currentPage, int pagesize, String address_id, String S_name) {
         System.out.println("11111");
         HashMap<String,Object> map = new HashMap<String,Object>();

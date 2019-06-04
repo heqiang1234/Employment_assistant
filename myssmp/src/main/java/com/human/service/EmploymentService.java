@@ -45,4 +45,11 @@ public interface EmploymentService {
      */
     List<Employment> selectEmploymentById(String career_talk_id);
 
+//    /**
+//     * 根据宣讲会ID进入查询详细信息
+//     * @param career_talk_id
+//     * @return
+//     */
+//    List<Employment> selectEmploymentId(String career_talk_id);
+
 }

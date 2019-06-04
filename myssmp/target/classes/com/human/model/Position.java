@@ -128,4 +128,22 @@ public class Position {
     public void setSalaryWelfare(String salaryWelfare) {
         this.salaryWelfare = salaryWelfare;
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "positionID=" + positionID +
+                ", school_id='" + school_id + '\'' +
+                ", career_talk_id='" + career_talk_id + '\'' +
+                ", position_name='" + position_name + '\'' +
+                ", professionals='" + professionals + '\'' +
+                ", jobDescription='" + jobDescription + '\'' +
+                ", positionWage='" + positionWage + '\'' +
+                ", num='" + num + '\'' +
+                ", workPlace='" + workPlace + '\'' +
+                ", positionTemptation='" + positionTemptation + '\'' +
+                ", salaryWelfare='" + salaryWelfare + '\'' +
+                ", company=" + company +
+                '}';
+    }
 }

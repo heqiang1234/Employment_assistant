@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 邮件自动发送JOB  begin -->
+    <!-- 第二种方式实现JobDetail 普通类 -->
+    <bean id="Quartz" class="com.human.Quartz_Email.SendMailScheduler"></bean>
+    <bean id="JobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="Quartz"></property>
+        <property name="targetMethod" value="work"></property>
+    </bean>
+    <!-- 触发器的第二种方式 CRON表达式 -->
+    <bean id="trigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="JobDetail2"></property>
+        <!-- 一下配置是中午12，23秒发送执行一次任务 -->
+        <property name="cronExpression" value="0 0 12,23 * * ? *" ></property>
+    </bean>
+
+    <!-- 把触发器加入到任务列表中 -->
+    <bean id="testScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="trigger2" />
+            </list>
+        </property>
+    </bean>
+
+</beans>

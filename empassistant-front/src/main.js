@@ -6,6 +6,7 @@ import router from './router'
 import {Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination} from 'element-ui';
 import axios from 'axios';
 import API from './libs/api.js'
+import {linkTo} from './libs/utils'
 // axios.defaults.baseURL = 'http://120.79.15.183:8080/myssmp';
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
@@ -22,7 +23,7 @@ Vue.use(Pagination);
 Vue.use(Upload);
 Vue.use(DatePicker);
 Vue.prototype.$message = Message;//信息组件
-
+Vue.prototype.linkTo = linkTo;
 
 /* eslint-disable no-new */
 new Vue({
