@@ -25,7 +25,7 @@
       <input type="password" v-model="pwd" placeholder="请输入密码">
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
-        <a href="http://localhost:8080/#/register" class="register">立即注册</a>
+        <a @click="linkTo({name:'register'})" class="register">立即注册</a>
       </div>
       <div @click="login" class="submit">立即登录</div>
     </div>
@@ -95,7 +95,9 @@ export default {
           this.fullscreenLoading = false; //关闭Loading
           console.log(res);
           if (res.data.code == "200") {
-            this.$router.push({ name: "home" });
+            let newUser = false;
+            if(!res.data.extendInfo.person.user_Email) newUser=true;
+            this.linkTo({ name: "home" ,params:{newUser:newUser}});
           } else {
             this.$message({
               showClose: true,
@@ -199,6 +201,7 @@ export default {
   margin: 20px 50px 20px 5%;
 }
 .register {
+  cursor:pointer;
   text-decoration: none;
   display: inline-block;
   color: #0287ee;

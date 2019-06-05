@@ -342,7 +342,7 @@ export default {
 }
 .post-name {
   cursor: pointer;
-  max-width: 70%;
+  max-width: 65%;
   line-height: 40px;
   height: 40px;
   font-family: "微软雅黑";
@@ -354,7 +354,7 @@ export default {
   text-overflow: ellipsis;
 }
 .post-pay {
-  width: 45%;
+  max-width: 75%;
   height: 40px;
   line-height: 40px;
   text-align: right;
