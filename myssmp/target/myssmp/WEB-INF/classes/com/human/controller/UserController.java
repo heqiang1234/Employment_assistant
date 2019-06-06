@@ -61,7 +61,7 @@ public class UserController {
     @ResponseBody
     public  JsonMsg login(HttpServletRequest request, Model model){
 
-        return JsonMsg.fail().addInfo("login_error", "没有登陆，请重新输入！");
+        return JsonMsg.fail().addInfo("login_error", "没有登陆，请登陆！");
     }
 
 
@@ -202,37 +202,32 @@ public class UserController {
             String UserSchool = request.getParameter("UserSchool");
             String UserMajor = request.getParameter("UserMajor");
             String UserIntentionalPost = request.getParameter("UserIntentionalPost");
-            String userCity = request.getParameter("userCity");
-            String userImg = request.getParameter("userImg");
+            String UserCity = request.getParameter("userCity");
             String UserMail = request.getParameter("UserMail");
-            System.out.println("----- 插入图片 -------");
-            try{
-                    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-                MultipartFile file = multipartRequest.getFile("imgFile");
-                byte[] photo = file.getBytes();
-           //     boolean result = serv.insertUserPhoto( photo);
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            System.out.println("----- 插入图片end -------");
+            String UserImg = request.getParameter("UserImg");
+            String UserStatus = request.getParameter("UserStatus");
             if (UserName == null || UserName.trim().length() == 0 ) {
 
                 return JsonMsg.fail().addInfo("login_error", "修改失败，请重新输入！");
 
             }
             User user = new User();
+            user.setUser_Name(UserName);
             user.setUser_Sex(UserSex);
             user.setUser_RealName(UserRealName);
             user.setUser_School(UserSchool);
             user.setUser_Major(UserMajor);
             user.setUser_IntentionalPost(UserIntentionalPost);
+            user.setUser_City(UserCity);
             user.setUser_Email(UserMail);
+            user.setUserImg(UserImg);
+            user.setUser_Status(UserStatus);
+            log.info(user.getUser_Status()+"     1");
             userService.updateUser(user);
             return JsonMsg.success().addInfo("respn", "修改成功");
         }catch (Exception e)
         {
-            return JsonMsg.fail().addInfo("log_error","修改失败");
+            return JsonMsg.fail().addInfo("log_error",e+"修改失败");
         }
     }
 

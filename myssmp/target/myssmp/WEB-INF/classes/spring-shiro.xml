@@ -22,6 +22,7 @@
                 /Company/*=anon <!--公司信息路径可以不需要登录-->
                 /Employment/*=anon <!--宣讲会信息路径可以不需要登录-->
                 /Position/*=anon <!--宣讲会信息路径可以不需要登录-->
+                /Upload/*=anon <!--宣讲会信息路径可以不需要登录-->
                 <!-- 请求logout.action地址，shiro去清除session -->
 
             </value>
@@ -81,7 +82,7 @@
           class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 
         <!-- session的失效时长，单位毫秒 -->
-        <property name="globalSessionTimeout" value="1200000" />
+        <property name="globalSessionTimeout" value="240000" />
         <!-- 删除失效的session -->
         <property name="deleteInvalidSessions" value="true" />
         <!-- Session调度器，用来检查Session是否还存在的问题 -->
@@ -102,7 +103,7 @@
 	-->
     <bean id="sessionValidationScheduler"
           class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="1200000" />
+        <property name="sessionValidationInterval" value="240000" />
         <property name="sessionManager" ref="sessionManager" />
     </bean>
 

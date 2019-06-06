@@ -35,7 +35,9 @@ public interface UserDao {
 
     void updateUser(User user);
 
-    void  saveImg(String url,String userName);
+    void  saveImg(@Param("ImgUrl") String ImgUrl,@Param("userName") String userName);
+
+    void  saveResume(@Param("ResumeUrl") String ResumeUrl,@Param("userName") String userName);
 
     void updateUserPassword(User user);
 }

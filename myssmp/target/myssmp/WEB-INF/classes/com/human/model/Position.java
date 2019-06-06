@@ -19,7 +19,17 @@ public class Position {
 
     private Company company;
 
-//    private Employment employment;
+    private Employment employment;
+
+    public Employment getEmployment() {
+        return employment;
+    }
+
+    public void setEmployment(Employment employment) {
+        this.employment = employment;
+    }
+
+    //    private Employment employment;
 //
 //    public Employment getEmployment() {
 //        return employment;
