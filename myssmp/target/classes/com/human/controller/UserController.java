@@ -1,6 +1,6 @@
 package com.human.controller;
 
-import com.human.model.Session;
+import com.google.code.kaptcha.Constants;
 import com.human.model.User;
 import com.human.service.ShiroService;
 import com.human.service.UserService;
@@ -11,6 +11,9 @@ import com.human.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 
 import org.apache.shiro.authc.*;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.DefaultSessionKey;
+import org.apache.shiro.session.mgt.SessionKey;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -78,32 +84,41 @@ public class UserController {
                //主体,当前状态为没有认证的状态“未认证”
                Subject currentUser = SecurityUtils.getSubject();
                // 登录后存放进shiro token
+//               Session session = currentUser.getSession(false);
+//               SessionKey sessionKey = new DefaultSessionKey(session.getId());
                if (!currentUser.isAuthenticated()) {
+                   String verifyCode=request.getParameter("verifyCode").toUpperCase();
                    String user_name = request.getParameter("UserName");
                    String passWord = request.getParameter("Password");
-                   if (user_name == null || user_name.trim().length() == 0 || passWord == null || passWord.trim().length() == 0) {
-                       return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+                   if(verifyCode.equals(request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY))) {
+                       if (user_name == null || user_name.trim().length() == 0 || passWord == null || passWord.trim().length() == 0) {
+                           return JsonMsg.fail().addInfo("login_error", "登陆失败，请重新输入！");
+                       }
+                       UsernamePasswordToken upToken = new UsernamePasswordToken(user_name, passWord);
+                       //保存session
+                       upToken.setRememberMe(true);
+                       try {
+                           System.out.println(upToken);
+                           currentUser.login(upToken);
+                           User user;
+                           user = userService.getUserByNameNoPassword(user_name);
+                           return JsonMsg.success().addInfo("person", user);
+
+                       } catch (IncorrectCredentialsException ice) {
+                           System.out.println("邮箱/密码不匹配！");
+                           return JsonMsg.fail().addInfo("login_error", "邮箱/密码不匹配！登陆失败，请重新输入！");
+                       } catch (LockedAccountException lae) {
+                           System.out.println("账户已被冻结！");
+                           return JsonMsg.fail().addInfo("login_error", "账户已被冻结登陆失败，请重新输入！");
+                       } catch (AuthenticationException ae) {
+                           System.out.println(ae.getMessage());
+                           return JsonMsg.fail().addInfo("login_error", "查找不到用户，登陆失败，请重新输入！");
+
+                       }
                    }
-                   UsernamePasswordToken upToken = new UsernamePasswordToken(user_name, passWord);
-                   //保存session
-                   upToken.setRememberMe(true);
-                   try {
-                       System.out.println(upToken);
-                       currentUser.login(upToken);
-                       User user;
-                       user = userService.getUserByNameNoPassword(user_name);
-                       return JsonMsg.success().addInfo("person", user);
-
-                   } catch (IncorrectCredentialsException ice) {
-                       System.out.println("邮箱/密码不匹配！");
-                       return JsonMsg.fail().addInfo("login_error", "邮箱/密码不匹配！登陆失败，请重新输入！");
-                   } catch (LockedAccountException lae) {
-                       System.out.println("账户已被冻结！");
-                       return JsonMsg.fail().addInfo("login_error", "账户已被冻结登陆失败，请重新输入！");
-                   } catch (AuthenticationException ae) {
-                       System.out.println(ae.getMessage());
-                       return JsonMsg.fail().addInfo("login_error", "查找不到用户，登陆失败，请重新输入！");
-
+                   else
+                   {
+                       return JsonMsg.fail().addInfo("login_error", "验证码输入错误，请重新输入！");
                    }
                }
                User user;
@@ -251,9 +266,6 @@ public class UserController {
             return JsonMsg.fail().addInfo("log_error","退出失败");
         }
     }
-
-
-
 
 
 }

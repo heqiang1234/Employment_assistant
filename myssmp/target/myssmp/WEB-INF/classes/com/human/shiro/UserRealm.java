@@ -110,7 +110,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         String username = token.getPrincipal().toString();
         System.err.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
-            log.info("验证shiro 认证");
+            log.info("验证shiro 认证 "+token);
         User user = userService.getUserByName(username);
 
         if (user != null) {

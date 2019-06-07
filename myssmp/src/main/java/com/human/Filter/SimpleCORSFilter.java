@@ -21,12 +21,13 @@ public class SimpleCORSFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         String origin = (String) req.getRemoteHost()+":"+req.getRemotePort();
-        log.info("origin     "+origin);
+
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Credentials","true");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization,Content-Type,yourHeaderFeild,Content-Length,Accept");
+
         chain.doFilter(req, res);
 
     }
