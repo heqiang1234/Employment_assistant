@@ -8,6 +8,10 @@ import axios from 'axios';
 import API from './libs/api.js'
 import {linkTo} from './libs/utils'
 axios.defaults.withCredentials=true;//让ajax携带cookie
+Vue.prototype.USERSTATUS = {
+  login:false,
+  userInfo:{}
+}
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
 Vue.config.productionTip = false;

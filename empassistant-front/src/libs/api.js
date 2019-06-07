@@ -11,13 +11,17 @@ const API = {
     DETAILJOB:api+'/Position/selectByPositionId', //职位详情页
   },
   EMP:{
-    GETEMP:api+'/Employment/ShowEmployment' //宣讲会分页
+    GETEMP:api+'/Employment/ShowEmployment', //宣讲会分页
+    DETAILEMP:api+'/Employment/ShowAllEmploymentInfo', //宣讲会详情
   },
   UPLOAD:{
     UPIMG:api+'/Upload/UploadImg/' //上传图片
   },
   OTHER:{
-    GETADIMG:api+'/Photo/ShowEmploymentPhoto'
+    GETADIMG:api+'/Photo/ShowEmploymentPhoto' //首页广告图片
+  },
+  VERIFYCODE:{
+    GETCODE:api+'/VerifyCode/Kaptcha'
   }
 }
 module.exports = API;
