@@ -54,8 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveImg(String url,String userName) {
-        userDao.saveImg(url,userName);
+    public void saveImg(String ImgUrl,String userName) {
+        userDao.saveImg(ImgUrl,userName);
+}
+
+    @Override
+    public void saveResume(String ResumeUrl,String userName) {
+        userDao.saveResume(ResumeUrl,userName);
     }
 
 

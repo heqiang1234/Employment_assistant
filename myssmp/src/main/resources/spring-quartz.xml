@@ -15,6 +15,8 @@
     <bean id="trigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="JobDetail2"></property>
         <!-- 一下配置是中午12，23秒发送执行一次任务 -->
+        <!-- 表达式,设置每10秒执行1次 -->
+        <!--<property name="cronExpression" value="0/20 * * * * ? *" />-->
         <property name="cronExpression" value="0 0 12,23 * * ? *" ></property>
     </bean>
 

@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.human.shiro.SessionDao;
+import com.human.util.JsonMsg;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.Session;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -48,16 +49,17 @@ public class SessionController {
      */
     @RequestMapping(value="/del/{username}",method=RequestMethod.GET)
     public void delSession(@PathVariable String username,HttpServletResponse response) {
+      try {
+          //获取到当前登录用户的session
+          List<Session> sessions = this.sessionDao.loadByUserName(username);
+          if (sessions != null && sessions.size() > 0) {
 
-        //获取到当前登录用户的session
-        List<Session> sessions = this.sessionDao.loadByUserName(username);
-        if(sessions != null && sessions.size() >0) {
+              //遍历删除到session
+              for (Session session : sessions) {
+                  this.removeSession(session);
+              }
+          }
 
-            //遍历删除到session
-            for(Session session :sessions) {
-                this.removeSession(session);
-            }
-        }
 
         //写数据到浏览器
         Map<String,Object> map = new HashMap<String, Object>();
@@ -65,6 +67,12 @@ public class SessionController {
         map.put("username", username);
         map.put("cnt", sessions.size());
         this.writeJSON(response, map);
+      }
+      catch ( Exception e)
+      {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+      }
     }
 
     /**

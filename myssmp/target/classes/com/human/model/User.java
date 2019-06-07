@@ -24,7 +24,25 @@ public class User implements Serializable {
     private String user_IntentionalPost;
     private String user_Email;
     private String user_Employment_Id;
-    private MultipartFile file;
+    private String UserImg;
+    private String user_Status;
+    private String user_Resume;
+
+    public String getUser_Resume() {
+        return user_Resume;
+    }
+
+    public void setUser_Resume(String user_Resume) {
+        this.user_Resume = user_Resume;
+    }
+
+    public String getUser_Status() {
+        return user_Status;
+    }
+
+    public void setUser_Status(String user_Status) {
+        this.user_Status = user_Status;
+    }
 
     public String getUser_City() {
         return user_City;
@@ -34,12 +52,12 @@ public class User implements Serializable {
         this.user_City = user_City;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public String getUserImg() {
+        return UserImg;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setUserImg(String userImg) {
+        UserImg = userImg;
     }
 
     public String getUser_Sex() {

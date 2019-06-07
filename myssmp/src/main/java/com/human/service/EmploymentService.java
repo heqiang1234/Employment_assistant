@@ -45,6 +45,15 @@ public interface EmploymentService {
      */
     List<Employment> selectEmploymentById(String career_talk_id);
 
+
+    /**
+     * 返回宣讲会图片和信息
+     * @param
+     * @return
+     */
+    List<Employment> selectEmploymentPhoto();
+
+
 //    /**
 //     * 根据宣讲会ID进入查询详细信息
 //     * @param career_talk_id

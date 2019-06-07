@@ -43,11 +43,12 @@ public class EmploymentController {
           int cur = Integer.parseInt(currentPage);
           int pag = Integer.parseInt(pageSize);
           PageBean pagebean = employmentService.findByPage(cur,pag);
+          log.info(pagebean.getLists().toString());
           return JsonMsg.success().addInfo("pagebean",pagebean);
       }
       catch(Exception e)
       {
-          return JsonMsg.fail().addInfo("log_error","查询失败");
+          return JsonMsg.fail().addInfo("log_error","查询失败 "+e);
       }
     }
 
@@ -61,7 +62,7 @@ public class EmploymentController {
         }
         catch (Exception e)
         {
-            return JsonMsg.fail().addInfo("log_error","查询失败");
+            return JsonMsg.fail().addInfo("log_error","查询失败 "+e);
         }
     }
 
@@ -76,7 +77,7 @@ public class EmploymentController {
         }
         catch (Exception e)
         {
-            return JsonMsg.fail().addInfo("log_error","查询失败");
+            return JsonMsg.fail().addInfo("log_error","查询失败 "+e);
         }
     }
 
@@ -97,6 +98,12 @@ public class EmploymentController {
             String Search_Name = request.getParameter("Search_Name");
             int cur = Integer.parseInt(currentPage);
             int pag = Integer.parseInt(pageSize);
+            if(Search_Id=="Company_ID"||Search_Id.equals("Company_ID")) {
+                log.info("公司id查询宣讲会信息");
+                PageBean  pagebean_Company= employmentService.selectEmploymentByType(cur,pag,Search_Id,Search_Name);
+                return JsonMsg.success().addInfo("pagebean_Company_ID",pagebean_Company);
+            }
+            else
             if(Search_Id=="Company"||Search_Id.equals("Company")) {
                 log.info("公司查询宣讲会信息");
                 PageBean  pagebean_Company= employmentService.selectEmploymentByType(cur,pag,Search_Id,Search_Name);
@@ -135,7 +142,7 @@ public class EmploymentController {
         }
         catch (Exception e)
         {
-            return JsonMsg.fail().addInfo("log_error","查询失败");
+            return JsonMsg.fail().addInfo("log_error","查询失败 "+e );
         }
     }
 

@@ -60,6 +60,16 @@
 
     </resultMap>
 
+    <!--<resultMap id="queryPositionListResultMap" type="com.human.model.Position">-->
+    <!--<id property="positionID" column="positionID" />-->
+    <!--<result property="position_name" column="position_name" />-->
+    <!--<association property="employment" javaType="com.human.model.Employment">-->
+    <!--<id property="employment_id" column="employment_id" />-->
+    <!--<result property="company_name" column="company_name" />-->
+    <!--</association>-->
+    <!---->
+    <!--</resultMap>-->
+
 
     <sql id="Base_Column_List">
 		p.positionID,p.position_name,p.positionWage,p.workPlace
@@ -67,35 +77,41 @@
 
 
 
+    <!--&lt;!&ndash; 根据宣讲会ID获取所有的岗位 &ndash;&gt;-->
+    <!--<select id="queryPositionBy"  resultMap="queryPositionListResultMap" >-->
+            <!--select * from  position  where  career_talk_id=#{career_talk_id}-->
+
+    <!--</select>-->
+
     <!-- 查询用户记录总数 -->
     <select id="selectCountBytype" parameterType="Map" resultType="int" >
         <if test="S_ID.toString()=='ALL'.toString()">
-            select count(*) from  position
+            select count(positionID) from  position
         </if>
         <if test="S_ID.toString()=='position_name'.toString()">
-            select count(*) from  position
+            select count(positionID) from  position
             where position_name LIKE "%"#{S_Name}"%"
        </if>
         <if test="S_ID.toString()=='career_talk_id'.toString()">
-            select count(*) from employment
+            select count(positionID) from employment
             where career_talk_id =#{S_Name}
         </if>
         <if test="S_ID.toString()=='workPlace'.toString()">
-            select count(*) from  position
+            select count(positionID) from  position
             where workPlace LIKE "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='Professional'.toString()">
-            select count(*) from  position
+            select count(positionID) from  position
             where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
         </if>
         <if test="S_ID.toString()==NULL">
-            select count(*) from position
+            select count(positionID) from position
         </if>
 	</select>
 
     <!-- 搜索框查询用户记录总数 -->
     <select id="selectAllCountBytype" parameterType="Map" resultType="int" >
-           select count(*)  from  position
+           select count(positionID)  from  position
         <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
         <if test="S_Name.toString()!=NULL">
             WHERE position_name LIKE "%"#{S_Name}"%"  or (professionals LIKE "%"#{S_Name}"%")
@@ -138,15 +154,15 @@
         select  * from  position p,company c
         <if test="S_ID.toString()=='Hot'.toString()">
             where  p.career_talk_id=c.career_talk_id
---          order by p.positionWage desc
+          order by p.positionWage desc
         </if>
         <if test="S_ID.toString()=='New'.toString()">
             where   p.career_talk_id=c.career_talk_id
---             order by c.company_id
+            order by c.company_id
         </if>
         <if test="S_ID.toString()=='Quick'.toString()">
             where   p.career_talk_id=c.career_talk_id
---              order by p.num  desc
+             order by p.num  desc
         </if>
         <if test="start!=null and size!=null">
             limit #{start},#{size}
@@ -163,10 +179,10 @@
             <if test="S_ID.toString()=='Professional'.toString()">
                 where  (p.professionals LIKE "%"#{S_Name}"%" or p.professionals like '%不限专业%' or p.professionals ='')  and
             </if>
-            <if test="S_ID.toString()==NULL">
+            <if test="S_ID==NULL">
                 where  c.career_talk_id=p.career_talk_id and c.school_id=p.school_id
             </if>
-            <if test="S_ID.toString()!=NULL">
+            <if test="S_ID!=NULL">
                 (c.career_talk_id=p.career_talk_id and c.school_id=p.school_id)
             </if>
             <if test="start!=null and size!=null">
@@ -186,10 +202,10 @@
     <select id="selectPositionToEmail" parameterType="Map" resultMap="PositionResultMap">
         select  MAX(positionID) AS  positionID from  position
        <where>
-            <if test="position_name.toString()!=NULL">
+            <if test="position_name!=NULL">
             position_name like "%"#{position_name}"%"
             </if>
-            <if test="professionals.toString()!=NULL">
+            <if test="professionals!=NULL">
             and  professionals like "%"#{professionals}"%"
             </if>
        </where>
