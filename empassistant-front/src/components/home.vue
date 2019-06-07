@@ -74,7 +74,7 @@
           <div class="ad-bar">
             <div class="ad-container">
               <div v-for="(item,index) in adImgList" :key="index" class="vip-companys">
-                <img :src="item.logo" title="这是我的公司" alt="广告招聘"/>
+                <img :src="item.logo" title="这是我的公司" alt="广告招聘">
               </div>
             </div>
           </div>
@@ -308,10 +308,11 @@ export default {
   name: "home",
   components: { Header },
   created() {
-    if(!this.$route.params){
+    if (this.$route.params.newUser) {
       this.newUser = this.$route.params.newUser;
       console.log(this.newUser);
     }
+
     this.getJobList();
     this.getAdImg();
   },
@@ -338,25 +339,25 @@ export default {
           // }
           that.totalJobNum = totalJob;
           that.jobList = res.data.extendInfo.pageBean_List.lists;
-          if(res.data.extendInfo.pageBean_List.totalPage>that.pagination.curJobPage+9){
-            that.pagination.totalPage = that.pagination.curJobPage+9
+          if (
+            res.data.extendInfo.pageBean_List.totalPage >
+            that.pagination.curJobPage + 9
+          ) {
+            that.pagination.totalPage = that.pagination.curJobPage + 9;
+          } else {
+            that.pagination.totalPage =
+              res.data.extendInfo.pageBean_List.totalPage;
           }
-          else
-          {
-            that.pagination.totalPage = res.data.extendInfo.pageBean_List.totalPage
-          }
-          
-            
         });
     },
-    getAdImg(){//获取广告图片
+    getAdImg() {
+      //获取广告图片
       this.axios({
-        url:this.API.OTHER.GETADIMG
-      })
-      .then(res=>{
+        url: this.API.OTHER.GETADIMG
+      }).then(res => {
         console.log(res);
         this.adImgList = res.data.extendInfo.list;
-      })
+      });
     },
     chageListType(index, value) {
       //切换职位信息列表
@@ -476,11 +477,11 @@ export default {
           userInfo.major +
           "\n" +
           userInfo.want +
-          "\n"+
-          userInfo.city+
-          "\n"+
-          userInfo.email+
-          "\n"+
+          "\n" +
+          userInfo.city +
+          "\n" +
+          userInfo.email +
+          "\n" +
           userInfo.avtUrl
       );
       this.axios({
@@ -494,7 +495,7 @@ export default {
           UserCity: userInfo.city,
           UserMail: userInfo.email,
           UserImg: userInfo.avtUrl,
-          UserStatus:userInfo.getPush
+          UserStatus: userInfo.getPush
         }
       }).then(res => {
         console.log(res);
@@ -543,7 +544,7 @@ export default {
       newUser: false, //用户未完善资料
       userInfoErrMsg: "", //用户资料报错提示信息,
       onUploadImg: false,
-      adImgList:[],//广告图片列表
+      adImgList: [], //广告图片列表
       jobClassfy: [
         //职位分类
         {
@@ -1510,7 +1511,7 @@ export default {
   height: 100px;
   display: flex;
   align-items: center;
-  border:1px solid #eee;
+  border: 1px solid #eee;
   cursor: pointer;
 }
 .vip-companys > img {

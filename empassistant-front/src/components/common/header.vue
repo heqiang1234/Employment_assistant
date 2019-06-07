@@ -1,6 +1,6 @@
 <template>
      <div class="header">
-      <div class="container">
+      <div class="header-container">
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
@@ -10,12 +10,13 @@
             <a href="http://localhost:8080/#/login">我的简历</a>
           </li>
           <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
+            <a @click="linkTo({name:'careerTalk'})">校园招聘会</a>
           </li>
           <li>
             <a  @click="linkTo({name:'jobs'})" href="#">藏经阁</a>
           </li>
         </ul>
+        <div class="userInfo">未登录</div>
       </div>
     </div>
 </template>
@@ -25,14 +26,16 @@
   height: 56px;
   border-bottom: 1px solid #eaeaea;
 }
-.container {
+.header-container {
+  padding: 0 10%;
+  background: #f1f4f6;
   justify-content: space-between;
   display: flex;
   height: 100%;
-  max-width: 90%;
   margin: 0px auto;
+  align-items: center;
 }
-.container h1 {
+.header-container h1 {
   display: inline-block;
   position: absolute;
   top: -9999px;

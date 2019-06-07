@@ -1,82 +1,50 @@
 <template>
   <div class="warp">
-    <div class="header">
-      <div class="container">
-        <h1>实习助手</h1>
-        <ul class="subnav">
-          <li>
-            <a href="http://localhost:8080/#/">首页</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/login">我的简历</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/display">藏经阁</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="search">
-      <div class="container">
-        <div class="search-input">
-          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-            <el-select style="width:120px;" placeholder="选择地区" v-model="select" slot="prepend">
-              <el-option label="全国" value="1"></el-option>
-              <el-option label="北京" value="2"></el-option>
-            </el-select>
-            <el-select
-              style="width:120px;margin-left:15px;"
-              placeholder="选择信息"
-              v-model="select"
-              slot="prepend"
-            >
-              <el-option label="搜职业" value="1"></el-option>
-              <el-option label="搜公司" value="2"></el-option>
-            </el-select>
-            <el-button style="width:130px;" slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </div>
-        <div class="search-likely">
-          <span likely-title>相似搜索：</span>
-          <a href="#">计算机</a>
-          <a href="#">软件测试</a>
-          <a href="#">哈哈哈</a>
-          <a href="#">嘿嘿嘿</a>
-        </div>
-      </div>
-    </div>
+    <Header></Header>
+    <Searcher></Searcher>
     <div class="career-talk">
       <div class="container">
-        <div class="careers-card">
+        <div v-for="(item,index) in empInfo.list" :key="index" class="careers-card">
           <div class="company-info">
             <div class="company-name">
-              <a href="#">上海亮朵家饰用品有限公司</a>
+              <a @click="linkTo({name:'company',params:{id:item.career_talk_id}})" href="#">{{item.meet_name}}</a>
             </div>
             <div class="company-type">
-                <span >民营企业</span>
-                <span >批发和零售业</span>
+              <span>{{item.company.companyTrade}}</span>
+              <span>{{item.company.companyType}}</span>
             </div>
           </div>
           <div class="talk-info">
+             <div class="talk-body">
+             <i class="el-icon-school"></i>
+              <span class="talk-address">{{item.school_name}}</span>
+              </div>
             <div class="talk-time">
               <i class="el-icon-time"></i>
-              2019-5-24 13:00
+              {{item.meet_day}} {{item.meet_time}}
             </div>
             <div class="talk-body">
+             
               <i class="el-icon-location-outline"></i>
-              <span class="talk-address">麦庐园大活D03</span>
+              <span class="talk-address">{{item.address}}</span>
               <i class="el-icon-view"></i>
-              <span class="talk-address">899</span>
+              <span class="talk-address">{{item.hitCount}}</span>
             </div>
           </div>
           <div class="company-logo">
             <div class="logoImg">
-              <img src="../assets/aiqiyi.jpg" alt>
+              <img :src="item.logo" alt>
             </div>
           </div>
+        </div>
+        <div class="jobs-pagetab">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="pagination.curPage"
+            :page-size="pagination.pageSize"
+            layout="prev, pager, next, jumper"
+            :page-count="pagination.totalPage"
+          ></el-pagination>
         </div>
       </div>
     </div>
@@ -119,15 +87,67 @@
           </div>
         </div>
         <div class="foot-body">
-          <p> <span>&copy;2019.2-2019.6 就业助手</span> | <span>赣ICP备00000000号-1</span> | <span>联系我们：xxx@jiuyezhushou.com</span></p>
+          <p>
+            <span>&copy;2019.2-2019.6 就业助手</span> |
+            <span>赣ICP备00000000号-1</span> |
+            <span>联系我们：xxx@jiuyezhushou.com</span>
+          </p>
           <p>玉屏西科技有限责任公司版权所有 | 全国领先的实习生平台</p>
-          <div class="internet"><img class="internetImg" src="../assets/record-icon.png" alt="">  <span>赣公网安备 00000000000000号</span></div>
+          <div class="internet">
+            <img class="internetImg" src="../assets/record-icon.png" alt>
+            <span>赣公网安备 00000000000000号</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
+<script>
+import Header from "./common/header";
+import Searcher from './common/searcher'
+export default {
+  components: { Header,Searcher },
+  created() {
+    this.getCrTkList();
+  },
+  methods: {
+    getCrTkList() { //获取宣讲会列表
+      let that = this;
+      this.axios({
+        url: that.API.EMP.GETEMP,
+        params: {
+          CurrentPage: that.pagination.curPage,
+          PageSize: that.pagination.pageSize
+        }
+      }).then(res => {
+        console.log(res);
+        that.empInfo.list = res.data.extendInfo.pagebean.lists;
+        if (res.data.extendInfo.pagebean.totalPage > that.pagination.curPage + 9){that.pagination.totalPage = that.pagination.curPage + 9;}
+        else that.pagination.totalPage = res.data.extendInfo.pagebean.totalPage;
+          
+      });
+    },
+     handleCurrentChange(val) {
+      //跳转页数
+      this.pagination.curJobPage = val;
+      this.getCrTkList();
+    },
+  },
+  data() {
+    return {
+      pagination: {
+        curPage: 1,
+        pageSize: 12,
+        totalPage: 1
+      },
+      empInfo: {
+        list: [],
+        key: ""
+      },
+    };
+  }
+};
+</script>
 <style scoped>
 .warp {
   width: 100%;
@@ -141,73 +161,10 @@
   height: 100%;
   max-width: 90%;
   margin: 0px auto;
+  flex-direction: column;
 }
-.container h1 {
-  display: inline-block;
-  position: absolute;
-  top: -9999px;
-}
-.subnav {
-  list-style: none;
-  height: 100%;
-}
-.subnav li {
-  height: 100%;
-  float: left;
-}
-.subnav li a {
-  text-decoration: none;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 16px;
-  color: #222;
-  padding: 0 16px;
-  line-height: 56px;
-  margin: 0;
-  cursor: pointer;
-}
-.subnav a:hover {
-  color: #0287ee;
-}
-.search {
-  width: 100%;
-  height: 100px;
-  margin-top: 15px;
-}
-.search-input {
-  width: 100%;
-  height: 50px;
-}
-.el-input__inner {
-  height: 50px;
-  line-height: 50px;
-}
-.el-input-group__append {
-  background-color: #98caf0;
-  width: 150px;
-  text-align: center;
-}
-.search-likely {
-  width: 100%;
-  height: 50px;
-  padding: 10px 0px;
-  display: block;
-  box-sizing: border-box;
-  line-height: 30px;
-}
-.likely-title {
-  font-weight: 600;
-  padding-right: 10px;
-}
-.search-likely > a {
-  list-style: none;
-  color: #aaa;
-  text-decoration: none;
-  padding-right: 10px;
-}
-.search-likely > a:hover {
-  color: #0287ee;
-}
+
+
 .career-talk {
   width: 100%;
   min-height: 500px;
@@ -216,10 +173,13 @@
   width: 90%;
   height: 120px;
   padding: 20px 0px 19px 0px;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #eee;
   box-sizing: border-box;
 }
 .talk-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   width: 40%;
   display: inline-block;
@@ -234,26 +194,29 @@
 }
 .talk-body {
   width: 100%;
-  height: 39px;
-  line-height: 39px;
   text-align: left;
 }
 .talk-address {
   color: #666;
-  width: 30%;
+  margin-right: 20px;
   font-size: 14px;
-  padding: 0 40% 0 2%;
 }
 .company-info {
+  overflow: hidden;
   height: 100%;
-  width: 34%;
+  width: 39%;
   display: inline-block;
   box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 35px;
 }
 .company-name {
   height: 40px;
   width: 100%;
-  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 40px;
 }
 .company-name > a {
@@ -265,14 +228,13 @@
   height: 39px;
   width: 100%;
   display: flex;
-  justify-content:center;
 }
-.company-type>span{
+.company-type > span {
   height: 39px;
   color: #aaa;
   line-height: 39px;
-  padding:0px 10px; 
-  display:block;
+  padding: 0px 10px;
+  display: block;
 }
 .company-logo {
   width: 20%;
@@ -326,7 +288,7 @@
   margin-top: 5px;
   text-decoration: none;
 }
-.ourselves-body:hover{
+.ourselves-body:hover {
   color: #0287ee;
 }
 .join-us {
@@ -352,17 +314,16 @@
   width: 100px;
   height: 100px;
 }
-.foot-body{
+.foot-body {
   width: 100%;
   height: 100px;
   text-align: center;
-  padding-top:10px;
+  padding-top: 10px;
   font-size: 13px;
   color: #666;
   box-sizing: border-box;
-
 }
-.internet{
+.internet {
   display: block;
   height: 30px;
   line-height: 30px;
@@ -370,17 +331,21 @@
   padding: 5px 0;
   position: relative;
 }
-.internetImg{
+.internetImg {
   position: absolute;
   right: 50%;
-  margin-right:90px; 
+  margin-right: 90px;
 }
-.internet>span{
+.internet > span {
   height: 20px;
   line-height: 20px;
   display: inline-block;
   position: absolute;
   left: 50%;
-  margin-left:-88px;
+  margin-left: -88px;
+}
+.jobs-pagetab {
+  margin-top:20px;
+  text-align: center;
 }
 </style>

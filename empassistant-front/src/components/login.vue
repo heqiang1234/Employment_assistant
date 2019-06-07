@@ -19,10 +19,13 @@
         </ul>
       </div>
     </div>
+   
     <div class="login-body">
       <div class="login-title">学生登录</div>
       <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
       <input type="password" v-model="pwd" placeholder="请输入密码">
+      <input  type="text" v-model="verifyCode" placeholder="请输入验证码">
+       <img @click="changeVerifyCode" ref="verifCodeImg" :src="this.API.VERIFYCODE.GETCODE"/>
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
         <a @click="linkTo({name:'register'})" class="register">立即注册</a>
@@ -40,18 +43,22 @@
 export default {
   name: "login",
   name: "HelloWorld",
+  created(){
+  },
   data() {
     return {
       fullscreenLoading: false, //页面显示加载中
       userName: null, //表单用户名
       pwd: null, //表单密码
-      timer: null //节流提交时间标记
+      timer: null, //节流提交时间标记
+      verifyCode:'' //验证码
     };
   },
 
   methods: {
     login() {
       //提交登陆
+      this.changeVerifyCode();//切换验证码
       //--------节流处理
       if (this.timer) {
         return;
@@ -78,6 +85,14 @@ export default {
         });
         return;
       }
+      if(!this.verifyCode){
+        this.$message({
+          showClose: true,
+          message: "请输入验证码",
+          type: "error"
+        });
+        return;
+      }
       //---------
       this.fullscreenLoading = true; //Loading效果
       console.log(this.userName);
@@ -88,7 +103,8 @@ export default {
         headers: { "Content-Type": "application/json" },
         params: {
           UserName: this.userName,
-          Password: this.pwd
+          Password: this.pwd,
+          verifyCode:this.verifyCode
         }
       })
         .then(res => {
@@ -96,8 +112,12 @@ export default {
           console.log(res);
           if (res.data.code == "200") {
             let newUser = false;
+            this.USERSTATUS.login = true;
+            this.USERSTATUS.userInfo = res.data.extendInfo.person;
+             console.log(document.cookie);
             if(!res.data.extendInfo.person.user_Email) newUser=true;
             this.linkTo({ name: "home" ,params:{newUser:newUser}});
+           
           } else {
             this.$message({
               showClose: true,
@@ -111,6 +131,12 @@ export default {
           this.fullscreenLoading = false; //关闭Loading
           console.log(err);
         });
+    },
+    changeVerifyCode(){
+      
+      let time = new Date().getTime();
+      console.log(this.$refs.verifCodeImg);
+      this.$refs.verifCodeImg.src=this.API.VERIFYCODE.GETCODE+"?d="+time
     }
   }
 };
@@ -168,13 +194,13 @@ export default {
 }
 .login-body {
   width: 220px;
-  height: 265px;
   background-color: #fff;
   margin-top: 60px;
   padding: 30px 40px 50px;
   z-index: 100;
   position: absolute;
   right: 20%;
+  border:1px solid #eaeaea;
 }
 .login-title {
   text-align: center;

@@ -19,6 +19,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="information">
       <div class="post-mesg">
         <div class="post-title">
@@ -130,22 +131,32 @@
 export default {
   created() {
     let options = this.$route.params;
-      options.jobDescription = options.jobDescription
-        .replace(/\n|\r\n/g, "<br/>")
-        .replace(/[;；]/g, "<br/>")
-        .replace(/[-]/g, "<br/>")
-        .replace("[' ']+", "<br/>")
-        .replace(/['\u3002']/g, "。<br>")
-        .replace("<br>s*(<br>s*)+", "<br/>");
-      options.company.companyProfile = options.company.companyProfile.replace(
-        /\n|\r\n/g,
-        "<br/>"
-      );
-      this.jobInfo = options;
-      console.log(this.jobInfo);
+    if(options.company){
+      this.jobInfo = formatInfo(options);
+    }
+    else if(options.id){
+      getDetail(options.id)
+    }
   },
-  method(){
-
+  methods: {
+    formatInfo(obj) { //格式化内容信息
+      if (obj.jobDescription.jobDescription) {
+        obj.jobDescription = options.jobDescription
+          .replace(/\n|\r\n/g, "<br/>")
+          .replace(/[;；]/g, "<br/>")
+          .replace(/[-]/g, "<br/>")
+          .replace("[' ']+", "<br/>")
+          .replace(/['\u3002']/g, "。<br>")
+          .replace("<br>s*(<br>s*)+", "<br/>");
+      }
+      if (obj.company.companyProfile) {
+        obj.company.companyProfile = obj.company.companyProfile.replace(
+          /\n|\r\n/g,
+          "<br/>"
+        );
+      }
+      return obj;
+    },
   },
   data() {
     return {

@@ -1,35 +1,7 @@
 <template>
   <div class="warp">
    <Header></Header>
-    <div class="search">
-      <div class="container">
-        <div class="search-input">
-          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-            <el-select style="width:120px;" placeholder="选择地区" v-model="select" slot="prepend">
-              <el-option label="全国" value="1"></el-option>
-              <el-option label="北京" value="2"></el-option>
-            </el-select>
-            <el-select
-              style="width:120px;margin-left:15px;"
-              placeholder="选择信息"
-              v-model="select"
-              slot="prepend"
-            >
-              <el-option label="搜职业" value="1"></el-option>
-              <el-option label="搜公司" value="2"></el-option>
-            </el-select>
-            <el-button style="width:130px;" slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </div>
-        <div class="search-likely">
-          <span likely-title>热门搜索：</span>
-          <a href="#">计算机</a>
-          <a href="#">前端</a>
-          <a href="#">JAVA</a>
-          <a href="#">测试</a>
-        </div>
-      </div>
-    </div>
+   <Searcher></Searcher>
     <div class="show-post">
       <div class="container bd-box">
         <div v-if="jobList.length>0"  class="tab-content">
@@ -142,8 +114,9 @@
 </template>
 <script>
 import Header from './common/header.vue'
+import Searcher from './common/searcher.vue'
 export default {
-  components:{Header},
+  components:{Header,Searcher},
   created(){
     let options = this.$route.params;
     console.log(options);
@@ -325,7 +298,7 @@ export default {
   height: 120px;
   padding: 20px 0px;
   box-sizing: border-box;
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #eee;
   position: relative;
 }
 .post-info {
