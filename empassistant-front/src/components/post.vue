@@ -5,16 +5,16 @@
         <h1>实习助手</h1>
         <ul class="subnav">
           <li>
-            <a href="http://localhost:8080/#/">首页</a>
+            <router-link :to="{name:'home'}">首页</router-link>
           </li>
           <li>
-            <a href="http://localhost:8080/#/login">我的简历</a>
+            <a @click="linkTo({name:'login'})" href="#">我的简历</a>
           </li>
           <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
+            <a @click="linkTo({name:'careerTalk'})" href="#">校园招聘会</a>
           </li>
           <li>
-            <a href="http://localhost:8080/#/display">藏经阁</a>
+            <a  @click="linkTo({name:'jobs'})" href="#">藏经阁</a>
           </li>
         </ul>
       </div>

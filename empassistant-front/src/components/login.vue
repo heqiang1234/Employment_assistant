@@ -8,13 +8,13 @@
             <router-link :to="{name:'home'}">首页</router-link>
           </li>
           <li>
-            <a href="#">我的简历</a>
+            <a @click="linkTo({name:'login'})" href="#">我的简历</a>
           </li>
           <li>
-            <a href="#">校园招聘会</a>
+            <a @click="linkTo({name:'careerTalk'})" href="#">校园招聘会</a>
           </li>
           <li>
-            <a href="#">藏经阁</a>
+            <a  @click="linkTo({name:'jobs'})" href="#">藏经阁</a>
           </li>
         </ul>
       </div>
@@ -25,7 +25,7 @@
       <input type="password" v-model="pwd" placeholder="请输入密码">
       <div class="btn">
         <a href="#" class="forget">忘记密码</a>
-        <a href="http://localhost:8080/#/register" class="register">立即注册</a>
+        <a @click="linkTo({name:'register'})" href="#" class="register">立即注册</a>
       </div>
       <div @click="login" class="submit">立即登录</div>
     </div>
@@ -119,9 +119,9 @@ export default {
   overflow: hidden;
   width: 100%;
   height: 100vh;
-  background-image: url("../assets/bg.png");
+  background-image: url("../assets/login-bg.png");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100vh; 
 }
 .login-header {
   width: 100%;
@@ -162,17 +162,16 @@ export default {
   cursor: pointer;
 }
 .container ul li a:hover {
-  color: #fff;
+  color:#0287ee;
 }
 .login-body {
   width: 220px;
   height: 265px;
-  background-color: #fff;
-  margin-top: 60px;
+  background-color:rgba(255, 255, 255, 1);
+  margin: 140px auto 0px;
   padding: 30px 40px 50px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   z-index: 100;
-  position: absolute;
-  right: 20%;
 }
 .login-title {
   text-align: center;
@@ -185,7 +184,7 @@ export default {
   height: 25px;
   line-height: 25px;
   font-size: 14px;
-  padding: 10px 0;
+  padding: 10px 6px;
   color: #262626;
   border: none;
   outline: none;
@@ -231,7 +230,7 @@ export default {
 .login-footer span {
   margin-top: 10px;
   font-size: 14px;
-  color: rgba(38, 38, 38, 0.5);
+  color: rgba(1, 1, 1, 0.8);
   display: block;
 }
 </style>

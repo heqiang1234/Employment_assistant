@@ -1739,6 +1739,7 @@ export default {
   display: block;
 }
 .self-mesg-input {
+  display: none;
   position: absolute;
   top: 0px;
   width: 100%;
