@@ -8,7 +8,7 @@
           <div v-for="(item) in jobList" :key="item.positionID" class="post-card">
             <div class="post-info">
               <div class="post-head">
-                <div @click="linkTo({name:'post',params:item})" class="post-name">{{item.position_name}}</div>
+                <div @click="linkTo({name:'post',params:{id:item.positionID}})" class="post-name">{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">

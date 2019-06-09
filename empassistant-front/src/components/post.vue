@@ -1,33 +1,17 @@
 <template>
   <div class="warp">
-    <div class="header">
-      <div class="container">
-        <h1>实习助手</h1>
-        <ul class="subnav">
-          <li>
-            <a href="http://localhost:8080/#/">首页</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/login">我的简历</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/careerTalk">校园招聘会</a>
-          </li>
-          <li>
-            <a href="http://localhost:8080/#/display">藏经阁</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <Header></Header>
     
-    <div class="information">
+    <div v-if="jobInfo.company" class="information">
       <div class="post-mesg">
         <div class="post-title">
           <span class="company-name">{{jobInfo.company.company_name}}</span>
           <span class="post-name">{{jobInfo.position_name}}</span>
+          
           <div class="sign1"></div>
           <div class="sign2"></div>
         </div>
+        
         <div class="post-body">
           <div class="mesg">
             <i class="el-icon-coin"></i>
@@ -71,8 +55,14 @@
             alt
           ></a>
         </div>
-      </div>
+          <div class="tocareer-btn">
+      <el-button @click="linkTo({name:'company',params:{id:jobInfo.career_talk_id}})" type="primary" plain>查看该公司宣讲会信息</el-button>
     </div>
+      </div>
+         
+    </div>
+  
+    
     <div class="foot">
       <div class="container-tab">
         <div class="foot-title">
@@ -128,22 +118,26 @@
   </div>
 </template>
 <script>
+import Header from './common/header'
 export default {
+  components:{Header},
   created() {
     let options = this.$route.params;
-    if(options.company){
-      this.jobInfo = formatInfo(options);
-    }
-    else if(options.id){
-      getDetail(options.id)
+    console.log(options.id);
+     if(options.id){
+      this.getDetail(options.id)
+        .then(res=>{
+          this.jobInfo = this.formatInfo(res.data.extendInfo.List[0])
+        })
     }
   },
   methods: {
     formatInfo(obj) { //格式化内容信息
-      if (obj.jobDescription.jobDescription) {
-        obj.jobDescription = options.jobDescription
+    console.log(obj);
+      if (obj.jobDescription) {
+        obj.jobDescription = obj.jobDescription
           .replace(/\n|\r\n/g, "<br/>")
-          .replace(/[;；]/g, "<br/>")
+          .replace(/[;；]/g, "；<br/>")
           .replace(/[-]/g, "<br/>")
           .replace("[' ']+", "<br/>")
           .replace(/['\u3002']/g, "。<br>")
@@ -157,6 +151,14 @@ export default {
       }
       return obj;
     },
+    getDetail(id){  //获取详情
+      return this.axios({
+        url:this.API.JOBS.DETAILJOB,
+        params:{
+          Position_Id:id
+        }
+      })
+    }
   },
   data() {
     return {
@@ -497,5 +499,9 @@ export default {
   position: absolute;
   left: 50%;
   margin-left: -88px;
+}
+.tocareer-btn{
+  width:100%;
+  text-align: center;
 }
 </style>

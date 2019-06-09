@@ -98,7 +98,7 @@
             <div class="post-title">
               <div class="post-head">
                 <div
-                  @click="getDetail(item)"
+                  @click="linkTo({name:'post',params:{id:item.positionID}})"
                   :data-job="item"
                   class="post-name"
                 >{{item.position_name}}</div>
@@ -405,28 +405,6 @@ export default {
       //跳转页数
       this.pagination.curJobPage = val;
       this.getJobList();
-    },
-    getDetail(item) {
-      //跳转职位详情页
-      // console.log(item);
-      let id = item.positionID;
-      let that = this;
-      that
-        .axios({
-          url: that.API.JOBS.DETAILJOB,
-          methods: "POST",
-          params: {
-            Position_Id: id
-          }
-        })
-        .then(res => {
-          console.log(res);
-          let job = res.data.extendInfo.List[0];
-          this.linkTo({ name: "post", params: job });
-        })
-        .catch(err => {
-          console.log(err);
-        });
     },
     handleAvatarSuccess(res, file) {
       //上传头像更改

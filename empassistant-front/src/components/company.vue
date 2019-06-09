@@ -1,7 +1,7 @@
 <template>
   <div class="warp">
     <Header></Header>
-    <div class="company-inf">
+    <div v-if="careerInfo.company" class="company-inf">
       <div class="logo-box">
         <img :src="careerInfo.logo" alt>
       </div>
@@ -17,7 +17,7 @@
         </p>
       </div>
     </div>
-    <div class="company-talk">
+    <div v-if="careerInfo.company" class="company-talk">
       <div class="talk-title">宣讲会信息</div>
       <span class="talk-mesg">宣讲单位：{{careerInfo.company_name}}</span>
       <span class="talk-mesg">宣讲时间：{{careerInfo.meet_day}} {{careerInfo.meet_time}}</span>
@@ -31,7 +31,7 @@
       <div class="talk-title">招聘职位</div>
       <div v-for="(item) in careerInfo.positionList" :key="item.positionID" class="com-post">
         <div class="post-head">
-          <div class="post-name">{{item.position_name}}</div>
+          <div @click="linkTo({name:'post',params:{id:item.positionID}})" class="post-name">{{item.position_name}}</div>
           <div class="post-pay">
             <i class="el-icon-coin"></i>{{item.positionWage}}
           </div>
@@ -124,7 +124,8 @@ export default {
         console.log(res);
         this.careerInfo = res.data.extendInfo.lists[0]
       })
-    }
+    },
+
   },
   data() {
     return{
@@ -194,10 +195,10 @@ export default {
   width: 100px;
   padding: 5px;
   display: inline-block;
+  line-height:100px;
 }
 .logo-box > img {
   width: 100px;
-  height: 100px;
 }
 .com-title {
   height: 100px;
@@ -262,6 +263,7 @@ export default {
   padding: 10px 0;
 }
 .post-head {
+  position: relative;
   height: 30px;
   line-height: 30px;
   margin-top: 15px;
@@ -276,14 +278,17 @@ export default {
   white-space: nowrap;
 }
 .post-name {
-  width: 30%;
+  max-width: 30%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: rgb(143, 72, 31);
   font-size: 18px;
+  cursor: pointer;
 }
 .post-pay {
+  position: absolute;
+  left:45%;
   color: orangered;
 }
 .need-people {
