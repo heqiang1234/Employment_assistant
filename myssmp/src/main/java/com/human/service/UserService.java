@@ -21,7 +21,9 @@ public interface UserService {
 
     void updateUser(User user);
 
-    void saveImg(String url,String userName);
+    void saveImg(String ImgUrl,String userName);
+
+    void saveResume(String ResumeUrl,String userName);
 
     Set<String> findPermissionsByUserId(int user_Id);
 

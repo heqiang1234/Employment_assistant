@@ -12,10 +12,15 @@
         <result column="userMajor" property="user_Major" jdbcType="VARCHAR"/>
         <result column="userIntentionalPost" property="user_IntentionalPost" jdbcType="VARCHAR"/>
         <result column="userEmail" property="user_Email" jdbcType="VARCHAR"/>
+        <result column="userImg" property="UserImg" jdbcType="VARCHAR"/>
+        <result column="userStatus" property="user_Status" jdbcType="VARCHAR"/>
+        <result column="userSex" property="user_Sex" jdbcType="VARCHAR"/>
+        <result column="userCity" property="user_City" jdbcType="VARCHAR"/>
+        <result column="userResume" property="user_Resume" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-		userID,userName,userRealName,userSchool,userMajor,userIntentionalPost,userEmail
+		userID,userName,userRealName,userSchool,userMajor,userIntentionalPost,userCity,userEmail,userSex,userResume,userStatus,userImg
 	</sql>
 
     <select id="selectUserById" parameterType="int" resultMap="UserBaseMap">
@@ -68,7 +73,11 @@
         <if test="user_School !=null and  user_School.length()>0">userSchool=#{user_School},</if>
         <if test="user_Major !=null and  user_Major.length()>0">userMajor=#{user_Major},</if>
         <if test="user_IntentionalPost !=null and  user_IntentionalPost.length()>0">userIntentionalPost=#{user_IntentionalPost},</if>
-        <if test="user_Email.toString() !=null and  user_Email.length()>0">userEmail=#{user_Email}</if>
+        <if test="user_Email !=null and  user_Email.length()>0">userEmail=#{user_Email},</if>
+         <if test="user_Sex !=null and  user_Sex.length()>0">userSex=#{user_Sex},</if>
+         <if test="user_City !=null and  user_City.length()>0">userCity=#{user_City},</if>
+         <if test="UserImg !=null and  UserImg.length()>0">userImg=#{UserImg},</if>
+          <if test="user_Status !=null and  user_Status.length()>0">userStatus=#{user_Status}</if>
         </set>
       where  userName=#{user_Name}
     </update>
@@ -96,8 +105,18 @@
     <update id="saveImg" parameterType="com.human.model.User">
         update user
         <set>
-            <if test="url!=null">
-                userImg=#{url}
+            <if test="ImgUrl!=null">
+                userImg=#{ImgUrl}
+            </if>
+        </set>
+        where userName=#{userName}
+    </update>
+
+    <update id="saveResume" parameterType="com.human.model.User">
+        update user
+        <set>
+            <if test="ResumeUrl!=null">
+                userResume=#{ResumeUrl}
             </if>
         </set>
         where userName=#{userName}

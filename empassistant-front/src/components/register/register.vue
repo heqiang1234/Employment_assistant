@@ -4,7 +4,7 @@
       <canvas id="canvas"></canvas>
     </div>
     <div class="regi-box">
-      <div class="regi-title">学生注册</div>
+      <div class="regi-title">注册</div>
       <div class="regi-input">
         <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
         <input type="password" v-model="pwd" placeholder="请输入密码">

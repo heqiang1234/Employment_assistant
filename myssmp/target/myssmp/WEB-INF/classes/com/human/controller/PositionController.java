@@ -37,12 +37,16 @@ public class PositionController {
     @ResponseBody
     public JsonMsg SelectCount(HttpServletRequest request)
     {
-
-        log.info("查询数据数量");
-        String S_ID=request.getParameter("S_ID");
-        String S_Name=request.getParameter("S_Name");
-        int  count_s=positionService.selectCountBytype(S_ID,S_Name);
-        return JsonMsg.success().addInfo("count_s",count_s);
+        try {
+            log.info("查询数据数量");
+            String S_ID = request.getParameter("S_ID");
+            String S_Name = request.getParameter("S_Name");
+            int count_s = positionService.selectCountBytype(S_ID, S_Name);
+            return JsonMsg.success().addInfo("count_s", count_s);
+        }
+        catch ( Exception e)
+        {
+        return JsonMsg.fail().addInfo("FAIL", "出现错误");}
     }
 
     /**
@@ -54,14 +58,20 @@ public class PositionController {
     @ResponseBody
     public JsonMsg SelectByCareerid(HttpServletRequest request)
     {
-        log.info("根据岗宣讲会ID查询岗位");
-        String Career_Id_Name=request.getParameter("Career_Id_Name");
-        String currentPage=request.getParameter("CurrentPage");
-        String pageSize=request.getParameter("PageSize");
-        int cur = Integer.parseInt(currentPage);
-        int pag = Integer.parseInt(pageSize);
-        PageBean<Position> lists=positionService.selectPositionIdToCareerd(cur,pag,Career_Id_Name);
-        return JsonMsg.success().addInfo("List",lists);
+        try {
+            log.info("根据岗宣讲会ID查询岗位");
+            String Career_Id_Name = request.getParameter("Career_Id_Name");
+            String currentPage = request.getParameter("CurrentPage");
+            String pageSize = request.getParameter("PageSize");
+            int cur = Integer.parseInt(currentPage);
+            int pag = Integer.parseInt(pageSize);
+            PageBean<Position> lists = positionService.selectPositionIdToCareerd(cur, pag, Career_Id_Name);
+            return JsonMsg.success().addInfo("List", lists);
+        }
+        catch (Exception e)
+        {
+            return JsonMsg.fail().addInfo("FAIL", "出现错误");
+        }
     }
 
     /**
@@ -73,15 +83,21 @@ public class PositionController {
     @ResponseBody
     public JsonMsg selectAllPosition(HttpServletRequest request)
     {
-        log.info("展示粗略岗位信息");
-        String currentPage=request.getParameter("CurrentPage");
-        String pageSize=request.getParameter("PageSize");
-        String S_ID=request.getParameter("S_ID");
-        int cur = Integer.parseInt(currentPage);
-        int pag = Integer.parseInt(pageSize);
-        PageBean pageBean=new PageBean();
-        pageBean=positionService.selectAllPosition(cur,pag,S_ID);
-        return JsonMsg.success().addInfo("pageBean_List",pageBean);
+        try {
+            log.info("展示粗略岗位信息");
+            String currentPage = request.getParameter("CurrentPage");
+            String pageSize = request.getParameter("PageSize");
+            String S_ID = request.getParameter("S_ID");
+            int cur = Integer.parseInt(currentPage);
+            int pag = Integer.parseInt(pageSize);
+            PageBean pageBean = new PageBean();
+            pageBean = positionService.selectAllPosition(cur, pag, S_ID);
+            return JsonMsg.success().addInfo("pageBean_List", pageBean);
+        }
+        catch (Exception E)
+        {
+            return JsonMsg.fail().addInfo("FAIL", "出现错误");
+        }
     }
 
 

@@ -1,5 +1,7 @@
 package com.human.model;
 
+import java.util.List;
+
 /**
  *  create by hq on 2019/5/14;
  * 宣讲会信息表
@@ -8,7 +10,9 @@ public class Employment {
     private static final long serialVersionUID = 8430941165882152228L;
     private int employment_id;
     private String school_id;
+    private String school_name;
     private String career_talk_id;
+    private String career_address;
     private String company_id;
     private String company_name;
     private String logo;
@@ -22,6 +26,32 @@ public class Employment {
     private String presentLink;
 
     private Company company;
+
+    private List<Position> positionList;
+
+    public String getCareer_address() {
+        return career_address;
+    }
+
+    public void setCareer_address(String career_address) {
+        this.career_address = career_address;
+    }
+
+    public String getSchool_name() {
+        return school_name;
+    }
+
+    public void setSchool_name(String school_name) {
+        this.school_name = school_name;
+    }
+
+    public List<Position> getPositionList() {
+        return positionList;
+    }
+
+    public void setPositionList(List<Position> positionList) {
+        this.positionList = positionList;
+    }
 
     public Company getCompany() {
         return company;

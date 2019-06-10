@@ -3,11 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination} from 'element-ui';
+import {Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
 import axios from 'axios';
 import API from './libs/api.js'
 import {linkTo} from './libs/utils'
-// axios.defaults.baseURL = 'http://120.79.15.183:8080/myssmp';
+axios.defaults.withCredentials=true;//让ajax携带cookie
+Vue.prototype.USERSTATUS = {
+  login:false,
+  userInfo:{}
+}
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
 Vue.config.productionTip = false;
@@ -22,6 +26,10 @@ Vue.use(Loading);
 Vue.use(Pagination);
 Vue.use(Upload);
 Vue.use(DatePicker);
+Vue.use(Dialog);
+Vue.use(Checkbox);
+Vue.use(Alert);
+// Vue.use(Backtop)
 Vue.prototype.$message = Message;//信息组件
 Vue.prototype.linkTo = linkTo;
 

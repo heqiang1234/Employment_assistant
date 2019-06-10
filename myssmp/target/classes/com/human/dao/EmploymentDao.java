@@ -62,6 +62,21 @@ public interface EmploymentDao {
      */
     List<Employment> selectEmploymentById(HashMap<String,Object> map);
 
+
+    /**
+     * 返回宣讲会图片和信息
+     * @param
+     * @return
+     */
+    List<Employment> selectEmploymentPhoto();
+
+    /**
+     * 根据公司ID查询所有到过的宣讲会
+     * @param
+     * @return
+     */
+    List<Employment> selectEmploymentByCompanyId(HashMap<String,Object> map);
+
 //    /**
 //     * c查找发送邮件的宣讲会ID信息
 //     * @param

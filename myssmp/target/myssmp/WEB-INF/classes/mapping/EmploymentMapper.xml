@@ -5,60 +5,90 @@
     <resultMap id="EmploymentBaseMap_ALL" type="com.human.model.Employment">
         <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
         <id column="employment_id" property="employment_id" />
-        <id column="school_id" property="school_id" />
-        <id column="career_talk_id" property="career_talk_id" />
-        <id column="company_id" property="company_id" />
-        <id column="company_name" property="company_name" />
-        <id column="logo" property="logo" />
-        <id column="hitCount" property="hitCount" />
-        <id column="professionals" property="professionals" />
-        <id column="recruitPost" property="recruitPost" />
-        <id column="meet_name" property="meet_name" />
-        <id column="meet_time" property="meet_time" />
-        <id column="meet_day" property="meet_day" />
-        <id column="address" property="address" />
+        <result column="school_id" property="school_id" />
+        <result column="school_name" property="school_name" />
+        <result column="career_talk_id" property="career_talk_id" />
+        <result column="company_id" property="company_id" />
+        <result column="company_name" property="company_name" />
+        <result column="career_address" property="career_address" />
+        <result column="logo" property="logo" />
+        <result column="hitCount" property="hitCount" />
+        <result column="professionals" property="professionals" />
+        <result column="recruitPost" property="recruitPost" />
+        <result column="meet_name" property="meet_name" />
+        <result column="meet_time" property="meet_time" />
+        <result column="meet_day" property="meet_day" />
+        <result column="address" property="address" />
         <result column="presentLink" property="presentLink"/>
         <association property="company" javaType="com.human.model.Company">
             <id property="id" column="id" />
-            <id property="career_talk_id" column="career_talk_id" />
-            <id property="company_id" column="company_id" />
-            <id property="school_id" column="school_id" />
-            <id property="company_name" column="company_name" />
-            <id property="company_logo" column="company_logo" />
+            <result property="career_talk_id" column="career_talk_id" />
+            <result property="company_id" column="company_id" />
+            <result property="school_id" column="school_id" />
+            <result property="company_name" column="company_name" />
+            <result property="company_logo" column="company_logo" />
+            <result property="company_size" column="company_size" />
+            <result property="company_address" column="company_address" />
+            <result property="map_link" column="map_link" />
+            <result property="image_link" column="image_link" />
+            <result property="setTime" column="setTime" />
+            <result property="companyType" column="companyType" />
+            <result property="companyProfile" column="companyProfile" />
+            <result property="companyScore" column="companyScore" />
+        </association>
+        <collection property="positionList" ofType="com.human.model.Position">
+            <id property="positionID" column="positionID" />
+            <result property="school_id" column="school_id" />
+            <result property="career_talk_id" column="career_talk_id" />
+            <result property="position_name" column="position_name" />
+            <result property="professionals" column="professionals" />
+            <result property="jobDescription" column="jobDescription" />
+            <result property="positionWage" column="positionWage" />
+            <result property="num" column="num" />
+            <result property="workPlace" column="workPlace" />
+            <result property="positionTemptation" column="positionTemptation" />
+            <result property="salaryWelfare" column="salaryWelfare" />
+        </collection>
+    </resultMap>
+
+
+    <resultMap id="EmploymentBaseMap" type="com.human.model.Employment">
+        <id column="employment_id" property="employment_id" />
+        <result column="school_id" property="school_id" />
+        <result column="school_name" property="school_name" />
+        <result column="career_talk_id" property="career_talk_id" />
+        <result column="company_id" property="company_id" />
+        <result column="company_name" property="company_name" />
+        <result column="career_address" property="career_address" />
+        <result column="logo" property="logo" />
+        <result column="hitCount" property="hitCount" />
+        <result column="professionals" property="professionals" />
+        <result column="recruitPost" property="recruitPost" />
+        <result column="meet_name" property="meet_name" />
+        <result column="meet_time" property="meet_time" />
+        <result column="meet_day" property="meet_day" />
+        <result column="address" property="address" />
+        <result column="presentLink" property="presentLink"/>
+        <association property="company" column="id" javaType="com.human.model.Company">
+            <id column="id"  property="id" />
+            <id column="career_talk_id" property="career_talk_id" />
+            <id column="company_id"  property="company_id" />
+            <id column="company_logo" property="company_logo"  />
+            <id column="school_id"  property="school_id" />
+            <id column="company_name"  property="company_name" />
             <id property="company_size" column="company_size" />
             <id property="company_address" column="company_address" />
             <id property="map_link" column="map_link" />
             <id property="image_link" column="image_link" />
-            <id property="setTime" column="setTime" />
+            <!--<result property="setTime" column="setTime" />-->
             <id property="companyType" column="companyType" />
             <id property="companyTrade" column="companyTrade" />
-            <id property="companyProfile" column="companyProfile" />
+            <result property="companyProfile" column="companyProfile" />
             <result property="companyScore" column="companyScore" />
         </association>
     </resultMap>
 
 
-    <resultMap id="EmploymentBaseMap" type="com.human.model.Employment">
-        <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
-        <id column="employment_id" property="employment_id" />
-        <id column="school_id" property="school_id" />
-        <id column="career_talk_id" property="career_talk_id" />
-        <id column="company_id" property="company_id" />
-        <id column="company_name" property="company_name" />
-        <id column="logo" property="logo" />
-        <id column="hitCount" property="hitCount" />
-        <id column="meet_name" property="meet_name" />
-        <id column="meet_time" property="meet_time" />
-        <id column="meet_day" property="meet_day" />
-        <result column="address" property="address" />
-        <association property="company" javaType="com.human.model.Company">
-            <id property="company_name" column="company_name" />
-            <id property="company_logo" column="company_logo" />
-            <id property="company_size" column="company_size" />
-            <id property="companyType" column="companyType" />
-            <result property="companyTrade" column="companyTrade" />
-        </association>
-    </resultMap>
 
     <sql id="Base_Column_List">
        e.career_talk_id,e.employment_id,e.company_id,e.company_name,e.school_id,e.meet_name,e.logo,e.hitCount,e.meet_day ,e.meet_time ,e.address,c.companyTrade,c.companyType,c.company_name,c.company_logo,c.company_size
@@ -67,13 +97,13 @@
 
     <!-- 查询用户记录总数 -->
     <select id="selectCount" resultType="int">
-		select count(*) from employment
+		select count(employment_id) from employment
 	</select>
 
 
     <!-- 查询用户记录数量根据类型 -->
     <select id="selectCountById" parameterType="Map"  resultType="int">
-		select count(*) from employment
+		select count(employment_id) from employment
         <if test="S_ID.toString()=='address'.toString()">
        where address like   "%"#{S_Name}"%"
         </if>
@@ -86,6 +116,9 @@
         <if test="S_ID.toString()=='Company'.toString()">
             where  company_name like  "%"#{S_Name}"%"
         </if>
+        <if test="S_ID.toString()=='Company_ID'.toString()">
+            where  company_id=#{S_Name}
+        </if>
         <if test="S_ID.toString()=='ALL'.toString()">
         </if>
 	</select>
@@ -93,7 +126,7 @@
 
     <!-- 查询用户记录数量根据类型 -->
     <select id="selectAllCountById"  parameterType="Map"  resultType="int">
-        select count(*)  from employment
+        select count(employment_id)  from employment
         <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
             <if test="S_Name !=null">
                 where address like  "%"#{S_Name}"%" or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
@@ -121,7 +154,7 @@
         </if>
         <if test="S_ADDRESS_ID.toString()!='ALL'.toString()">
             where career_address  LIKE "%"#{S_ADDRESS_ID}"%"
-            <if test="S_Name.toString()!=NULL">
+            <if test="S_Name!=NULL">
                 and (address like  "%"#{S_Name}"%" or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
                 or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address like "%"#{S_Name}"%")
             </if>
@@ -134,46 +167,53 @@
 
 
     <!-- 根据分页数据start 和size查询数据 -->
-    <select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap">
-        select
-        <include refid="Base_Column_List" />
-        from employment e,company c
-        where e.career_talk_id=c.career_talk_id
-        order by e.meet_day desc
+    <select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap_ALL">
+        select e.*,p.* ,c.* from employment e ,position p,company c WHERE  c.career_talk_id  =e.career_talk_id and  p.career_talk_id=e.career_talk_id and e.career_talk_id = '227283'
+        order by e.meet_day
         <if test="start!=null and size!=null">
-            limit #{start},#{size}
-        </if>
+        limit #{start},#{size}
+    </if>
     </select>
 
     <!-- 根据宣讲会ID查询数据 -->
     <select id="selectEmploymentById" parameterType="Map" resultMap="EmploymentBaseMap_ALL">
-        select  *
-        from employment e,company c
-        where  e.career_talk_id=#{career_talk_id} and c.career_talk_id  =e.career_talk_id
+       	select e.*,p.* ,c.* from employment e ,position p,company c WHERE  c.career_talk_id  =e.career_talk_id and  p.career_talk_id=e.career_talk_id and e.career_talk_id = #{career_talk_id}
+       	order by e.meet_day
     </select>
+
+    <!--where  e.career_talk_id=#{career_talk_id} and c.career_talk_id  =e.career_talk_id-->
 
     <!-- 根据分页查询数据start 和size查询数据 -->
     <select id="selectEmploymentByType" parameterType="Map" resultMap="EmploymentBaseMap">
-        select
-       <include refid="Base_Column_List" />
-        from employment
+        select *
+        from employment e ,company c
         <if test="S_ID.toString()=='address'.toString()">
-            where address like  "%"#{S_Name}"%"
+            where  c.career_talk_id  =e.career_talk_id  and address like  "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='Professional'.toString()">
-            where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
+            where c.career_talk_id  =e.career_talk_id and professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
         </if>
         <if test="S_ID.toString()=='School'.toString()">
-            where  school_id like  "%"#{S_Name}"%"
+            where c.career_talk_id  =e.career_talk_id  and school_id like  "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='Company'.toString()">
-            where  company_name like  "%"#{S_Name}"%"
+            where c.career_talk_id  =e.career_talk_id  and company_name like  "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='Company_ID'.toString()">
+            where c.career_talk_id  =e.career_talk_id  and company_id=#{S_Name}
         </if>
         <if test="S_ID.toString()=='ALL'.toString()">
+            where c.career_talk_id  =e.career_talk_id
         </if>
          order by meet_day desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
     </select>
+
+    <!-- 获取首页公司图片-->
+    <select id="selectEmploymentPhoto"  resultMap="EmploymentBaseMap">
+        select  employment_id,logo from employment ORDER BY meet_day DESC limit 0,10
+    </select>
+
 </mapper>

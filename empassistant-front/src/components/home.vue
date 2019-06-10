@@ -73,8 +73,8 @@
           </el-carousel>
           <div class="ad-bar">
             <div class="ad-container">
-              <div class="vip-companys">
-                <img src="../assets/main-picture.png" title="这是我的公司" alt="广告招聘">
+              <div v-for="(item,index) in adImgList" :key="index" class="vip-companys">
+                <img :src="item.logo" title="这是我的公司" alt="广告招聘">
               </div>
             </div>
           </div>
@@ -85,12 +85,12 @@
       <div class="container-tab">
         <ul class="tab-list">
           <li
-            @click="chageListType(index)"
+            @click="chageListType(index,item.value)"
             :data-index="index"
-            v-for="(item,index) in ['热门职业','最新职业','急招职业']"
+            v-for="(item,index) in [{label:'热门职业',value:'Hot'},{label:'最新职业',value:'New'},{label:'急招职业',value:'Quick'}]"
             :key="index"
             :class="curJobIndex===index?'select':''"
-          >{{item}}</li>
+          >{{item.label}}</li>
         </ul>
         <ul class="tab-content">
           <div v-for="(item,index) in jobList" :key="index" class="post">
@@ -98,14 +98,14 @@
             <div class="post-title">
               <div class="post-head">
                 <div
-                  @click="getDetail(item)"
+                  @click="linkTo({name:'post',params:{id:item.positionID}})"
                   :data-job="item"
                   class="post-name"
                 >{{item.position_name}}</div>
                 <div class="post-pay">{{item.positionWage}}</div>
               </div>
               <div class="post-body">
-                <div class="post-others">
+                <div v-if="item.workPlace" class="post-others">
                   <i class="el-icon-location-outline"></i>
                   <span class="post-other">{{item.workPlace}}</span>
                 </div>
@@ -142,64 +142,20 @@
         </div>
       </div>
     </div>
-    <div class="foot">
-      <div class="container-tab">
-        <div class="foot-title">
-          <div class="ourselves">
-            <span class="ourselves-title">产品服务</span>
-            <a href="#" class="ourselves-body">找实习</a>
-            <a href="#" class="ourselves-body">宣讲会</a>
-            <a href="#" class="ourselves-body">找工作</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">旗下产品</span>
-            <a href="#" class="ourselves-body">找实习</a>
-            <a href="#" class="ourselves-body">宣讲会</a>
-            <a href="#" class="ourselves-body">找工作</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">关于我们</span>
-            <a href="#" class="ourselves-body">了解我们</a>
-            <div class="join-us">
-              <a href="#" class="ourselves-body">赞助我们</a>
-              <div class="join">
-                <img src="../assets/QQ.jpg" alt>
-              </div>
-            </div>
-            <a href="#" class="ourselves-body">加入我们</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">联系我们</span>
-            <div class="join-us">
-              <a href="#" class="ourselves-body">团队微信</a>
-              <div class="join">
-                <img src="../assets/weChat.jpg" alt>
-              </div>
-            </div>
-            <a href="#" class="ourselves-body">客户服务</a>
-            <a href="#" class="ourselves-body">商务合作</a>
-          </div>
-        </div>
-        <div class="foot-body">
-          <p>
-            <span>&copy;2019.2-2019.6 就业助手</span> |
-            <span>赣ICP备00000000号-1</span> |
-            <span>联系我们：xxx@jiuyezhushou.com</span>
-          </p>
-          <p>玉屏西科技有限责任公司版权所有 | 全国领先的实习生平台</p>
-          <div class="internet">
-            <img class="internetImg" src="../assets/record-icon.png" alt>
-            <span>赣公网安备 00000000000000号</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Footsy></Footsy>
     <a class="goto-top" href="#">
       <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
     <div v-if="newUser" class="self-mesg-input">
       <div class="fundmation-mesg">
+        <el-alert
+          :closable="false"
+          v-if="userInfoErr"
+          show-icon
+          :title="userInfoErrMsg"
+          type="error"
+        ></el-alert>
         <div class="mesg-title">
           <i class="el-icon-discount"></i>
           <span>基本信息</span>
@@ -207,16 +163,13 @@
         <div class="head-pic">
           <el-upload
             class="avatar-uploader"
-            :action="this.API.UPLOAD.UPIMG"
-            name="UserImg"
-            list-type="picture"
+            action="https://jsonplaceholder.typicode.com/posts/"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :on-progress="onUploadAvt"
+            :before-upload="beforeAvatarUpload"
           >
-            <img v-if="userInfo.avtUrl" :src="userInfo.avtUrl" class="avatar">
-            <i class="el-icon-loading loadingUp" v-else-if="onUploadImg"></i>
-            <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </div>
         <div class="mesg-form">
@@ -259,15 +212,21 @@
             </span>
           </div>
           <div class="line-form">
-            <span class="line-item">求职意向</span>
-            <span class="line-input">
-              <el-input v-model="userInfo.want" placeholder="请输入内容"></el-input>
+            <span class="line-item-phone">所在学校</span>
+            <span class="line-element">
+              <el-input v-model="userInfo.school" placeholder="请输入内容"></el-input>
             </span>
           </div>
           <div class="line-form">
-            <span class="line-item-phone">手机号码</span>
+            <span class="line-item-phone">所学专业</span>
             <span class="line-element">
-              <el-input v-model="userInfo.mobile" placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.major" placeholder="请输入内容"></el-input>
+            </span>
+          </div>
+          <div class="line-form">
+            <span class="line-item">求职意向</span>
+            <span class="line-input">
+              <el-input v-model="userInfo.want" placeholder="请输入内容"></el-input>
             </span>
           </div>
           <div class="line-form">
@@ -276,9 +235,14 @@
               <el-input v-model="userInfo.email" placeholder="请输入内容"></el-input>
             </span>
           </div>
+          <el-checkbox
+            v-if="userInfo.email"
+            style="margin-left:120px;"
+            v-model="userInfo.getPush"
+          >是否接受推送</el-checkbox>
         </div>
         <div class="mesg-form-bot">
-          <el-button type="primary" round>保存</el-button>
+          <el-button @click="postUser" type="primary" round>保存</el-button>
         </div>
       </div>
     </div>
@@ -287,11 +251,18 @@
 
 <script>
 import Header from "./common/header.vue";
+import Footsy from "./common/footsy.vue";
 export default {
   name: "home",
-  components: { Header },
+  components: { Header,Footsy },
   created() {
+    if (this.$route.params.newUser) {
+      this.newUser = this.$route.params.newUser;
+      console.log(this.newUser);
+    }
+
     this.getJobList();
+    this.getAdImg();
   },
   methods: {
     getJobList() {
@@ -305,7 +276,7 @@ export default {
           params: {
             PageSize: that.pagination.pageSize,
             CurrentPage: that.pagination.curJobPage,
-            S_ID: "New"
+            S_ID: this.jobListType
           }
         })
         .then(res => {
@@ -316,14 +287,34 @@ export default {
           // }
           that.totalJobNum = totalJob;
           that.jobList = res.data.extendInfo.pageBean_List.lists;
-          that.pagination.totalPage =
-            res.data.extendInfo.pageBean_List.totalPage;
+          if (
+            res.data.extendInfo.pageBean_List.totalPage >
+            that.pagination.curJobPage + 9
+          ) {
+            that.pagination.totalPage = that.pagination.curJobPage + 9;
+          } else {
+            that.pagination.totalPage =
+              res.data.extendInfo.pageBean_List.totalPage;
+          }
         });
     },
-    chageListType(index) {
-      //切换职位信息列表
-      this.curJobIndex = index;
+    getAdImg() {
+      //获取广告图片
+      this.axios({
+        url: this.API.OTHER.GETADIMG
+      }).then(res => {
+        console.log(res);
+        this.adImgList = res.data.extendInfo.list;
+      });
     },
+    chageListType(index, value) {
+      //切换职位信息列表
+      this.pagination.curPage = 1;
+      this.curJobIndex = index;
+      this.jobListType = value;
+      this.getJobList();
+    },
+    UploadAvt() {},
     searchJob(e) {
       //搜索相关职位
       let that = this;
@@ -363,31 +354,11 @@ export default {
       this.pagination.curJobPage = val;
       this.getJobList();
     },
-    getDetail(item) {
-      //跳转职位详情页
-      // console.log(item);
-      let id = item.positionID;
-      let that = this;
-      that
-        .axios({
-          url: that.API.JOBS.DETAILJOB,
-          methods: "POST",
-          params: {
-            Position_Id: id
-          }
-        })
-        .then(res => {
-          console.log(res);
-          let job = res.data.extendInfo.List[0];
-          this.linkTo({ name: "post", params: job });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
     handleAvatarSuccess(res, file) {
       //上传头像更改
-      this.userInfo.avtUrl = URL.createObjectURL(file.raw);
+      console.log(res);
+      console.log(file);
+      this.userInfo.avtUrl = res.extendInfo.success;
     },
     changeProvince(val) {
       let that = this;
@@ -401,6 +372,66 @@ export default {
     },
     onUploadAvt() {
       this.onUploadImg = true;
+    },
+    postUser() {
+      //上传个人信息
+      let userInfo = this.userInfo;
+      let that = this;
+      var pattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      console.log(userInfo);
+      if (userInfo.avtUrl == "") {
+        that.showUserInfoErr("请上传个人头像");
+        return;
+      }
+      for (let item in userInfo) {
+        if (userInfo[item] === "") {
+          that.showUserInfoErr("请完整填写个人信息");
+          return;
+        }
+      }
+      if (!pattern.test(userInfo.email)) {
+        that.showUserInfoErr("请填写正确的邮箱地址");
+        return;
+      }
+      console.log(
+        userInfo.name +
+          "\n" +
+          userInfo.sex +
+          "\n" +
+          userInfo.school +
+          "\n" +
+          userInfo.major +
+          "\n" +
+          userInfo.want +
+          "\n" +
+          userInfo.city +
+          "\n" +
+          userInfo.email +
+          "\n" +
+          userInfo.avtUrl
+      );
+      this.axios({
+        url: this.API.USER.UPDATE,
+        params: {
+          UserRealName: userInfo.name,
+          UserSex: userInfo.sex,
+          UserSchool: userInfo.school,
+          UserMajor: userInfo.major,
+          UserIntentionalPost: userInfo.want,
+          UserCity: userInfo.city,
+          UserMail: userInfo.email,
+          UserImg: userInfo.avtUrl,
+          UserStatus: userInfo.getPush
+        }
+      }).then(res => {
+        console.log(res);
+        this.newUser = false;
+      });
+    },
+    showUserInfoErr(msg) {
+      this.userInfoErrMsg = msg;
+      this.userInfoErr = true;
+      console.log(this.userInfoErr);
     }
   },
   data() {
@@ -409,12 +440,13 @@ export default {
       curJobIndex: 0, //当前职位列表类型
       jobList: [], //职位列表
       fullscreenLoading: false, //加载框状态
+      jobListType: "Hot", //职位列表类型
       pagination: {
         //分页相关
         curJobPage: 1, //当前职位列表页数
         pageSize: 12, //分页容量
         nextPage: true, //是否有下一页
-        totalPage: 100 //职位总页数
+        totalPage: 1 //职位总页数
       },
       searchInfo: {
         //搜索相关
@@ -429,11 +461,16 @@ export default {
         sex: "", //用户性别
         province: "", //用户所在省份
         city: "", //用户所在城市
+        school: "", //学校
+        major: "", //所学专业
         want: "", //求职意向
-        mobile: "" //手机号
+        getPush: true //是否接受推送
       },
-      newUser: true,
+      userInfoErr: false, //用户信息填写不完整
+      newUser: false, //用户未完善资料
+      userInfoErrMsg: "", //用户资料报错提示信息,
       onUploadImg: false,
+      adImgList: [], //广告图片列表
       jobClassfy: [
         //职位分类
         {
@@ -1179,11 +1216,11 @@ export default {
         },
         {
           province: "澳门地区",
-          children: []
+          children: ["澳门"]
         },
         {
           province: "其它地区",
-          children: []
+          children: ["其他地区"]
         }
       ],
       curCity: ["请选择"] //当前选中的省的市级列表
@@ -1392,17 +1429,19 @@ export default {
 }
 .ad-container {
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .vip-companys {
   width: 100px;
   height: 100px;
-  background: #aaa;
   display: flex;
   align-items: center;
+  border: 1px solid #eee;
+  cursor: pointer;
 }
 .vip-companys > img {
-  width: 100px;
-  height: 40px;
+  width: 100%;
 }
 .company-tab {
   width: 100%;
@@ -1512,11 +1551,14 @@ export default {
   justify-content: flex-start;
 }
 .post-others {
-  width: 30%;
+  min-width: 30%;
   height: 100%;
   line-height: 30px;
   padding-left: 0px;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .post-other {
   color: #666;
@@ -1562,91 +1604,7 @@ export default {
   color: #aaa;
   line-height: 30px;
 }
-.foot {
-  width: 100%;
-  height: 250px;
-  margin-top: 30px;
-  background-color: #eee;
-}
-.foot-title {
-  width: 100%;
-  height: 150px;
-  box-sizing: border-box;
-}
-.ourselves {
-  width: 24%;
-  height: 150px;
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 20px 0px 0px 10%;
-}
-.ourselves-title {
-  font-size: 18px;
-  font-weight: 500;
-}
-.ourselves-body {
-  list-style: none;
-  display: block;
-  color: #666;
-  margin-top: 5px;
-  text-decoration: none;
-}
-.ourselves-body:hover {
-  color: #0287ee;
-}
-.join-us {
-  width: 100%;
-  position: relative;
-}
-.join-us:hover {
-  color: #0287ee;
-}
-.join-us:hover .join {
-  display: block;
-}
-.join {
-  display: none;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  left: -110px;
-  top: -20px;
-  z-index: 99;
-}
-.join > img {
-  width: 100px;
-  height: 100px;
-}
-.foot-body {
-  width: 100%;
-  height: 100px;
-  text-align: center;
-  padding-top: 10px;
-  font-size: 13px;
-  color: #666;
-  box-sizing: border-box;
-}
-.internet {
-  display: block;
-  height: 30px;
-  line-height: 30px;
-  box-sizing: border-box;
-  padding: 5px 0;
-  position: relative;
-}
-.internetImg {
-  position: absolute;
-  right: 50%;
-  margin-right: 90px;
-}
-.internet > span {
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-  position: absolute;
-  left: 50%;
-  margin-left: -88px;
-}
+
 .goto-top {
   width: 50px;
   height: 43px;
@@ -1657,7 +1615,7 @@ export default {
   text-align: center;
   right: 20px;
   bottom: 100px;
-  z-index: 999;
+  z-index: 98;
   position: fixed;
 }
 .goto-top:hover {
@@ -1739,8 +1697,7 @@ export default {
   display: block;
 }
 .self-mesg-input {
-  display: none;
-  position: absolute;
+  position: fixed;
   top: 0px;
   width: 100%;
   height: 100vh;

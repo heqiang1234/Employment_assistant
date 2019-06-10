@@ -148,6 +148,11 @@ public class EmploymentServiceImpl implements EmploymentService {
         {
             log.info("地址查询宣讲会信息");
             pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }else
+        if(S_id=="Company_ID"||S_id.equals("Company_ID"))
+        {
+            log.info("公司ID查询宣讲会信息");
+            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
         }
         return pageBean;
     }
@@ -190,7 +195,6 @@ public class EmploymentServiceImpl implements EmploymentService {
         map.put("S_ADDRESS_ID", S_Address_Id);
         map.put("S_Name", S_Name);
         //封装每页显示的数据
-        System.out.println("12121212");
         List<Employment> lists = employmentDao.selectAllEmploymentByType(map);
         pageBean.setLists(lists);
 
@@ -209,5 +213,16 @@ public class EmploymentServiceImpl implements EmploymentService {
         return employmentDao.selectEmploymentById(map);
 
     }
+
+    /**
+     * 返回图片和信息
+     * @return
+     */
+    @Override
+    public List<Employment> selectEmploymentPhoto() {
+
+        return employmentDao.selectEmploymentPhoto();
+    }
+
 
 }
