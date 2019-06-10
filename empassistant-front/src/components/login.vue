@@ -30,7 +30,7 @@
         <a href="#" class="forget">忘记密码</a>
         <a @click="linkTo({name:'register'})" class="register">立即注册</a>
       </div>
-      <div @click="login" class="submit">立即登录</div>
+      <div @keyup.enter="login" @click="login" class="submit">立即登录</div>
     </div>
     <div class="login-footer">
       <p>就业助手你的好帮手</p>

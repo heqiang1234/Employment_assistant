@@ -56,7 +56,7 @@
           ></a>
         </div>
           <div class="tocareer-btn">
-      <el-button @click="linkTo({name:'company',params:{id:jobInfo.career_talk_id}})" type="primary" plain>查看该公司宣讲会信息</el-button>
+      <el-button  @click="linkTo({name:'careerTalk',params:{companyId:jobInfo.company.company_id}})" type="primary" plain>查看该公司宣讲会信息</el-button>
     </div>
       </div>
          

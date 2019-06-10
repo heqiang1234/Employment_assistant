@@ -72,9 +72,9 @@
             </el-carousel-item>
           </el-carousel>
           <div class="ad-bar">
-            <div class="ad-container">
-              <div v-for="(item,index) in adImgList" :key="index" class="vip-companys">
-                <img :src="item.logo" title="这是我的公司" alt="广告招聘">
+            <div class="ad-container"> 
+              <div @click="linkTo({name:'post',params:{id:item.employment_id}})" v-for="(item,index) in adImgList" :key="index" class="vip-companys">
+                <img :src="item.logo" title="公司" alt="广告招聘">
               </div>
             </div>
           </div>

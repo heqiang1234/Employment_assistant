@@ -3,7 +3,8 @@ const API = {
   USER:{
     LOGIN:api+'/User/DoLogin',//用户登录
     REGIST:api+'/User/Save', //注册用户
-    UPDATE:api+'/User/UpdateUser' //修改用户信息
+    UPDATE:api+'/User/UpdateUser', //修改用户信息
+    CHECKLOGIN:api+'/User/DoCheckLogin'
   },
   JOBS:{
     GETJOBLIST:api+'/Position/selectAllPosition', //职位分页
@@ -13,6 +14,7 @@ const API = {
   EMP:{
     GETEMP:api+'/Employment/ShowEmployment', //宣讲会分页
     DETAILEMP:api+'/Employment/ShowAllEmploymentInfo', //宣讲会详情
+    SEARCHEMP:api+'/Employment/SearchEmployment'
   },
   UPLOAD:{
     UPIMG:api+'/Upload/UploadImg/' //上传图片
