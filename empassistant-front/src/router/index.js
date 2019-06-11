@@ -8,7 +8,7 @@ import careerTalk from '@/components/careerTalk'
 import company from '@/components/company'
 import post from '@/components/post'
 import personalCenter from '@/components/personalCenter'
-
+import dataShow from '@/components/dataShow'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -51,6 +51,11 @@ export default new Router({
       path: '/personalCenter',
       name: 'personalCenter',
       component: personalCenter
+    },
+    {
+      path: '/dataShow',
+      name: 'dataShow',
+      component: dataShow
     }
   ]
 })

@@ -229,7 +229,7 @@ export default {
   line-height: 50px;
 }
 .save-bnt{
-  margin: 10px auto;
+  margin: 20px auto;
 }
 .other-msg {
   width: 66%;

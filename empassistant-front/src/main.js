@@ -4,9 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import {Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
-import axios from 'axios';
+import axios from 'axios'
 import API from './libs/api.js'
 import {linkTo} from './libs/utils'
+import echarts from 'echarts'
+
 axios.defaults.withCredentials=true;//让ajax携带cookie
 Vue.prototype.USERSTATUS = {
   login:false,
@@ -32,7 +34,7 @@ Vue.use(Alert);
 // Vue.use(Backtop)
 Vue.prototype.$message = Message;//信息组件
 Vue.prototype.linkTo = linkTo;
-
+Vue.prototype.$echarts = echarts//表格，数据可视化
 /* eslint-disable no-new */
 new Vue({
   el: '#app',   

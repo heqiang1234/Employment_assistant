@@ -169,7 +169,7 @@
             :before-upload="beforeAvatarUpload"
           >
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
           </el-upload>
         </div>
         <div class="mesg-form">
@@ -1604,7 +1604,6 @@ export default {
   color: #aaa;
   line-height: 30px;
 }
-
 .goto-top {
   width: 50px;
   height: 43px;
