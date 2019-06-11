@@ -23,10 +23,10 @@
           <img class="user-avt" v-else src="../../assets/default_headpic.png">
           <i class="el-icon-arrow-down el-icon--right"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>{{userInfo.user_RealName}}</el-dropdown-item>
+            <el-dropdown-item @click.native="linkTo({name:'personalCenter'})">{{userInfo.user_RealName}}</el-dropdown-item>
             <el-dropdown-item>上传简历</el-dropdown-item>
             <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -49,17 +49,47 @@ export default {
         this.USERSTATUS.userInfo = result.person;
       }
       if (this.USERSTATUS.login) {
-        this.userInfo = this.USERSTATUS.userInfo;
-        this.hasLog = true;
-        console.log(this.hasLog);
+        this.syncUserStatus()
       }
     });
   },
   methods: {
+    created(){
+      console.log(this.$route.path);
+    },
     checkLogin() {
       return this.axios({
         url: this.API.USER.CHECKLOGIN
       });
+    },
+    syncUserStatus(){
+      this.userInfo = this.USERSTATUS.userInfo;
+      this.hasLog = this.USERSTATUS.login;
+      console.log('用户登陆状态：'+this.hasLog);
+    },
+    logout(){//用户登出
+    console.log('用户退出登录')
+      this.axios({
+        url:this.API.USER.LOGOUT
+      }).then((res)=>{
+        console.log(res);
+        let result = res.data.extendInfo;
+        if(res.data.code == "200"){
+        this.USERSTATUS.login = false;
+        this.USERSTATUS.userInfo={}
+        this.syncUserStatus();
+        console.log(this.$route.path);
+        if(this.$route.path=="/personalCenter"){
+          this.replaceTo({name:'home'})
+        }
+        }
+        this.$message({
+              showClose: true,
+              message: result.suc_ere,
+              type: "success"
+            });
+            return;
+      })
     }
   },
   data() {

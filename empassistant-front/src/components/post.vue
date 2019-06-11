@@ -1,17 +1,17 @@
 <template>
   <div class="warp">
     <Header></Header>
-    
+
     <div v-if="jobInfo.company" class="information">
       <div class="post-mesg">
         <div class="post-title">
           <span class="company-name">{{jobInfo.company.company_name}}</span>
           <span class="post-name">{{jobInfo.position_name}}</span>
-          
+
           <div class="sign1"></div>
           <div class="sign2"></div>
         </div>
-        
+
         <div class="post-body">
           <div class="mesg">
             <i class="el-icon-coin"></i>
@@ -55,85 +55,36 @@
             alt
           ></a>
         </div>
-          <div class="tocareer-btn">
-      <el-button  @click="linkTo({name:'careerTalk',params:{companyId:jobInfo.company.company_id}})" type="primary" plain>查看该公司宣讲会信息</el-button>
-    </div>
-      </div>
-         
-    </div>
-  
-    
-    <div class="foot">
-      <div class="container-tab">
-        <div class="foot-title">
-          <div class="ourselves">
-            <span class="ourselves-title">产品服务</span>
-            <a href="#" class="ourselves-body">找实习</a>
-            <a href="#" class="ourselves-body">宣讲会</a>
-            <a href="#" class="ourselves-body">找工作</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">旗下产品</span>
-            <a href="#" class="ourselves-body">找实习</a>
-            <a href="#" class="ourselves-body">宣讲会</a>
-            <a href="#" class="ourselves-body">找工作</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">关于我们</span>
-            <a href="#" class="ourselves-body">了解我们</a>
-            <div class="join-us">
-              <a href="#" class="ourselves-body">赞助我们</a>
-              <div class="join">
-                <img src="../assets/QQ.jpg" alt>
-              </div>
-            </div>
-            <a href="#" class="ourselves-body">加入我们</a>
-          </div>
-          <div class="ourselves">
-            <span class="ourselves-title">联系我们</span>
-            <div class="join-us">
-              <a href="#" class="ourselves-body">团队微信</a>
-              <div class="join">
-                <img src="../assets/weChat.jpg" alt>
-              </div>
-            </div>
-            <a href="#" class="ourselves-body">客户服务</a>
-            <a href="#" class="ourselves-body">商务合作</a>
-          </div>
-        </div>
-        <div class="foot-body">
-          <p>
-            <span>&copy;2019.2-2019.6 就业助手</span> |
-            <span>赣ICP备00000000号-1</span> |
-            <span>联系我们：xxx@jiuyezhushou.com</span>
-          </p>
-          <p>玉屏西科技有限责任公司版权所有 | 全国领先的实习生平台</p>
-          <div class="internet">
-            <img class="internetImg" src="../assets/record-icon.png" alt>
-            <span>赣公网安备 00000000000000号</span>
-          </div>
+        <div class="tocareer-btn">
+          <el-button
+            @click="linkTo({name:'careerTalk',params:{companyId:jobInfo.company.company_id}})"
+            type="primary"
+            plain
+          >查看该公司宣讲会信息</el-button>
         </div>
       </div>
     </div>
+    <Footsy></Footsy>
   </div>
 </template>
 <script>
-import Header from './common/header'
+import Header from "./common/header";
+import Footsy from "./common/footsy";
 export default {
-  components:{Header},
+  components: { Header, Footsy },
   created() {
     let options = this.$route.params;
     console.log(options.id);
-     if(options.id){
-      this.getDetail(options.id)
-        .then(res=>{
-          this.jobInfo = this.formatInfo(res.data.extendInfo.List[0])
-        })
+    if (options.id) {
+      this.getDetail(options.id).then(res => {
+        this.jobInfo = this.formatInfo(res.data.extendInfo.List[0]);
+      });
     }
   },
   methods: {
-    formatInfo(obj) { //格式化内容信息
-    console.log(obj);
+    formatInfo(obj) {
+      //格式化内容信息
+      console.log(obj);
       if (obj.jobDescription) {
         obj.jobDescription = obj.jobDescription
           .replace(/\n|\r\n/g, "<br/>")
@@ -151,13 +102,14 @@ export default {
       }
       return obj;
     },
-    getDetail(id){  //获取详情
+    getDetail(id) {
+      //获取详情
       return this.axios({
-        url:this.API.JOBS.DETAILJOB,
-        params:{
-          Position_Id:id
+        url: this.API.JOBS.DETAILJOB,
+        params: {
+          Position_Id: id
         }
-      })
+      });
     }
   },
   data() {
@@ -369,6 +321,10 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
+.tocareer-btn {
+  width: 185px;
+  margin: 10px auto;
+}
 .map-img {
   display: block;
   width: 100%;
@@ -408,100 +364,5 @@ export default {
 }
 .com-text > a:hover {
   text-decoration: #1e649f underline;
-}
-.foot {
-  width: 100%;
-  height: 250px;
-  margin-top: 30px;
-  background-color: #eee;
-}
-.container-tab {
-  height: 100%;
-  max-width: 90%;
-  min-width: 900px;
-  margin: 0px auto;
-}
-.foot-title {
-  width: 100%;
-  height: 150px;
-  box-sizing: border-box;
-}
-.ourselves {
-  width: 24%;
-  height: 150px;
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 20px 0px 0px 10%;
-}
-.ourselves-title {
-  font-size: 18px;
-  font-weight: 500;
-}
-.ourselves-body {
-  list-style: none;
-  display: block;
-  color: #666;
-  margin-top: 5px;
-  text-decoration: none;
-}
-.ourselves-body:hover {
-  color: #0287ee;
-}
-.join-us {
-  width: 100%;
-  position: relative;
-}
-.join-us:hover {
-  color: #0287ee;
-}
-.join-us:hover .join {
-  display: block;
-}
-.join {
-  display: none;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  left: -110px;
-  top: -20px;
-  z-index: 99;
-}
-.join > img {
-  width: 100px;
-  height: 100px;
-}
-.foot-body {
-  width: 100%;
-  height: 100px;
-  text-align: center;
-  padding-top: 10px;
-  font-size: 13px;
-  color: #666;
-  box-sizing: border-box;
-}
-.internet {
-  display: block;
-  height: 30px;
-  line-height: 30px;
-  box-sizing: border-box;
-  padding: 5px 0;
-  position: relative;
-}
-.internetImg {
-  position: absolute;
-  right: 50%;
-  margin-right: 90px;
-}
-.internet > span {
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-  position: absolute;
-  left: 50%;
-  margin-left: -88px;
-}
-.tocareer-btn{
-  width:100%;
-  text-align: center;
 }
 </style>

@@ -4,7 +4,8 @@ const API = {
     LOGIN:api+'/User/DoLogin',//用户登录
     REGIST:api+'/User/Save', //注册用户
     UPDATE:api+'/User/UpdateUser', //修改用户信息
-    CHECKLOGIN:api+'/User/DoCheckLogin'
+    CHECKLOGIN:api+'/User/DoCheckLogin',//验证用户是否仍在登陆
+    LOGOUT:api+'/User/LoginOut'//退出登录
   },
   JOBS:{
     GETJOBLIST:api+'/Position/selectAllPosition', //职位分页
@@ -14,7 +15,8 @@ const API = {
   EMP:{
     GETEMP:api+'/Employment/ShowEmployment', //宣讲会分页
     DETAILEMP:api+'/Employment/ShowAllEmploymentInfo', //宣讲会详情
-    SEARCHEMP:api+'/Employment/SearchEmployment'
+    SEARCHEMP:api+'/Employment/SearchEmployment',//搜索宣讲会
+    GETABOUTEMP:api+'/Employment/ShowEmploymentInfoByCompany'//查看职位相关宣讲会
   },
   UPLOAD:{
     UPIMG:api+'/Upload/UploadImg/' //上传图片
