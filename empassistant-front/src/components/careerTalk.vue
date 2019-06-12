@@ -2,7 +2,7 @@
   <div class="warp">
     <Header></Header>
     <Searcher></Searcher>
-    <div class="career-talk">
+    <div v-if="empInfo.list.length>0" class="career-talk">
       <div class="container">
         <div v-for="(item,index) in empInfo.list" :key="index" class="careers-card">
           <div class="company-info">
@@ -50,22 +50,36 @@
         </div>
       </div>
     </div>
+    <div v-else class="no-reash">
+      <div>
+        <i>
+          你想要的没有找到
+          <br>
+          <span>Sorry~QAQ</span>
+        </i>
+      </div>
+    </div>
     <Footsy></Footsy>
   </div>
 </template>
 <script>
 import Header from "./common/header";
-import Searcher from './common/searcher'
-import Footsy from "./common/footsy.vue"
+import Searcher from "./common/searcher";
+import Footsy from "./common/footsy.vue";
 export default {
-  components: { Header,Searcher,Footsy},
+  components: { Header, Searcher, Footsy },
   created() {
     if (this.$route.params.companyId) {
-      this.searchType = "Company_ID";
-      this.searchContent = this.$route.params.companyId;
+      this.empInfo.key = this.$route.params.companyId;
       this.searchCrTkList().then(res => {
         this.handlePageData(res.data.extendInfo);
       });
+    } else if (this.$route.params.lists) {
+      this.empInfo.list = this.$route.params.lists;
+      this.empInfo.key = this.$route.params.searchKey;
+      let res = {};
+      res["pagebean"] = this.$route.params;
+      this.handlePageData(res);
     } else {
       this.getCrTkList().then(res => {
         this.handlePageData(res.data.extendInfo);
@@ -76,27 +90,31 @@ export default {
     getCrTkList() {
       //获取宣讲会列表
       return this.axios({
-        url: this.API.EMP.GETEMP,
+        url: this.API.EMP.GETABOUTEMP,
         params: {
           CurrentPage: this.pagination.curPage,
-          PageSize: this.pagination.pageSize
+          PageSize: this.pagination.pageSize,
+          Search_Name: this.empInfo.key
         }
       });
     },
-    searchCrTkList(){
+    searchCrTkList() {
       return this.axios({
-        url:this.API.EMP.GETABOUTEMP,
-        params:{
+        url: this.API.EMP.GETABOUTEMP,
+        params: {
           CurrentPage: this.pagination.curPage,
           PageSize: this.pagination.pageSize,
-          Search_Name:this.searchContent
+          Search_Name: this.empInfo.key
         }
-      })
+      });
     },
     handleCurrentChange(val) {
       //跳转页数
       this.pagination.curJobPage = val;
-      this.getCrTkList();
+      this.getCrTkList()
+        .then(res=>{
+          this.handlePageData(res.data.extendInfo)
+        })
     },
     handlePageData(res) {
       //处理页面数据
@@ -228,8 +246,17 @@ export default {
 .logoImg > img {
   width: 100%;
 }
-.jobs-pagetab{
+.jobs-pagetab {
   text-align: center;
-  margin-top:20px;
+  margin-top: 20px;
+}
+.no-reash {
+  /* display: none;  */
+  color: #dfdfdf;
+  font-size: 20px;
+  text-align: center;
+  height: 300px;
+  padding-top: 150px;
+  box-sizing: border-box;
 }
 </style>

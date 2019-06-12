@@ -8,34 +8,25 @@
           <div class="user-count-num">共计{{totalJobNum}}个热门职业等着你</div>
         </div>
         <div class="right-bar">
-          <div class="form">
+          <div @keyup.enter="search" class="form">
             <el-input
               placeholder="请输入内容"
               v-model="searchInfo.searchContent"
               class="input-with-select"
             >
               <el-select
-                style="width:120px;"
-                v-model="searchInfo.searchPlace"
-                placeholder="选择地区"
-                slot="prepend"
-              >
-                <el-option label="全国" value="1"></el-option>
-                <el-option label="北京" value="2"></el-option>
-              </el-select>
-              <el-select
                 style="width:120px;margin-left:15px;"
-                placeholder="选择信息"
+                placeholder="选择搜索内容"
                 slot="prepend"
                 v-model="searchInfo.searchType"
               >
-                <el-option label="搜职业" value="1"></el-option>
-                <el-option label="搜公司" value="2"></el-option>
+                <el-option label="搜岗位" value = 1></el-option>
+                <el-option label="搜宣讲会" value = 2></el-option>
               </el-select>
-              <el-button style="width:130px;" slot="append" icon="el-icon-search"></el-button>
+              <el-button  @click="search" style="width:130px;" slot="append" icon="el-icon-search"></el-button>
             </el-input>
           </div>
-          <div class="form-bar">
+          <div  @click="getClassfyJobs" class="form-bar">
             热门搜索：
             <a href="#">项目</a>
             <a href="#">前端</a>
@@ -55,7 +46,7 @@
             v-for="(classfy,index) in jobClassfy"
             :key="index"
             class="type-item"
-            @click="searchJob"
+            @click="getClassfyJobs"
           >
             <a v-for="(item,index) in classfy.ovallClsf" :key="index" href="#">{{item}}</a>
             <div class="item-infor">
@@ -72,8 +63,13 @@
             </el-carousel-item>
           </el-carousel>
           <div class="ad-bar">
-            <div class="ad-container"> 
-              <div @click="linkTo({name:'post',params:{id:item.employment_id}})" v-for="(item,index) in adImgList" :key="index" class="vip-companys">
+            <div class="ad-container">
+              <div
+                @click="linkTo({name:'post',params:{id:item.employment_id}})"
+                v-for="(item,index) in adImgList"
+                :key="index"
+                class="vip-companys"
+              >
                 <img :src="item.logo" title="公司" alt="广告招聘">
               </div>
             </div>
@@ -147,7 +143,7 @@
       <img src="../assets/right-hn.png" alt>
       回到顶部
     </a>
-    <div v-if="newUser" class="self-mesg-input">
+    <div @keyup.enter="postUser" v-if="newUser" class="self-mesg-input">
       <div class="fundmation-mesg">
         <el-alert
           :closable="false"
@@ -254,9 +250,10 @@
 <script>
 import Header from "./common/header.vue";
 import Footsy from "./common/footsy.vue";
+import { searchJobData } from "../libs/utils";
 export default {
   name: "home",
-  components: { Header,Footsy },
+  components: { Header, Footsy },
   created() {
     if (this.$route.params.newUser) {
       this.newUser = this.$route.params.newUser;
@@ -317,22 +314,26 @@ export default {
       this.getJobList();
     },
     UploadAvt() {},
-    searchJob(e) {
+    search(){
+      console.log(this.searchInfo.searchType);
+      switch(this.searchInfo.searchType){
+        case "搜岗位":
+        case '1':this.toJobsResult(this.searchInfo.searchContent,this.API.JOBS.SEARCHJOBS);break;
+        case "搜宣讲会":
+        case '2':this.toJobsResult(this.searchInfo.searchContent,this.API.EMP.SEARCHEMP);break;
+      }
+    },
+    getClassfyJobs(e) {
       //搜索相关职位
       let that = this;
       let key = e.target.innerText;
       console.log(key);
-      that
-        .axios({
-          url: that.API.JOBS.SEARCHJOBS,
-          methods: "GET",
-          params: {
-            CurrentPage: 1,
-            PageSize: that.pagination.pageSize,
-            Search_Id: "position_name",
-            Search_Name: key
-          }
-        })
+      this.toJobsResult(key,this.API.JOBS.SEARCHJOBS)
+    },
+    toJobsResult(key,url,curPage=1,pageSize=12,Search_Id="position_name"){
+      console.log(key);
+      console.log(url);
+       searchJobData(key, url,curPage,pageSize,Search_Id)
         .then(res => {
           console.log(res);
           if (res.data.code != "200") {
@@ -343,9 +344,10 @@ export default {
             });
             return;
           }
-          let initInfo = res.data.extendInfo.pagebean_position_name;
+          let initInfo = res.data.extendInfo.pagebean;
           initInfo["searchKey"] = key;
-          this.linkTo({ name: "jobs", params: initInfo });
+          if(this.searchInfo.searchType == 1 || this.searchInfo.searchType=="搜岗位") this.linkTo({ name: "jobs", params: initInfo });
+          else if(this.searchInfo.searchType == 2) this.linkTo({name:'careerTalk',params:initInfo});
         })
         .catch(err => {
           console.log(err);
@@ -402,6 +404,8 @@ export default {
           "\n" +
           userInfo.school +
           "\n" +
+          userInfo.province +
+          "\n" +
           userInfo.major +
           "\n" +
           userInfo.want +
@@ -420,7 +424,7 @@ export default {
           UserSchool: userInfo.school,
           UserMajor: userInfo.major,
           UserIntentionalPost: userInfo.want,
-          UserProvince:userInfo.province,
+          UserProvince: userInfo.province,
           UserCity: userInfo.city,
           UserMail: userInfo.email,
           UserImg: userInfo.avtUrl,
@@ -439,16 +443,16 @@ export default {
       this.userInfoErr = true;
       console.log(this.userInfoErr);
     },
-    beforeAvatarUpload(file){
-      const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
     }
   },
   data() {
@@ -469,7 +473,7 @@ export default {
         //搜索相关
         searchContent: "", //搜索框内容
         searchPlace: "", //搜索地区范围
-        searchType: "" //搜索内容类型
+        searchType: "搜岗位" //搜索内容类型
       },
       userInfo: {
         //用户信息
@@ -1711,7 +1715,7 @@ export default {
   width: 106px;
   height: 106px;
   display: block;
-  border-radius:50%;
+  border-radius: 50%;
 }
 .self-mesg-input {
   position: fixed;

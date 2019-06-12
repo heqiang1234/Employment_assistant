@@ -5,7 +5,8 @@
       <div class="per-pic">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          :action="API.UPLOAD.UPIMG"
+          name="UserImg"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -15,37 +16,53 @@
         </el-upload>
         <div class="exchange-pwd">
           <div class="user-name">
-            <span class="sty-title">当前账号：</span><span class="sty-name">{{userInfo.user_Name}}</span>
+            <span class="sty-title">当前账号：</span>
+            <span class="sty-name">{{userInfo.user_Name}}</span>
           </div>
           <div @click="changePwd" class="re-pwd">
             <i class="el-icon-edit">修改密码</i>
           </div>
-          <div v-show="onChangePwd" class= "input-pwd">
+          <div v-show="onChangePwd" class="input-pwd">
             <div class="pwd-line">
               <div class="pwd-name">当前密码</div>
-              <div><el-input placeholder="当前密码"  show-password></el-input></div>
+              <div>
+                <el-input placeholder="当前密码" show-password></el-input>
+              </div>
             </div>
             <div class="pwd-line">
               <div class="pwd-name">新密码</div>
-              <div><el-input placeholder="新密码"  show-password></el-input></div>
+              <div>
+                <el-input placeholder="新密码" show-password></el-input>
+              </div>
             </div>
             <div class="pwd-line">
               <div class="pwd-name">确认密码</div>
-              <div><el-input placeholder="确认密码"  show-password></el-input></div>
+              <div>
+                <el-input placeholder="确认密码" show-password></el-input>
+              </div>
             </div>
             <div class="pwd-line">
-              <div class="save-bnt"><el-button type="success" plain>确认修改</el-button></div>
+              <div class="save-bnt">
+                <el-button type="success" plain>确认修改</el-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="other-msg">
+        <el-alert
+          :closable="false"
+          v-if="userInfoErr"
+          show-icon
+          :title="userInfoErrMsg"
+          type="error"
+        ></el-alert>
         <div class="show-title">用户信息</div>
         <div class="show-msg">
           <div class="msg-items">
             <div class="item-name">姓名</div>
             <div class="item-input">
-              <el-input v-model="userInfo.user_RealName"  placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.user_RealName" placeholder="请输入内容"></el-input>
             </div>
           </div>
         </div>
@@ -53,7 +70,7 @@
           <div class="msg-items">
             <div class="item-name">性别</div>
             <div class="item-input">
-              <el-select  v-model="userInfo.user_Sex" placeholder="选择性别">
+              <el-select v-model="userInfo.user_Sex" placeholder="选择性别">
                 <el-option label="男" value="male"></el-option>
                 <el-option label="女" value="female"></el-option>
               </el-select>
@@ -64,7 +81,11 @@
           <div class="msg-items">
             <div class="item-name">所在城市</div>
             <div class="item-input">
-              <el-select  v-model="userInfo.UserProvince" @change="changeProvince"  placeholder="请选择省">
+              <el-select
+                v-model="userInfo.user_Province"
+                @change="changeProvince"
+                placeholder="请选择省"
+              >
                 <el-option
                   v-for="item in allCity"
                   :key="item.province"
@@ -72,7 +93,7 @@
                   :value="item.province"
                 ></el-option>
               </el-select>
-              <el-select  v-model="userInfo.user_City"  placeholder="请选择市">
+              <el-select v-model="userInfo.user_City" placeholder="请选择市">
                 <el-option v-for="item in curCity" :key="item" :label="item" :value="item"></el-option>
               </el-select>
             </div>
@@ -82,7 +103,7 @@
           <div class="msg-items">
             <div class="item-name">所在学校</div>
             <div class="item-input">
-              <el-input v-model="userInfo.user_School"  placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.user_School" placeholder="请输入内容"></el-input>
             </div>
           </div>
         </div>
@@ -90,7 +111,7 @@
           <div class="msg-items">
             <div class="item-name">所学专业</div>
             <div class="item-input">
-              <el-input v-model="userInfo.user_Major"  placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.user_Major" placeholder="请输入内容"></el-input>
             </div>
           </div>
         </div>
@@ -98,7 +119,7 @@
           <div class="msg-items">
             <div class="item-name">求职意向</div>
             <div class="item-input">
-              <el-input v-model="userInfo.user_IntentionalPost"  placeholder="请输入内容"></el-input>
+              <el-input v-model="userInfo.user_IntentionalPost" placeholder="请输入内容"></el-input>
             </div>
           </div>
         </div>
@@ -110,12 +131,13 @@
             </div>
           </div>
           <el-checkbox
-            v-if="userInfo.email"
+            v-if="userInfo.user_Email"
             style="margin-left:120px;"
             v-model="userInfo.user_Status"
+            :checked="userInfo.user_Status"
           >是否接受推送</el-checkbox>
         </div>
-        
+
         <div class="save-bot">
           <el-button @click="updateUser" type="primary">确认修改</el-button>
         </div>
@@ -128,33 +150,143 @@
 import Header from "./common/header.vue";
 import Footsy from "./common/footsy.vue";
 export default {
-  created(){
+  created() {
+    console.log(this.USERSTATUS.login);
+    if (!this.USERSTATUS.login) {
+      this.replaceTo({ name: "login" });
+      this.$message({
+        showClose: true,
+        message: "请先登陆",
+        type: "error"
+      });
+      return;
+    }
     this.userInfo = this.USERSTATUS.userInfo;
   },
-  components: { Header,Footsy },
-  methods:{
-    changePwd(){
+  components: { Header, Footsy },
+  methods: {
+    changePwd() {
       this.onChangePwd = !this.onChangePwd;
     },
-    updateUser(){
-
+    changeProvince(val) {
+      let that = this;
+      let province = that.allCity;
+      for (let i = 0; i < province.length; i++) {
+        if (province[i].province === val) {
+          that.curCity = province[i].children;
+          that.userInfo.user_City = province[i].children[0];
+        }
+      }
+    },
+   handleAvatarSuccess(res, file) {
+      //上传头像更改
+      console.log(res);
+      console.log(file);
+      this.userInfo.userImg = res.extendInfo.success;
+    },
+    beforeAvatarUpload(file){
+      const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+    },
+    showUserInfoErr(msg) {
+      this.userInfoErrMsg = msg;
+      this.userInfoErr = true;
+      console.log(this.userInfoErr);
+    },
+    updateUser() {
+      //上传个人信息
+      let userInfo = this.userInfo;
+      let that = this;
+      var pattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      console.log(userInfo);
+      if (userInfo.avtUrl == "") {
+        that.showUserInfoErr("请上传个人头像");
+        return;
+      }
+      for (let item in userInfo) {
+        if (userInfo[item] === "") {
+          that.showUserInfoErr("请完整填写个人信息");
+          return;
+        }
+      }
+      if (!pattern.test(userInfo.user_Email)) {
+        that.showUserInfoErr("请填写正确的邮箱地址");
+        return;
+      }
+      console.log(
+        userInfo.user_RealName +
+          "\n" +
+          userInfo.user_Sex +
+          "\n" +
+          userInfo.user_School +
+          "\n" +
+          userInfo.user_Province +
+          "\n" +
+          userInfo.user_Major +
+          "\n" +
+          userInfo.user_IntentionalPost +
+          "\n" +
+          userInfo.user_City +
+          "\n" +
+          userInfo.user_Email +
+          "\n" +
+          userInfo.userImg+
+          "\n" +
+          userInfo.user_Status
+      );
+      this.axios({
+        url: this.API.USER.UPDATE,
+        params: {
+          UserRealName: userInfo.user_RealName,
+          UserSex: userInfo.user_Sex,
+          UserSchool: userInfo.user_School,
+          UserMajor: userInfo.user_Major,
+          UserIntentionalPost: userInfo.user_IntentionalPost,
+          UserProvince: userInfo.user_Province,
+          UserCity: userInfo.user_City,
+          UserMail: userInfo.user_Email,
+          UserImg: userInfo.userImg,
+          UserStatus: userInfo.user_Status
+        }
+      }).then(res => {
+        console.log(res);
+        this.newUser = false;
+        this.USERSTATUS.userInfo = res.data.extendInfo.person;
+        console.log(this.USERSTATUS.userInfo);
+        this.$message({
+        showClose: true,
+        message: "修改成功",
+        type: "success"
+      });
+        this.$refs.header.syncUserStatus();
+      });
     }
   },
-  data(){
-    return{
-      onChangePwd:false,
-      userInfo:{
-        userImg:'',
-        user_City:'',
-        user_Email:'',
-        user_IntentionalPost:'',
-        user_Major:'',
-        user_Name:'',
-        user_Province:'',
-        user_RealName:'',
-        user_School:'',
-        user_Sex:'',
-        user_Status:'',
+  data() {
+    return {
+      onChangePwd: false,
+      curCity: [],
+      userInfoErrMsg: "", //用户资料报错提示信息,
+      userInfoErr: false,
+      userInfo: {
+        userImg: "",
+        user_City: "",
+        user_Email: "",
+        user_IntentionalPost: "",
+        user_Major: "",
+        user_Name: "",
+        user_Province: "",
+        user_RealName: "",
+        user_School: "",
+        user_Sex: "",
+        user_Status: ""
       },
       allCity: [
         //全国省市区
@@ -803,7 +935,7 @@ export default {
         }
       ],
       curCity: ["请选择"] //当前选中的省的市级列表
-    }
+    };
   }
 };
 </script>
@@ -856,51 +988,51 @@ export default {
   height: 200px;
   display: block;
 }
-.exchange-pwd{
-  margin-top:30px;
+.exchange-pwd {
+  margin-top: 30px;
   padding: 0px 10px;
   box-sizing: border-box;
-  width: 100%; 
+  width: 100%;
 }
-.user-name{
+.user-name {
   padding-left: 40px;
   width: 100%;
-  font-family: '微软雅黑';
+  font-family: "微软雅黑";
   text-align: left;
 }
-.sty-title{
+.sty-title {
   font-weight: 500;
 }
-.sty-name{
+.sty-name {
   font-size: 24px;
   font-weight: 500;
 }
-.re-pwd{
+.re-pwd {
   padding-left: 40px;
   line-height: 50px;
   color: #666;
-  cursor:pointer;
+  cursor: pointer;
 }
-.input-pwd{
-  margin:30px auto 0px;
-  width: 100%; 
+.input-pwd {
+  margin: 30px auto 0px;
+  width: 100%;
   padding: 10px 10px 10px 0px;
   box-sizing: border-box;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-.pwd-line{
+.pwd-line {
   display: flex;
   line-height: 50px;
 }
-.pwd-name{
+.pwd-name {
   width: 100px;
   font-size: 16px;
   text-align: right;
-  padding-right:10px; 
+  padding-right: 10px;
   line-height: 50px;
 }
-.save-bnt{
-  margin: 20px auto;
+.save-bnt {
+  margin: 10px auto;
 }
 .other-msg {
   width: 66%;
@@ -916,34 +1048,34 @@ export default {
   font-weight: 500px;
   line-height: 50px;
 }
-.show-msg{
+.show-msg {
   width: 100%;
   margin-top: 20px;
 }
-.msg-items{
+.msg-items {
   width: 100%;
-  margin: 10px 0; 
+  margin: 10px 0;
   height: 40px;
   line-height: 40px;
   display: flex;
 }
-.item-name{
-  padding-right:10px;
+.item-name {
+  padding-right: 10px;
   text-align: right;
-  width:100px;
+  width: 100px;
 }
-.item-input .el-input{
+.item-input .el-input {
   width: 500px;
 }
-.item-input .el-select .el-input{
+.item-input .el-select .el-input {
   width: 190px;
 }
-.save-bot{
+.save-bot {
   width: 100%;
   height: 40px;
-  padding:20px 230px;
+  padding: 20px 230px;
 }
-.close-page{
+.close-page {
   width: 50px;
   height: 20px;
   line-height: 20px;

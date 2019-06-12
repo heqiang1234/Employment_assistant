@@ -115,81 +115,44 @@ export default {
         ]
       });
     },
-
     echartPie() {
-      // 饼状图的相关配置与事件
-
-      // 1. 默认选中了某一个
-      // 2. 鼠标离开记录上次选中的作为当前选中的
-
       var echarts = require("echarts");
-
-      // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById("myChart2"));
       // 不能在单个容器上初始化多个 ECharts 实例。
       //实例容器，一般是一个具有高宽的div元素。
-
       var option = {
+        title: {
+          text: "某站点用户访问来源",
+          subtext: "纯属虚构",
+          x: "center"
+        },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
           orient: "vertical",
-          x: "left",
+          left: "left",
           data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
         },
         series: [
           {
             name: "访问来源",
             type: "pie",
-            radius: ["50%", "70%"],
-            avoidLabelOverlap: false,
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "16",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
+            radius: "55%",
+            center: ["50%", "60%"],
             data: [
-              {
-                value: 335,
-                name: "直接访问"
-              },
-              {
-                value: 310,
-                name: "邮件营销"
-              },
-              {
-                value: 234,
-                name: "联盟广告"
-              },
-              {
-                value: 135,
-                name: "视频广告"
-              },
-              {
-                value: 1548,
-                name: "搜索引擎"
-              }
+              { value: 335, name: "直接访问" },
+              { value: 310, name: "邮件营销" },
+              { value: 234, name: "联盟广告" },
+              { value: 135, name: "视频广告" },
+              { value: 1548, name: "搜索引擎" }
             ],
             itemStyle: {
-              // 饼状图之间隔开一点的配置参数
-              normal: {
-                borderWidth: 4,
-                borderColor: "#ffffff"
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
               }
             }
           }
@@ -263,7 +226,7 @@ export default {
           {
             type: "category",
             data: [
-              "1月",
+              "5月6",
               "2月",
               "3月",
               "4月",
@@ -272,7 +235,7 @@ export default {
               "7月",
               "8月",
               "9月",
-              "10月",
+              "6月7",
               "11月",
               "12月"
             ],
@@ -294,10 +257,10 @@ export default {
           },
           {
             type: "value",
-            name: "温度",
+            name: "点击人次",
             min: 0,
-            max: 25,
-            interval: 5,
+            max: 2500,
+            interval: 500,
             axisLabel: {
               formatter: "{value} 次"
             }
@@ -305,16 +268,29 @@ export default {
         ],
         series: [
           {
-            name: "蒸发量",
+            name: "公司宣讲会数量",
             type: "bar",
-            data: [2.6, 5.9, 9.0, 2.4, 2.7, 7.7, 5.6, 12.2, 8.7, 8.8, 6.0, 2.3]
+            data: [5, 7, 1, 3, 6, 16, 2, 4, 6, 7, 10, 14]
           },
 
           {
-            name: "平均温度",
+            name: "点击次数",
             type: "line",
             yAxisIndex: 1,
-            data: [2.6, 5.9, 9.0, 2.4, 2.7, 7.7, 5.6, 12.2, 8.7, 8.8, 6.0, 2.3]
+            data: [
+              1000,
+              500,
+              900,
+              1544,
+              999,
+              2000,
+              1299,
+              800,
+              900,
+              1000,
+              1300,
+              1444
+            ]
           }
         ]
       };
@@ -327,7 +303,6 @@ export default {
       var myChart = echarts.init(document.getElementById("myChart4"));
       // 不能在单个容器上初始化多个 ECharts 实例。
       //实例容器，一般是一个具有高宽的div元素。
-      
     }
   }
 };

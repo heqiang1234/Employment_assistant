@@ -9,6 +9,8 @@ import company from '@/components/company'
 import post from '@/components/post'
 import personalCenter from '@/components/personalCenter'
 import dataView from '@/components/dataView'
+import blank from '@/components/blank'
+
 
 Vue.use(Router)
 export default new Router({
@@ -57,6 +59,11 @@ export default new Router({
       path:'/dataView',
       name:'dataView',
       component:dataView
+    },
+    {
+      path:'/blank',
+      name:'blank',
+      component:blank
     }
   ]
 })
