@@ -58,7 +58,7 @@
         <div class="com-mesgs">
           <a class="com-title" href="#">
             <div class="com-logo">
-              <img src="" alt>
+              <img :src="careerInfo.company.company_logo" />
             </div>
             <p></p>
           </a>
@@ -71,7 +71,8 @@
             <a
               class="map-img"
               target="_blank"
-              alt
+              :href="careerInfo.company.map_link"
+              :style="{backgroundImage:'url('+careerInfo.company.image_link+')'}"
             ></a>
           </div>
           

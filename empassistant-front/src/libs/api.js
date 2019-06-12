@@ -22,10 +22,16 @@ const API = {
     UPIMG:api+'/Upload/UploadImg/' //上传图片
   },
   OTHER:{
-    GETADIMG:api+'/Photo/ShowEmploymentPhoto' //首页广告图片
+    GETADIMG:api+'/Photo/ShowEmploymentPhoto', //首页广告图片
+    GETBANNER:api+'/eChartsData/getPhoto'
   },
   VERIFYCODE:{
     GETCODE:api+'/VerifyCode/Kaptcha'
+  },
+  ECHARTS:{
+    GETEMPCHARTS:api+'/eChartsData/getEchartsData_Employment_count',//宣讲会数 -大学-地区
+    GETPOSCHARTS:api+'/eChartsData/getEchartsData_Place_count', //岗位数-地区
+    GETMEETCHARTS:api+'/eChartsData/getEchartsData_MeetDay_count' //宣讲会时间分布情况
   }
 }
 module.exports = API;

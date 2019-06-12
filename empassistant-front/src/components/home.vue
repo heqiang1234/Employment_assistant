@@ -58,14 +58,14 @@
         </div>
         <div class="swiper">
           <el-carousel height="288px">
-            <el-carousel-item v-for="item in 4" :key="item">
-              <h3>{{ item }}</h3>
+            <el-carousel-item v-for="item in banners" :key="item.id">
+              <el-image fit="cover " style="height:288px" :src="item.picUrl" />
             </el-carousel-item>
           </el-carousel>
           <div class="ad-bar">
             <div class="ad-container">
               <div
-                @click="linkTo({name:'post',params:{id:item.employment_id}})"
+                @click="linkTo({name:'company',params:{id:item.career_talk_id}})"
                 v-for="(item,index) in adImgList"
                 :key="index"
                 class="vip-companys"
@@ -262,8 +262,18 @@ export default {
 
     this.getJobList();
     this.getAdImg();
+    this.getBanner()
+      .then(res=>{
+        console.log(res);
+        this.banners = res.data.extendInfo.result_list;
+      })
   },
   methods: {
+    getBanner(){
+      return this.axios({
+        url:this.API.OTHER.GETBANNER
+      })
+    },
     getJobList() {
       //获取职位列表
       let that = this;
@@ -462,6 +472,12 @@ export default {
       jobList: [], //职位列表
       fullscreenLoading: false, //加载框状态
       jobListType: "Hot", //职位列表类型
+      banners:[//轮播图
+        {
+        id:1,
+        picUrl:''
+      }
+      ],
       pagination: {
         //分页相关
         curJobPage: 1, //当前职位列表页数
@@ -1766,5 +1782,8 @@ export default {
 }
 .jobs-pagetab {
   text-align: center;
+}
+.el-image{
+  width:100%;
 }
 </style>

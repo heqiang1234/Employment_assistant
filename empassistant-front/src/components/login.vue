@@ -8,7 +8,7 @@
             <router-link :to="{name:'home'}">首页</router-link>
           </li>
           <li>
-            <a @click="linkTo({name:'login'})" href="#">我的简历</a>
+            <a @click="linkTo({name:'dataView'})" href="#">数据分析</a>
           </li>
           <li>
             <a @click="linkTo({name:'careerTalk'})" href="#">校园招聘会</a>

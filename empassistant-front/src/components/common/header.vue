@@ -3,18 +3,10 @@
     <div class="header-container">
       <h1>实习助手</h1>
       <ul class="subnav">
-        <li>
-          <router-link :to="{name:'home'}">首页</router-link>
+        <li  v-for="(item,index) in hd" :key="index">
+          <a  @click="changeHd(index,item)">{{item.label}}</a>
         </li>
-        <li>
-          <a @click="linkTo({name:'login'})">我的简历</a>
-        </li>
-        <li>
-          <a @click="linkTo({name:'careerTalk'})">校园招聘会</a>
-        </li>
-        <li>
-          <a @click="linkTo({name:'jobs'})" href="#">藏经阁</a>
-        </li>
+      
       </ul>
       <el-button @click="linkTo({name:'login'})" v-if="!hasLog" plain>请登录</el-button>
       <div v-else class="userInfo">
@@ -52,9 +44,6 @@ export default {
     });
   },
   methods: {
-    created(){
-      console.log(this.$route.path);
-    },
     checkLogin() {
       return this.axios({
         url: this.API.USER.CHECKLOGIN
@@ -88,17 +77,49 @@ export default {
             });
             return;
       })
+    },
+    changeHdIndex(index){
+      console.log(index);
+      this.curIndex = index;
+      console.log(this.curIndex);
+    },
+    changeHd(index,item){
+       this.changeHdIndex(index);
+      this.linkTo(item.link)
     }
   },
   data() {
     return {
       userInfo: {},
-      hasLog: false
+      hasLog: false,
+      hd:[
+        {
+          label:'首页',
+          link:{name:'home'}
+        },
+        {
+          label:'数据分析',
+          link:{name:'dataView'}
+        },
+        {
+          label:'校园招聘会',
+          link:{name:'careerTalk'}
+        },
+        {
+          label:'藏经阁',
+          link:{name:'jobs'}
+        }
+      ],
+      curIndex:1,
     };
   }
 };
 </script>
 <style>
+.hd-select{
+  color:#0287ee !important;
+  border-bottom: 1px solid #0287ee;
+}
 .header {
   width: 100%;
   height: 56px;
@@ -130,7 +151,7 @@ export default {
   display: inline-block;
   vertical-align: top;
   font-size: 16px;
-  color: #222;
+
   padding: 0 16px;
   line-height: 56px;
   margin: 0;
