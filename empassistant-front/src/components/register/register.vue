@@ -84,7 +84,7 @@ export default {
             duration: 1500
           });
           setTimeout(() => {
-            that.$router.push({
+            that.$router.replaceTo({
               path: "/login"
             });
           }, 1000);

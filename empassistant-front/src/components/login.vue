@@ -20,7 +20,7 @@
       </div>
     </div>
    
-    <div class="login-body">
+    <div @keyup.enter="login" class="login-body">
       <div class="login-title">学生登录</div>
       <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
       <input type="password" v-model="pwd" placeholder="请输入密码">
@@ -30,7 +30,7 @@
         <a href="#" class="forget">忘记密码</a>
         <a @click="linkTo({name:'register'})" class="register">立即注册</a>
       </div>
-      <div @click="login" class="submit">立即登录</div>
+      <div  @click="login" class="submit">立即登录</div>
     </div>
     <div class="login-footer">
       <p>就业助手你的好帮手</p>
@@ -44,6 +44,15 @@ export default {
   name: "login",
   name: "HelloWorld",
   created(){
+    // document.addEventListener("keydown", function login(e){
+    //   console.log(e)
+    //   if(e.key==="Enter"){
+    //     this.login();
+    //   }
+    // })
+  },
+  destroyed() {
+    // document.removeEventListener("keydown",login)
   },
   data() {
     return {

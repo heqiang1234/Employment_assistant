@@ -79,7 +79,7 @@ export default {
         }
       }).then(res => {
         console.log(res);
-        this.careerInfo = res.data.extendInfo.lists[0];
+        this.careerInfo = res.data.extendInfo.pagebean[0];
       });
     }
   },

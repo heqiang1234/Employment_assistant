@@ -3,12 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
-import axios from 'axios'
-import API from './libs/api.js'
-import {linkTo} from './libs/utils'
+import {Dropdown,DropdownMenu,DropdownItem,Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
+import axios from 'axios';
 import echarts from 'echarts'
-
+Vue.prototype.$echarts = echarts 
+import API from './libs/api.js'
+import {linkTo,replaceTo} from './libs/utils'
 axios.defaults.withCredentials=true;//让ajax携带cookie
 Vue.prototype.USERSTATUS = {
   login:false,
@@ -17,6 +17,9 @@ Vue.prototype.USERSTATUS = {
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
 Vue.config.productionTip = false;
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Button);
@@ -34,7 +37,7 @@ Vue.use(Alert);
 // Vue.use(Backtop)
 Vue.prototype.$message = Message;//信息组件
 Vue.prototype.linkTo = linkTo;
-Vue.prototype.$echarts = echarts//表格，数据可视化
+Vue.prototype.replaceTo = replaceTo;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',   

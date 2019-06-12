@@ -7,7 +7,10 @@
         <div v-for="(item,index) in empInfo.list" :key="index" class="careers-card">
           <div class="company-info">
             <div class="company-name">
-              <a @click="linkTo({name:'company',params:{id:item.career_talk_id}})" href="#">{{item.meet_name}}</a>
+              <a
+                @click="linkTo({name:'company',params:{id:item.career_talk_id}})"
+                href="#"
+              >{{item.meet_name}}</a>
             </div>
             <div class="company-type">
               <span>{{item.company.companyTrade}}</span>
@@ -15,16 +18,15 @@
             </div>
           </div>
           <div class="talk-info">
-             <div class="talk-body">
-             <i class="el-icon-school"></i>
+            <div class="talk-body">
+              <i class="el-icon-school"></i>
               <span class="talk-address">{{item.school_name}}</span>
-              </div>
+            </div>
             <div class="talk-time">
               <i class="el-icon-time"></i>
               {{item.meet_day}} {{item.meet_time}}
             </div>
             <div class="talk-body">
-             
               <i class="el-icon-location-outline"></i>
               <span class="talk-address">{{item.address}}</span>
               <i class="el-icon-view"></i>
@@ -58,30 +60,54 @@ import Footsy from "./common/footsy.vue"
 export default {
   components: { Header,Searcher,Footsy},
   created() {
-    this.getCrTkList();
+    if (this.$route.params.companyId) {
+      this.searchType = "Company_ID";
+      this.searchContent = this.$route.params.companyId;
+      this.searchCrTkList().then(res => {
+        this.handlePageData(res.data.extendInfo);
+      });
+    } else {
+      this.getCrTkList().then(res => {
+        this.handlePageData(res.data.extendInfo);
+      });
+    }
   },
   methods: {
-    getCrTkList() { //获取宣讲会列表
-      let that = this;
-      this.axios({
-        url: that.API.EMP.GETEMP,
+    getCrTkList() {
+      //获取宣讲会列表
+      return this.axios({
+        url: this.API.EMP.GETEMP,
         params: {
-          CurrentPage: that.pagination.curPage,
-          PageSize: that.pagination.pageSize
+          CurrentPage: this.pagination.curPage,
+          PageSize: this.pagination.pageSize
         }
-      }).then(res => {
-        console.log(res);
-        that.empInfo.list = res.data.extendInfo.pagebean.lists;
-        if (res.data.extendInfo.pagebean.totalPage > that.pagination.curPage + 9){that.pagination.totalPage = that.pagination.curPage + 9;}
-        else that.pagination.totalPage = res.data.extendInfo.pagebean.totalPage;
-          
       });
     },
-     handleCurrentChange(val) {
+    searchCrTkList(){
+      return this.axios({
+        url:this.API.EMP.GETABOUTEMP,
+        params:{
+          CurrentPage: this.pagination.curPage,
+          PageSize: this.pagination.pageSize,
+          Search_Name:this.searchContent
+        }
+      })
+    },
+    handleCurrentChange(val) {
       //跳转页数
       this.pagination.curJobPage = val;
       this.getCrTkList();
     },
+    handlePageData(res) {
+      //处理页面数据
+      console.log(res);
+      this.empInfo.list = res.pagebean.lists;
+      if (res.pagebean.totalPage > this.pagination.curPage + 9) {
+        this.pagination.totalPage = this.pagination.curPage + 9;
+      } else {
+        this.pagination.totalPage = res.pagebean.totalPage;
+      }
+    }
   },
   data() {
     return {
@@ -93,7 +119,7 @@ export default {
       empInfo: {
         list: [],
         key: ""
-      },
+      }
     };
   }
 };
@@ -113,7 +139,6 @@ export default {
   margin: 0px auto;
   flex-direction: column;
 }
-
 
 .career-talk {
   width: 100%;
@@ -203,5 +228,8 @@ export default {
 .logoImg > img {
   width: 100%;
 }
-
+.jobs-pagetab{
+  text-align: center;
+  margin-top:20px;
+}
 </style>

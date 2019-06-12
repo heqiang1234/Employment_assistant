@@ -1,6 +1,6 @@
 <template>
   <div class="wrap" v-loading.fullscreen.lock="fullscreenLoading">
-    <Header></Header>
+    <Header ref="header"></Header>
     <div class="top-bar">
       <div class="container">
         <div class="left-bar">
@@ -72,9 +72,9 @@
             </el-carousel-item>
           </el-carousel>
           <div class="ad-bar">
-            <div class="ad-container">
-              <div v-for="(item,index) in adImgList" :key="index" class="vip-companys">
-                <img :src="item.logo" title="这是我的公司" alt="广告招聘">
+            <div class="ad-container"> 
+              <div @click="linkTo({name:'post',params:{id:item.employment_id}})" v-for="(item,index) in adImgList" :key="index" class="vip-companys">
+                <img :src="item.logo" title="公司" alt="广告招聘">
               </div>
             </div>
           </div>
@@ -163,12 +163,14 @@
         <div class="head-pic">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="API.UPLOAD.UPIMG"
+            name="UserImg"
+            list-type="picture"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
           >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <img v-if="userInfo.avtUrl" :src="userInfo.avtUrl" class="avatar">
             <i v-else class="el-icon-camera-solid avatar-uploader-icon"></i>
           </el-upload>
         </div>
@@ -418,6 +420,7 @@ export default {
           UserSchool: userInfo.school,
           UserMajor: userInfo.major,
           UserIntentionalPost: userInfo.want,
+          UserProvince:userInfo.province,
           UserCity: userInfo.city,
           UserMail: userInfo.email,
           UserImg: userInfo.avtUrl,
@@ -426,12 +429,26 @@ export default {
       }).then(res => {
         console.log(res);
         this.newUser = false;
+        this.USERSTATUS.userInfo = res.data.extendInfo.person;
+        console.log(this.USERSTATUS.userInfo);
+        this.$refs.header.syncUserStatus();
       });
     },
     showUserInfoErr(msg) {
       this.userInfoErrMsg = msg;
       this.userInfoErr = true;
       console.log(this.userInfoErr);
+    },
+    beforeAvatarUpload(file){
+      const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
     }
   },
   data() {
@@ -1694,6 +1711,7 @@ export default {
   width: 106px;
   height: 106px;
   display: block;
+  border-radius:50%;
 }
 .self-mesg-input {
   position: fixed;
