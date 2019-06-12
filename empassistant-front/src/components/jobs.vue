@@ -110,13 +110,13 @@ export default {
             });
             return;
           }
-          that.jobList = res.data.extendInfo.pagebean_position_name.lists;
-          that.curPage = res.data.extendInfo.pagebean_position_name.currPage;
-          if(res.data.extendInfo.pagebean_position_name.totalPage > that.curPage+9){
+          that.jobList = res.data.extendInfo.pagebean.lists;
+          that.curPage = res.data.extendInfo.pagebean.currPage;
+          if(res.data.extendInfo.pagebean.totalPage > that.curPage+9){
             that.pageCount = that.curPage+9;
           }
           else{
-            that.pageCount = res.data.extendInfo.pagebean_position_name.totalPage
+            that.pageCount = res.data.extendInfo.pagebean.totalPage
           }
           })
         .catch(err => {

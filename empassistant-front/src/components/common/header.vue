@@ -24,8 +24,6 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="linkTo({name:'personalCenter'})">{{userInfo.user_RealName}}</el-dropdown-item>
-            <el-dropdown-item>上传简历</el-dropdown-item>
-            <el-dropdown-item>修改密码</el-dropdown-item>
             <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

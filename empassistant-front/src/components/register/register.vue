@@ -3,7 +3,7 @@
     <div class="bg">
       <canvas id="canvas"></canvas>
     </div>
-    <div class="regi-box">
+    <div @keyup.enter="regist" class="regi-box">
       <div class="regi-title">注册</div>
       <div class="regi-input">
         <input type="text" v-model="userName" placeholder="请输入账号" autofocus>
@@ -84,7 +84,7 @@ export default {
             duration: 1500
           });
           setTimeout(() => {
-            that.$router.replaceTo({
+            this.replaceTo({
               path: "/login"
             });
           }, 1000);
