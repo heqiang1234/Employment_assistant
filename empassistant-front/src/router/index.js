@@ -9,7 +9,6 @@ import company from '@/components/company'
 import post from '@/components/post'
 import personalCenter from '@/components/personalCenter'
 import dataView from '@/components/dataView'
-import dataShow from '@/components/dataShow'
 
 Vue.use(Router)
 export default new Router({
@@ -58,11 +57,6 @@ export default new Router({
       path:'/dataView',
       name:'dataView',
       component:dataView
-    },
-    {
-      path:'/dataShow',
-      name:'dataShow',
-      component:dataShow
     }
   ]
 })

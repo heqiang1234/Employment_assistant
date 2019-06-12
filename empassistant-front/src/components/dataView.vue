@@ -12,11 +12,11 @@
       </div>
       <div class="chartBox">
         <div id="myChart3" class="ty-form"></div>
-        <div class="chart-title">点击量排行</div>
+        <div class="chart-title">宣讲会日程</div>
       </div>
       <div class="chartBox">
         <div id="myChart4" class="ty-form"></div>
-        <div class="chart-title">城市人才需求</div>
+        <div class="chart-title">全国人才需求</div>
       </div>
     </div>
     <Footsy></Footsy>
@@ -44,6 +44,7 @@ export default {
     this.echartPie1();
   },
   methods: {
+    //点击量排行表
     echart() {
       var echarts = require("echarts");
 
@@ -114,6 +115,7 @@ export default {
         ]
       });
     },
+
     echartPie() {
       // 饼状图的相关配置与事件
 
@@ -228,6 +230,7 @@ export default {
         });
       });
     },
+    //宣讲会日程表
     echart1() {
       var echarts = require("echarts");
 
@@ -236,408 +239,95 @@ export default {
       // 不能在单个容器上初始化多个 ECharts 实例。
       //实例容器，一般是一个具有高宽的div元素。
       var option = {
-        backgroundColor: "#1b1b1b",
         tooltip: {
-          formatter: "{a} <br/>{c} {b}"
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            crossStyle: {
+              color: "#999"
+            }
+          }
         },
         toolbox: {
-          show: true,
           feature: {
-            mark: { show: true },
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar"] },
             restore: { show: true },
             saveAsImage: { show: true }
           }
         },
-        series: [
-          {
-            name: "速度",
-            type: "gauge",
-            min: 0,
-            max: 220,
-            splitNumber: 11,
-            radius: "50%",
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [[0.09, "lime"], [0.82, "#1e90ff"], [1, "#ff4500"]],
-                width: 3,
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisLabel: {
-              // 坐标轴小标记
-              textStyle: {
-                // 属性lineStyle控制线条样式
-                fontWeight: "bolder",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisTick: {
-              // 坐标轴小标记
-              length: 15, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: "auto",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            splitLine: {
-              // 分隔线
-              length: 25, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 3,
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            pointer: {
-              // 分隔线
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5
-            },
-            title: {
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                fontSize: 20,
-                fontStyle: "italic",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            detail: {
-              backgroundColor: "rgba(30,144,255,0.8)",
-              borderWidth: 1,
-              borderColor: "#fff",
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5,
-              offsetCenter: [0, "50%"], // x, y，单位px
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                color: "#fff"
-              }
-            },
-            data: [{ value: 40, name: "km/h" }]
-          },
-          {
-            name: "转速",
-            type: "gauge",
-            center: ["25%", "55%"], // 默认全局居中
-            radius: "30%",
-            min: 0,
-            max: 7,
-            endAngle: 45,
-            splitNumber: 7,
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [[0.29, "lime"], [0.86, "#1e90ff"], [1, "#ff4500"]],
-                width: 2,
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisLabel: {
-              // 坐标轴小标记
-              textStyle: {
-                // 属性lineStyle控制线条样式
-                fontWeight: "bolder",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisTick: {
-              // 坐标轴小标记
-              length: 12, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: "auto",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            splitLine: {
-              // 分隔线
-              length: 20, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 3,
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            pointer: {
-              width: 5,
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5
-            },
-            title: {
-              offsetCenter: [0, "-30%"], // x, y，单位px
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                fontStyle: "italic",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            detail: {
-              //backgroundColor: 'rgba(30,144,255,0.8)',
-              // borderWidth: 1,
-              borderColor: "#fff",
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5,
-              width: 80,
-              height: 30,
-              offsetCenter: [25, "20%"], // x, y，单位px
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                color: "#fff"
-              }
-            },
-            data: [{ value: 1.5, name: "x1000 r/min" }]
-          },
-          {
-            name: "油表",
-            type: "gauge",
-            center: ["75%", "50%"], // 默认全局居中
-            radius: "30%",
-            min: 0,
-            max: 2,
-            startAngle: 135,
-            endAngle: 45,
-            splitNumber: 2,
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [[0.2, "lime"], [0.8, "#1e90ff"], [1, "#ff4500"]],
-                width: 2,
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisTick: {
-              // 坐标轴小标记
-              length: 12, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: "auto",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisLabel: {
-              textStyle: {
-                // 属性lineStyle控制线条样式
-                fontWeight: "bolder",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              },
-              formatter: function(v) {
-                switch (v + "") {
-                  case "0":
-                    return "E";
-                  case "1":
-                    return "Gas";
-                  case "2":
-                    return "F";
-                }
-              }
-            },
-            splitLine: {
-              // 分隔线
-              length: 15, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 3,
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            pointer: {
-              width: 2,
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5
-            },
-            title: {
-              show: false
-            },
-            detail: {
-              show: false
-            },
-            data: [{ value: 0.5, name: "gas" }]
-          },
-          {
-            name: "水表",
-            type: "gauge",
-            center: ["75%", "50%"], // 默认全局居中
-            radius: "30%",
-            min: 0,
-            max: 2,
-            startAngle: 315,
-            endAngle: 225,
-            splitNumber: 2,
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [[0.2, "lime"], [0.8, "#1e90ff"], [1, "#ff4500"]],
-                width: 2,
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            axisTick: {
-              // 坐标轴小标记
-              show: false
-            },
-            axisLabel: {
-              textStyle: {
-                // 属性lineStyle控制线条样式
-                fontWeight: "bolder",
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              },
-              formatter: function(v) {
-                switch (v + "") {
-                  case "0":
-                    return "H";
-                  case "1":
-                    return "Water";
-                  case "2":
-                    return "C";
-                }
-              }
-            },
-            splitLine: {
-              // 分隔线
-              length: 15, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 3,
-                color: "#fff",
-                shadowColor: "#fff", //默认透明
-                shadowBlur: 10
-              }
-            },
-            pointer: {
-              width: 2,
-              shadowColor: "#fff", //默认透明
-              shadowBlur: 5
-            },
-            title: {
-              show: false
-            },
-            detail: {
-              show: false
-            },
-            data: [{ value: 0.5, name: "gas" }]
-          }
-        ]
-      };
-      setInterval(function() {
-        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-        option.series[1].data[0].value = (Math.random() * 7).toFixed(2) - 0;
-        option.series[2].data[0].value = (Math.random() * 2).toFixed(2) - 0;
-        option.series[3].data[0].value = (Math.random() * 2).toFixed(2) - 0;
-        myChart.setOption(option);
-      }, 2000);
-    },
-    echartPie1() {
-      var echarts = require("echarts");
-      var myChart = echarts.init(document.getElementById("myChart4"));
-      // 不能在单个容器上初始化多个 ECharts 实例。
-      //实例容器，一般是一个具有高宽的div元素。
-      var option = {
-        title: {
-          text: "某站点用户访问来源",
-          subtext: "纯属虚构",
-          x: "center"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
         legend: {
-          orient: "vertical",
-          left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+          data: ["蒸发量", "平均温度"]
         },
+        xAxis: [
+          {
+            type: "category",
+            data: [
+              "1月",
+              "2月",
+              "3月",
+              "4月",
+              "5月",
+              "6月",
+              "7月",
+              "8月",
+              "9月",
+              "10月",
+              "11月",
+              "12月"
+            ],
+            axisPointer: {
+              type: "shadow"
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            name: "公司宣讲会",
+            min: 0,
+            max: 25,
+            interval: 5,
+            axisLabel: {
+              formatter: "{value} 个"
+            }
+          },
+          {
+            type: "value",
+            name: "温度",
+            min: 0,
+            max: 25,
+            interval: 5,
+            axisLabel: {
+              formatter: "{value} 次"
+            }
+          }
+        ],
         series: [
           {
-            name: "访问来源",
-            type: "pie",
-            radius: "55%",
-            center: ["50%", "60%"],
-            data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" }
-            ],
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
-              }
-            }
+            name: "蒸发量",
+            type: "bar",
+            data: [2.6, 5.9, 9.0, 2.4, 2.7, 7.7, 5.6, 12.2, 8.7, 8.8, 6.0, 2.3]
+          },
+
+          {
+            name: "平均温度",
+            type: "line",
+            yAxisIndex: 1,
+            data: [2.6, 5.9, 9.0, 2.4, 2.7, 7.7, 5.6, 12.2, 8.7, 8.8, 6.0, 2.3]
           }
         ]
       };
       myChart.setOption(option);
       init(0);
-
-      function init(index) {
-        myChart.dispatchAction({
-          type: "highlight",
-          seriesIndex: 0,
-          dataIndex: index
-        });
-      }
-      //记录上次高亮的索引
-      var lastMouseOverIndex = null;
-      // mouseover事件，记录当前数据索引并取消其他高亮，over在out之后
-      myChart.on("mouseover", function(params) {
-        var dataLen = option.series[0].data.length;
-        lastMouseOverIndex = params.dataIndex;
-        for (var i = 0; i < dataLen; i++) {
-          if (i != params.dataIndex) {
-            myChart.dispatchAction({
-              type: "downplay",
-              seriesIndex: 0,
-              dataIndex: i
-            });
-          }
-        }
-      });
-      // mouseout事件，将上次的高亮
-      myChart.on("mouseout", function(params) {
-        myChart.dispatchAction({
-          type: "highlight",
-          seriesIndex: 0,
-          dataIndex: lastMouseOverIndex
-        });
-      });
+    },
+    //全国人才需求状况
+    echartPie1() {
+      var echarts = require("echarts");
+      var myChart = echarts.init(document.getElementById("myChart4"));
+      // 不能在单个容器上初始化多个 ECharts 实例。
+      //实例容器，一般是一个具有高宽的div元素。
+      
     }
   }
 };
