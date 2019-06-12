@@ -1625,7 +1625,6 @@ export default {
   color: #aaa;
   line-height: 30px;
 }
-
 .goto-top {
   width: 50px;
   height: 43px;
