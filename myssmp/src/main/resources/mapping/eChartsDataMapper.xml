@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.human.dao.eChartsDataDao">
+
+    <resultMap id="eChartsDataBaseMap" type="com.human.model.eChartsData">
+        <result column="count_pos" property="vaule"/>
+        <result column="workPlace" property="value_name"/>
+    </resultMap>
+
+    <resultMap id="eChartsDataBaseMap2" type="com.human.model.eChartsData2">
+        <result column="career_address" property="vale_place"/>
+        <result column="count_pos" property="vaule"/>
+        <result column="school_name" property="value_name"/>
+    </resultMap>
+
+    <resultMap id="eChartsDataBaseMap_meetday" type="com.human.model.eChartsData">
+        <result column="count_pos" property="vaule"/>
+        <result column="meet_day" property="value_name"/>
+    </resultMap>
+
+    <resultMap id="photoBaseMap" type="com.human.model.Photo">
+        <result column="picId" property="id"/>
+        <result column="picUrl" property="picUrl"/>
+        <result column="picLink" property="picLink"/>
+    </resultMap>
+
+    <resultMap id="MapBaseMap" type="com.human.model.Mapp">
+        <result column="count_pos" property="value"/>
+        <result column="workPlace" property="workPlace"/>
+    </resultMap>
+
+    <select id="ShowPlaceTotal" resultMap="eChartsDataBaseMap">
+        select  workPlace,count(positionID) as count_pos from position  where LENGTH(workPlace)=6
+        GROUP BY workPlace ORDER BY count(*) desc limit 1,10
+    </select>
+
+    <select id="ShowEmploymentTotal" resultMap="eChartsDataBaseMap2">
+        select career_address,school_name,count(employment_id) as count_pos from employment group by school_name
+    </select>
+
+    <select id="ShowMeetDayTotal" resultMap="eChartsDataBaseMap_meetday">
+       select meet_day,count(*) as count_pos  from employment GROUP BY meet_day
+    </select>
+
+    <select id="ShowMap" resultMap="MapBaseMap">
+       select workPlace,count(*) as count_pos FROM position where LENGTH(workPlace)=6 GROUP BY workPlace ORDER BY count_pos desc limit 0,40
+    </select>
+
+    <select id="ShowPhoto" resultMap="photoBaseMap">
+        select * from pictures
+    </select>
+
+</mapper>

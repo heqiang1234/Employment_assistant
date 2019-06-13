@@ -56,6 +56,12 @@ public class JsonMsg {
         res.setMsg("失效！");
         return res;
     }
+    public static JsonMsg NotLogin(){
+        JsonMsg res = new JsonMsg();
+        res.setCode(401);
+        res.setMsg("未登录！");
+        return res;
+    }
 
     public JsonMsg addInfo(String key, Object obj){
         this.extendInfo.put(key, obj);

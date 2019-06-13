@@ -41,13 +41,13 @@ public class Md5Utils {
 //         * */
 //        String newPs = new SimpleHash("MD5", password, salt, 1024).toHex();
 //
-//        Map<String, String> dataMap = new HashMap<>();
+//        Mapp<String, String> dataMap = new HashMap<>();
 //        dataMap.put("id", id);
 //        dataMap.put("username", username);
 //        dataMap.put("password", newPs);
 //
 //        // 看数据库中是否存在该账户
-//        Map<String, Object> userInfo = queryInfoByUsername(username);
+//        Mapp<String, Object> userInfo = queryInfoByUsername(username);
 //        if(userInfo == null) {
 //            userMapper.insertData(dataMap);
 //            return true;

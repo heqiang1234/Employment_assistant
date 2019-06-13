@@ -16,7 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @Controller
-@RequestMapping(value = "Testt")
+@RequestMapping(value = "/Testt")
 public class TestController {
 
     private static final Logger log = LoggerFactory.getLogger(TestController.class);
@@ -24,7 +24,7 @@ public class TestController {
     @Autowired
     private EmploymentService employmentService;
 
-    @RequestMapping(value = "tt")
+    @RequestMapping(value = "/tt")
     @ResponseBody
     public JsonMsg test1(HttpServletRequest request)
     {
@@ -38,13 +38,14 @@ public class TestController {
             PageBean pagebean = employmentService.findByPage(cur,pag);
 
             System.out.println("start");
-            String[] args1=new String[]{"python","/usr/java/pythonFile/test1.py"};
+            String[] args1=new String[]{"python","/usr/java/pythonFile/EmploymentInformationPython.py"};
             Process pr = Runtime.getRuntime().exec(args1);
             BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
             String line;
 
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
+                lin2+="5555";
                 lin2+=line;
             }
             in.close();

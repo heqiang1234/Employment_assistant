@@ -104,22 +104,14 @@
     <!-- 查询用户记录数量根据类型 -->
     <select id="selectCountById" parameterType="Map"  resultType="int">
 		select count(employment_id) from employment
-        <if test="S_ID.toString()=='address'.toString()">
-       where address like   "%"#{S_Name}"%"
-        </if>
-        <if test="S_ID.toString()=='Professional'.toString()">
-            where professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
-        </if>
-        <if test="S_ID.toString()=='School'.toString()">
-            where  school_id like  "%"#{S_Name}"%"
-        </if>
-        <if test="S_ID.toString()=='Company'.toString()">
-            where  company_name like  "%"#{S_Name}"%"
-        </if>
         <if test="S_ID.toString()=='Company_ID'.toString()">
-            where  company_id=#{S_Name}
+            where  company_id like  "%"#{S_Name}"%"
+        </if>
+        <if test="S_ID.toString()=='All_Search'.toString()">
+            where address like  "%"#{S_Name}"%" or professionals LIKE "%"#{S_Name}"%" or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address like "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='ALL'.toString()">
+
         </if>
 	</select>
 
@@ -127,48 +119,26 @@
     <!-- 查询用户记录数量根据类型 -->
     <select id="selectAllCountById"  parameterType="Map"  resultType="int">
         select count(employment_id)  from employment
-        <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
-            <if test="S_Name !=null">
-                where address like  "%"#{S_Name}"%" or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
-                or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address like "%"#{S_Name}"%"
-            </if>
-        </if>
-        <if test="S_ADDRESS_ID.toString()!='ALL'.toString()">
-            where career_address  LIKE "%"#{S_ADDRESS_ID}"%"
-            <if test="S_Name.toString()!=NULL">
-                and (address like  "%"#{S_Name}"%" or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
-                or school_id like "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address  like "%"#{S_Name}"%")
-            </if>
-        </if>
+           where address like  "%"#{S_Name}"%" or professionals LIKE "%"#{S_Name}"%" or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address like "%"#{S_Name}"%"
     </select>
 
     <!-- 根据搜索框ALL查询数据start 和size查询数据 -->
     <select id="selectAllEmploymentByType" parameterType="Map" resultMap="EmploymentBaseMap">
         select *
-        from employment
-        <if test="S_ADDRESS_ID.toString()=='ALL'.toString()">
-            <if test="S_Name!=null">
-                WHERE address like   "%"#{S_Name}"%"  or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
-                or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%"  or career_address like "%"#{S_Name}"%"
-            </if>
-        </if>
-        <if test="S_ADDRESS_ID.toString()!='ALL'.toString()">
-            where career_address  LIKE "%"#{S_ADDRESS_ID}"%"
-            <if test="S_Name!=NULL">
-                and (address like  "%"#{S_Name}"%" or (professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals ='')
-                or school_id like  "%"#{S_Name}"%" or company_name like  "%"#{S_Name}"%" or meet_name like  "%"#{S_Name}"%" or career_address like "%"#{S_Name}"%")
-            </if>
-        </if>
-        order by meet_day desc
-        <if test="start!=null and size!=null">
-            limit #{start},#{size}
-        </if>
+        from employment e ,company c
+        <if test="S_ID.toString()=='ALL'.toString()">
+    where c.career_talk_id  =e.career_talk_id and ( e.address like  "%"#{S_Name}"%" or e.school_name like  "%"#{S_Name}"%" or e.career_address like  "%"#{S_Name}"%"  or e.meet_name LIKE "%"#{S_Name}"%"or e.professionals LIKE "%"#{S_Name}"%"  or e.school_id like  "%"#{S_Name}"%" or e.company_name like  "%"#{S_Name}"%")
+    </if>
+    order by meet_day desc
+    <if test="start!=null and size!=null">
+    limit #{start},#{size}
+    </if>
     </select>
 
 
     <!-- 根据分页数据start 和size查询数据 -->
     <select id="findByPage" parameterType="Map" resultMap="EmploymentBaseMap_ALL">
-        select e.*,p.* ,c.* from employment e ,position p,company c WHERE  c.career_talk_id  =e.career_talk_id and  p.career_talk_id=e.career_talk_id and e.career_talk_id = '227283'
+        select e.*,c.* from employment e ,company c WHERE  c.career_talk_id  =e.career_talk_id
         order by e.meet_day
         <if test="start!=null and size!=null">
         limit #{start},#{size}
@@ -187,23 +157,14 @@
     <select id="selectEmploymentByType" parameterType="Map" resultMap="EmploymentBaseMap">
         select *
         from employment e ,company c
-        <if test="S_ID.toString()=='address'.toString()">
-            where  c.career_talk_id  =e.career_talk_id  and address like  "%"#{S_Name}"%"
-        </if>
-        <if test="S_ID.toString()=='Professional'.toString()">
-            where c.career_talk_id  =e.career_talk_id and professionals LIKE "%"#{S_Name}"%" or professionals like '%不限专业%' or professionals =''
-        </if>
-        <if test="S_ID.toString()=='School'.toString()">
-            where c.career_talk_id  =e.career_talk_id  and school_id like  "%"#{S_Name}"%"
-        </if>
-        <if test="S_ID.toString()=='Company'.toString()">
-            where c.career_talk_id  =e.career_talk_id  and company_name like  "%"#{S_Name}"%"
+        <if test="S_ID.toString()=='All_Search'.toString()">
+            where c.career_talk_id  =e.career_talk_id and ( e.address like  "%"#{S_Name}"%" or e.school_name like  "%"#{S_Name}"%" or e.career_address like  "%"#{S_Name}"%"  or e.meet_name LIKE "%"#{S_Name}"%"or e.professionals LIKE "%"#{S_Name}"%"  or e.school_id like  "%"#{S_Name}"%" or e.company_name like  "%"#{S_Name}"%")
         </if>
         <if test="S_ID.toString()=='Company_ID'.toString()">
-            where c.career_talk_id  =e.career_talk_id  and company_id=#{S_Name}
+            where  c.career_talk_id  =e.career_talk_id  and e.company_id like  "%"#{S_Name}"%"
         </if>
         <if test="S_ID.toString()=='ALL'.toString()">
-            where c.career_talk_id  =e.career_talk_id
+            where c.career_talk_id  =e.career_talk_id and ( e.address like  "%"#{S_Name}"%" or e.school_name like  "%"#{S_Name}"%" or e.career_address like  "%"#{S_Name}"%"  or e.meet_name LIKE "%"#{S_Name}"%"or e.professionals LIKE "%"#{S_Name}"%"  or e.school_id like  "%"#{S_Name}"%" or e.company_name like  "%"#{S_Name}"%")
         </if>
          order by meet_day desc
         <if test="start!=null and size!=null">
@@ -213,7 +174,7 @@
 
     <!-- 获取首页公司图片-->
     <select id="selectEmploymentPhoto"  resultMap="EmploymentBaseMap">
-        select  employment_id,logo from employment ORDER BY meet_day DESC limit 0,10
+        select  employment_id,career_talk_id,logo from employment ORDER BY meet_day DESC limit 0,10
     </select>
 
 </mapper>

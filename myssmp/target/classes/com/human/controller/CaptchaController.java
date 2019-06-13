@@ -27,6 +27,10 @@ public class CaptchaController {
     public void setCaptchaProducer(Producer kaptchaProducer) {
         this.kaptchaProducer = kaptchaProducer;
     }
+     static {
+        //防止二维码显示不了
+        System.setProperty("java.awt.headless","true");
+     }
 
     @RequestMapping(value = "/Kaptcha")
     @ResponseBody

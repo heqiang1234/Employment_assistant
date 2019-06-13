@@ -16,6 +16,7 @@
             <value>
                 /User/DoLogin = anon <!--可以不需要登录-->
                 /User/Save = anon <!--可以不需要登录-->
+                /User/DoCheckLogin = anon <!--可以不需要登录-->
                 <!--/user/showuser = authc &lt;!&ndash;可以不需要登录&ndash;&gt;-->
                 /User/ShowUser = authc, perms[/showuser]  <!-- perms 表示需要该权限才能访问的页面 -->
                 /User/* = authc <!-- authc 表示需要认证才能访问的页面 -->
@@ -24,6 +25,8 @@
                 /Position/*=anon <!--岗位信息路径可以不需要登录-->
                 /Upload/*=anon <!--文件路径可以不需要登录-->
                 /VerifyCode/*=anon<!--验证码不需要的登陆-->
+                /eChartsData/*=anon<!--验证码不需要的登陆-->
+                /Testt/*=anon<!--验证码不需要的登陆-->
                 <!-- 请求logout.action地址，shiro去清除session -->
 
             </value>

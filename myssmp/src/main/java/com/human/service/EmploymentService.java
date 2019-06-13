@@ -22,7 +22,7 @@ public interface EmploymentService {
      * 搜索框查询数据记录总数根据条件
      * @return
      */
-    int selectAllCountById(String S_address_id,String S_Name);
+    int selectAllCountById(String S_Search_Id,String S_Name);
 
     PageBean<Employment> findByPage(int currentPage,int  pagesize);
 
@@ -36,7 +36,7 @@ public interface EmploymentService {
      *
      * 根据条件查询岗位
      */
-    PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Address_Id, String S_name);
+    PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Search_Id, String S_name);
 
     /**
      * 根据宣讲会ID进入查询详细信息

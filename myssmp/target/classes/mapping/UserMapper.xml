@@ -17,10 +17,11 @@
         <result column="userSex" property="user_Sex" jdbcType="VARCHAR"/>
         <result column="userCity" property="user_City" jdbcType="VARCHAR"/>
         <result column="userResume" property="user_Resume" jdbcType="VARCHAR"/>
+        <result column="userProvince" property="user_Province" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-		userID,userName,userRealName,userSchool,userMajor,userIntentionalPost,userCity,userEmail,userSex,userResume,userStatus,userImg
+		userID,userName,userRealName,userSchool,userMajor,userIntentionalPost,userCity,userEmail,userSex,userResume,userStatus,userImg,userProvince
 	</sql>
 
     <select id="selectUserById" parameterType="int" resultMap="UserBaseMap">
@@ -77,7 +78,8 @@
          <if test="user_Sex !=null and  user_Sex.length()>0">userSex=#{user_Sex},</if>
          <if test="user_City !=null and  user_City.length()>0">userCity=#{user_City},</if>
          <if test="UserImg !=null and  UserImg.length()>0">userImg=#{UserImg},</if>
-          <if test="user_Status !=null and  user_Status.length()>0">userStatus=#{user_Status}</if>
+          <if test="user_Status !=null and  user_Status.length()>0">userStatus=#{user_Status},</if>
+            <if test="user_Province !=null and  user_Province.length()>0">userProvince=#{user_Province}</if>
         </set>
       where  userName=#{user_Name}
     </update>

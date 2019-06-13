@@ -6,41 +6,120 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java" line="143" />
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java" line="80" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java" line="152" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java" line="89" />
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java" line="36" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd4fd7f1-2670-4ccd-b523-2354dd97a92b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_penggle_kaptcha_2_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jhlabs_filters_2_0_235_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/spring-Kaptcha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/dao/eChartsDataDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/model/Mapp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/model/Photo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/model/eChartsData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/model/eChartsData2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/quartz/pythonRun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/service/eChartsDataService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/service/impl/eChartsDataServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/util/EntCoordSyncJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/human/util/GetLatAndLngByBaidu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/eChartsDataMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/myssmp_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/myssmp_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_python_jython_2_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myssmp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/myssmp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/Filter/SimpleCORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/Filter/SimpleCORSFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/shiro/SessionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/shiro/SessionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/util/JsonMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/util/JsonMsg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/util/Md5Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/util/Md5Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/human/util/SerializableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/human/util/SerializableUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/EmploymentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/EmploymentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/spring-shiro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-shiro.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Filter/SimpleCORSFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Filter/SimpleCORSFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Filter/SimpleCORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Filter/SimpleCORSFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMailScheduler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMailScheduler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMailScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/Quartz_Email/SendMailScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/CaptchaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/CaptchaController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/EmploymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/EmploymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/EmploymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/EmploymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/PositionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/PositionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/PositionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/PositionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/TestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/human/shiro/UserRealm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/shiro/UserRealm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/human/shiro/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/shiro/UserRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/VisController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/VisController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/controller/VisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/controller/VisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/service/EmploymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/service/EmploymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/service/impl/EmploymentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/service/impl/EmploymentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/service/impl/EmploymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/service/impl/EmploymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/shiro/SessionDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/shiro/SessionDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/shiro/SessionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/shiro/SessionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/util/JsonMsg.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/util/JsonMsg.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/util/JsonMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/util/JsonMsg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/human/util/Md5Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/human/util/Md5Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/EmploymentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/EmploymentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/PositionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/PositionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring-quartz.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/spring-shiro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring-shiro.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/myssmp.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Filter/SimpleCORSFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Filter/SimpleCORSFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Filter/SimpleCORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Filter/SimpleCORSFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMailScheduler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMailScheduler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMailScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/Quartz_Email/SendMailScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/CaptchaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/CaptchaController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/EmploymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/EmploymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/EmploymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/EmploymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/PositionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/PositionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/PositionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/PositionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/TestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/UserRealm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/UserRealm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/UserRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/VisController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/VisController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/VisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/controller/VisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/EmploymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/EmploymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/impl/EmploymentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/impl/EmploymentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/impl/EmploymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/service/impl/EmploymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/SessionDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/SessionDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/SessionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/shiro/SessionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/JsonMsg.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/JsonMsg.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/JsonMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/JsonMsg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/Md5Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/com/human/util/Md5Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/EmploymentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/EmploymentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/PositionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/PositionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/mapping/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/spring-quartz.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/spring-shiro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/myssmp/WEB-INF/classes/spring-shiro.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/lib/commons-beanutils-1.8.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/lib/commons-logging-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/myssmp/WEB-INF/lib/jython-2.7.0.jar" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,11 +147,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="125" column="65" lean-forward="true" selection-start-line="125" selection-start-column="65" selection-end-line="125" selection-end-column="65" />
+            <state relative-caret-position="304">
+              <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,10 +160,43 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="36" column="49" lean-forward="true" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+            <state relative-caret-position="1064">
+              <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+              <folding>
+                <element signature="e#1092#1093#0" expanded="true" />
+                <element signature="e#1129#1130#0" expanded="true" />
+                <element signature="e#1191#1192#0" expanded="true" />
+                <element signature="e#1243#1244#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-quartz.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="22" column="31" lean-forward="true" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3154">
+              <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1254">
+              <caret line="96" column="24" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -99,9 +211,9 @@
       <list>
         <option value="HTML File" />
         <option value="JUnit4 Test Class" />
+        <option value="spring-beans.schema" />
         <option value="Interface" />
         <option value="XML" />
-        <option value="spring-beans.schema" />
         <option value="Class" />
       </list>
     </option>
@@ -132,21 +244,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/redis.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/redis/RedisDb.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/Listener/CustomSessionListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/dao/positionDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/util/JsonMsg.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/Filter/LoginOutFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/CompanyMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/model/Permission.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/dao/CompanyDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/CompanyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/CompanyController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/service/CompanyService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/SearchController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/quartz/MailJob.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/dao/PositionDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/service/PositionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/PositionServiceImpl.java" />
@@ -154,35 +252,49 @@
         <option value="$PROJECT_DIR$/src/main/java/com/human/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/service/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/SessionController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/UploadDownController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/PhotoShowController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/model/User.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/dao/EmploymentDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/model/Position.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/jdbc.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/model/Company.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/model/Employment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/TestController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/Filter/SimpleCORSFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/EmploymentMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-Kaptcha.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-shiro.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/shiro/SessionDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/util/JsonMsg.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/quartz/pythonRun.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/TestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/model/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/model/eChartsData.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-shiro.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/model/eChartsData2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/model/Photo.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/EmploymentMapper.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/util/EntCoordSyncJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/model/Map.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/service/eChartsDataService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/service/impl/eChartsDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/dao/eChartsDataDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/util/GetLatAndLngByBaidu.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/eChartsDataMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" />
       </list>
     </option>
   </component>
@@ -210,37 +322,15 @@
           <item name="myssmp Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
           <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
         </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="myssmp Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="myssmp Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="myssmp Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="commons-dbcp:commons-dbcp:1.4" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="myssmp Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="org.apache.shiro:shiro-quartz:1.2.5" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
       </expand>
       <select />
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1933" />
-    <option name="height" value="1049" />
+    <option name="x" value="120" />
+    <option name="y" value="70" />
+    <option name="width" value="1725" />
+    <option name="height" value="925" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -248,7 +338,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -320,7 +409,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="human" type="462c0819:PsiDirectoryNode" />
-              <item name="Filter" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
@@ -330,7 +419,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="human" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="quartz" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
@@ -371,7 +460,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="human" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
@@ -391,39 +480,25 @@
             <path>
               <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
               <item name="myssmp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myssmp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myssmp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myssmp" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559918492142" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560403421674" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="/usr/local/lib/node_modules/eslint" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/SSM-Shiro/SSM-Shiro" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/SSM实现Echarts数据可视化/JavaCharts" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -500,6 +575,34 @@
     </configuration>
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EntCoordSyncJob" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.human.util.EntCoordSyncJob" />
+      <module name="myssmp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.human.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GetLatAndLngByBaidu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.human.util.GetLatAndLngByBaidu" />
+      <module name="myssmp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.human.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -931,12 +1034,16 @@
     <list>
       <item itemvalue="Application.email" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.EntCoordSyncJob" />
+      <item itemvalue="Application.GetLatAndLngByBaidu" />
       <item itemvalue="JUnit.SessionServiceTest" />
       <item itemvalue="Tomcat Server.tomact" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GetLatAndLngByBaidu" />
+        <item itemvalue="Application.EntCoordSyncJob" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.SessionServiceTest" />
         <item itemvalue="Application.email" />
@@ -1051,7 +1158,23 @@
       <workItem from="1559801629026" duration="8075000" />
       <workItem from="1559814139288" duration="18458000" />
       <workItem from="1559886112857" duration="10337000" />
-      <workItem from="1559907507425" duration="7286000" />
+      <workItem from="1559907507425" duration="8390000" />
+      <workItem from="1560047934022" duration="3973000" />
+      <workItem from="1560062312112" duration="14823000" />
+      <workItem from="1560132711599" duration="3959000" />
+      <workItem from="1560144031583" duration="2178000" />
+      <workItem from="1560156239028" duration="18371000" />
+      <workItem from="1560219963056" duration="1390000" />
+      <workItem from="1560243688443" duration="191000" />
+      <workItem from="1560245642668" duration="1131000" />
+      <workItem from="1560304449868" duration="8119000" />
+      <workItem from="1560318455858" duration="7451000" />
+      <workItem from="1560338764369" duration="1458000" />
+      <workItem from="1560340719892" duration="5788000" />
+      <workItem from="1560353806555" duration="5899000" />
+      <workItem from="1560361267294" duration="7495000" />
+      <workItem from="1560384632231" duration="3795000" />
+      <workItem from="1560396717060" duration="1379000" />
     </task>
     <servers />
   </component>
@@ -1067,7 +1190,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="624495000" />
+    <option name="totallyTimeSpent" value="712999000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1079,10 +1202,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49714285" visible="true" weight="0.27680966" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49714285" visible="true" weight="0.35120642" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1094,7 +1217,7 @@
       <window_info id="Learn" order="9" weight="0.3297587" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32577905" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49731904" visible="true" weight="0.31728044" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49798927" weight="0.31161472" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4490085" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1103,11 +1226,12 @@
       <window_info anchor="bottom" id="Spring" order="8" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49865952" weight="0.24362606" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50268096" side_tool="true" weight="0.4134478" />
-      <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Java Enterprise" order="15" weight="0.3286119" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.5020107" side_tool="true" weight="0.31161472" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50268096" side_tool="true" weight="0.4134478" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Thumbnails" order="16" weight="0.305949" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1121,7 +1245,7 @@
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info anchor="right" id="CDI" order="11" />
       <window_info anchor="right" id="Bean Validation" order="12" weight="0.3297587" />
-      <window_info anchor="right" id="Maven" order="13" weight="0.2841823" />
+      <window_info anchor="right" id="Maven" order="13" weight="0.28485253" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1132,310 +1256,162 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/SessionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="45" column="55" lean-forward="true" selection-start-line="45" selection-start-column="55" selection-end-line="45" selection-end-column="55" />
-          <folding>
-            <element signature="e#2269#2281#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="247">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/util/CookieUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="995">
-          <caret line="96" column="31" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
+        <state relative-caret-position="149">
+          <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/SessionMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="19" column="57" lean-forward="true" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ehcache-shiro.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="90" column="37" lean-forward="true" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/dao/CompanyDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="110" column="58" lean-forward="true" selection-start-line="110" selection-start-column="58" selection-end-line="110" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ehcache-shiro.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/UserServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/dao/SessionMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="62" column="47" lean-forward="true" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
+        <state relative-caret-position="180">
+          <caret line="59" column="7" lean-forward="true" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
           <folding>
-            <element signature="e#1233#1234#0" expanded="true" />
-            <element signature="e#1277#1278#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1394#1395#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/shiro/SessionDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/util/JsonMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="61" column="27" lean-forward="true" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/SessionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-121">
-          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Filter/CorsFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-729">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="41" column="39" lean-forward="true" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="67" column="59" lean-forward="true" selection-start-line="67" selection-start-column="59" selection-end-line="67" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/UploadDownController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="128" column="27" lean-forward="true" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="11" column="41" lean-forward="true" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/SearchController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="38" column="69" selection-start-line="38" selection-start-column="69" selection-end-line="38" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/PageBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="8" column="26" lean-forward="true" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/PositionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="215" column="16" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="215" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#selectAllPosition#0;class#PositionServiceImpl#0" />
-            <element signature="method#selectAllPositionByType#0;class#PositionServiceImpl#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Listener/CustomSessionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/quartz/MailJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="34" column="23" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-742">
-          <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-quartz.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+        <state relative-caret-position="266">
+          <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/human/dao/EmploymentDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
+        <state relative-caret-position="-393">
+          <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/PhotoShowController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/UploadDownController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+        <state relative-caret-position="-127">
+          <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/CompanyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="31" column="37" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/CompanyMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/SQL/company.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="34" lean-forward="true" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3743">
-          <caret line="212" column="55" selection-start-line="212" selection-start-column="55" selection-end-line="212" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1273">
-          <caret line="81" column="47" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/Company.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
-          <folding>
-            <element signature="e#707#708#0" expanded="true" />
-            <element signature="e#742#743#0" expanded="true" />
-            <element signature="e#798#799#0" expanded="true" />
-            <element signature="e#846#847#0" expanded="true" />
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#920#921#0" expanded="true" />
-            <element signature="e#976#977#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
-            <element signature="e#1066#1067#0" expanded="true" />
-            <element signature="e#1104#1105#0" expanded="true" />
-            <element signature="e#1166#1167#0" expanded="true" />
-            <element signature="e#1220#1221#0" expanded="true" />
-            <element signature="e#1255#1256#0" expanded="true" />
-            <element signature="e#1286#1287#0" expanded="true" />
-            <element signature="e#1334#1335#0" expanded="true" />
-            <element signature="e#1374#1375#0" expanded="true" />
-            <element signature="e#1411#1412#0" expanded="true" />
-            <element signature="e#1444#1445#0" expanded="true" />
-            <element signature="e#1496#1497#0" expanded="true" />
-            <element signature="e#1540#1541#0" expanded="true" />
-            <element signature="e#1579#1580#0" expanded="true" />
-            <element signature="e#1614#1615#0" expanded="true" />
-            <element signature="e#1670#1671#0" expanded="true" />
-            <element signature="e#1718#1719#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/TestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
+        <state relative-caret-position="513">
+          <caret line="40" column="104" selection-start-line="40" selection-start-column="104" selection-end-line="40" selection-end-column="104" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/Employment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
-          <folding>
-            <element signature="e#1171#1172#0" expanded="true" />
-            <element signature="e#1206#1207#0" expanded="true" />
-            <element signature="e#1270#1271#0" expanded="true" />
-            <element signature="e#1318#1319#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="448">
+          <caret line="103" column="35" lean-forward="true" selection-start-line="103" selection-start-column="35" selection-end-line="103" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="24" column="62" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
+        <state relative-caret-position="494">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#849#850#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#943#944#0" expanded="true" />
+            <element signature="e#993#994#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Filter/SimpleCORSFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/CompanyMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="76">
+          <caret line="4" column="46" lean-forward="true" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/PositionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/CompanyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1446,142 +1422,317 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/SessionMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="57" lean-forward="true" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#813#814#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#901#902#0" expanded="true" />
-            <element signature="e#947#948#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-677">
-          <caret line="31" column="27" lean-forward="true" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.2.5/shiro-all-1.2.5.jar!/org/apache/shiro/subject/Subject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="61" column="30" lean-forward="true" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/ShiroServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-114">
+        <state relative-caret-position="133">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/PositionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/shiro/UserRealm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="112" column="40" selection-start-line="112" selection-start-column="40" selection-end-line="112" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="95">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/spring-shiro.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+        <state relative-caret-position="171">
+          <caret line="27" column="51" lean-forward="true" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/CompanyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/eChartsData2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#175#176#0" expanded="true" />
+            <element signature="e#208#209#0" expanded="true" />
+            <element signature="e#260#261#0" expanded="true" />
+            <element signature="e#304#305#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/eChartsData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="20" column="5" selection-start-line="3" selection-start-column="4" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#134#135#0" expanded="true" />
+            <element signature="e#162#163#0" expanded="true" />
+            <element signature="e#201#202#0" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
+            <element signature="e#272#273#0" expanded="true" />
+            <element signature="e#305#306#0" expanded="true" />
+            <element signature="e#357#358#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/PositionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="140" column="70" selection-start-line="140" selection-start-column="70" selection-end-line="140" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/Photo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="27" />
+          <folding>
+            <element signature="e#148#149#0" expanded="true" />
+            <element signature="e#173#174#0" expanded="true" />
+            <element signature="e#206#207#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
+            <element signature="e#267#268#0" expanded="true" />
+            <element signature="e#296#297#0" expanded="true" />
+            <element signature="e#340#341#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#410#411#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#524#525#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/SearchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-360">
+          <caret line="41" column="45" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/EmploymentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-532">
+          <caret line="40" column="67" lean-forward="true" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/EmploymentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="912">
+          <caret line="53" column="21" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/quartz/pythonRun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/EmploymentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="199" column="53" selection-start-line="199" selection-start-column="53" selection-end-line="199" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="374" column="20" selection-start-line="374" selection-start-column="20" selection-end-line="374" selection-end-column="20" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/PhotoShowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/util/EntCoordSyncJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="18" column="56" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/eChartsDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/EmploymentMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="181" column="13" selection-start-line="181" selection-start-column="13" selection-end-line="181" selection-end-column="13" />
+        <state relative-caret-position="444">
+          <caret line="174" column="18" selection-start-line="174" selection-start-column="18" selection-end-line="174" selection-end-column="18" />
           <folding>
-            <element signature="n#sql#0;n#mapper#0;n#!!top" />
             <element signature="n#select#0;n#mapper#0;n#!!top" />
-            <element signature="n#select#1;n#mapper#0;n#!!top" />
-            <element signature="n#select#2;n#mapper#0;n#!!top" />
-            <element signature="n#select#3;n#mapper#0;n#!!top" />
-            <element signature="n#select#4;n#mapper#0;n#!!top" />
-            <element signature="n#select#6;n#mapper#0;n#!!top" />
-            <element signature="n#select#7;n#mapper#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-Kaptcha.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/util/GetLatAndLngByBaidu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="60" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="338" column="10" selection-start-line="338" selection-start-column="10" selection-end-line="338" selection-end-column="10" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="MavenHelperPluginDependencyAnalyzer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/SessionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/shiro/SessionDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/CaptchaController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="36" column="49" lean-forward="true" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+        <state relative-caret-position="292">
+          <caret line="99" column="53" lean-forward="true" selection-start-line="99" selection-start-column="53" selection-end-line="99" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/model/Mapp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="21" />
+          <folding>
+            <element signature="e#185#186#0" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+            <element signature="e#267#268#0" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+            <element signature="e#366#367#0" expanded="true" />
+            <element signature="e#405#406#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#576#577#0" expanded="true" />
+            <element signature="e#608#609#0" expanded="true" />
+            <element signature="e#636#637#0" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/VisController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="115" column="23" selection-start-line="115" selection-start-column="23" selection-end-line="115" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/service/impl/eChartsDataServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="35" column="40" lean-forward="true" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/dao/eChartsDataDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/eChartsDataMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="45" column="139" selection-start-line="45" selection-start-column="139" selection-end-line="45" selection-end-column="139" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMailScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/human/Quartz_Email/SendMail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+          <folding>
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1191#1192#0" expanded="true" />
+            <element signature="e#1243#1244#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/PositionMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3154">
+          <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/human/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="125" column="65" lean-forward="true" selection-start-line="125" selection-start-column="65" selection-end-line="125" selection-end-column="65" />
+        <state relative-caret-position="1254">
+          <caret line="96" column="24" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-quartz.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="31" lean-forward="true" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
         </state>
       </provider>
     </entry>
