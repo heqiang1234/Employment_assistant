@@ -1786,4 +1786,7 @@ export default {
 .el-image{
   width:100%;
 }
+.el-scrollbar__wrap{
+  margin-bottom:0 !important;
+}
 </style>

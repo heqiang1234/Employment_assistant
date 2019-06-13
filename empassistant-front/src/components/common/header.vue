@@ -3,7 +3,7 @@
     <div class="header-container">
       <h1>实习助手</h1>
       <ul class="subnav">
-        <li  v-for="(item,index) in hd" :key="index">
+        <li :class="$route.name==item.link.name?'hd-select':''" v-for="(item,index) in hd" :key="index">
           <a  @click="changeHd(index,item)">{{item.label}}</a>
         </li>
       
@@ -26,6 +26,7 @@
 <script>
 export default {
   created() {
+    
     this.checkLogin().then(res => {
       console.log(res);
       let result = res.data.extendInfo;
@@ -42,6 +43,9 @@ export default {
         this.syncUserStatus()
       }
     });
+  },
+  mounted(){
+    console.log(this.hdIndex);
   },
   methods: {
     checkLogin() {
@@ -80,11 +84,10 @@ export default {
     },
     changeHdIndex(index){
       console.log(index);
-      this.curIndex = index;
-      console.log(this.curIndex);
+      this.hdIndex = index;
+      console.log(this.hdIndex)
     },
     changeHd(index,item){
-       this.changeHdIndex(index);
       this.linkTo(item.link)
     }
   },
@@ -110,7 +113,7 @@ export default {
           link:{name:'jobs'}
         }
       ],
-      curIndex:1,
+      curIndex:0,
     };
   }
 };

@@ -12,7 +12,7 @@
                 <el-option label="搜岗位" value = 1></el-option>
                 <el-option label="搜宣讲会" value = 2></el-option>
               </el-select>
-            <el-button style="width:130px;" slot="append" icon="el-icon-search"></el-button>
+            <el-button @click="search" style="width:130px;" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
         <div  @click="getClassfyJobs" class="search-likely">
@@ -130,5 +130,8 @@ export default {
   max-width: 90%;
   margin: 0px auto;
   flex-direction: column;
+}
+.el-scrollbar__wrap{
+  margin-bottom:0 !important;
 }
 </style>

@@ -12,7 +12,7 @@
       </div>
       <div class="chartBox chart3">
         <div id="myChart3" class="ty-form"></div>
-        <div class="chart-title">宣讲会日程</div>
+        <div class="chart-title"></div>
       </div>
       <!-- <div class="chartBox">
         <DataMap></DataMap>
@@ -21,7 +21,7 @@
       </div> -->
       <div class="chartBox chart3">
         <DataMap></DataMap>
-        <div class="chart-title">全国人才需求状况</div>
+        <div class="chart-title"></div>
       </div>
     </div>
     <Footsy></Footsy>

@@ -14,6 +14,7 @@ Vue.prototype.USERSTATUS = {
   login:false,
   userInfo:{}
 }
+Vue.prototype.hdIndex;
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
 Vue.config.productionTip = false;
