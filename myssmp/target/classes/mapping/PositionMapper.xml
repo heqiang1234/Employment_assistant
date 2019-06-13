@@ -200,11 +200,8 @@
 
 
     <select id="selectPositionToEmail" parameterType="Map" resultMap="PositionResultMap">
-        select  MAX(positionID) AS  positionID from  position
+        select  positionID AS  positionID from  position
        <where>
-            <if test="position_name!=NULL">
-            position_name like "%"#{position_name}"%"
-            </if>
             <if test="professionals!=NULL">
             and  professionals like "%"#{professionals}"%"
             </if>

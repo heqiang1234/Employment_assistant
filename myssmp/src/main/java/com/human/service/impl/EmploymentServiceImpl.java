@@ -40,11 +40,11 @@ public class EmploymentServiceImpl implements EmploymentService {
     }
 
     @Override
-    public int selectAllCountById(String S_ADDRESS_ID, String S_Name) {
+    public int selectAllCountById(String S_Search_Id, String S_Name) {
         HashMap<String,Object> map = new HashMap<String,Object>();
-        map.put("S_ADDRESS_ID",S_ADDRESS_ID);
+        map.put("S_Search_Id",S_Search_Id);
         map.put("S_Name",S_Name);
-        log.info("selectAllCountById        "+S_ADDRESS_ID+"    "+S_Name);
+        log.info("selectAllCountById        "+S_Search_Id+"    "+S_Name);
         return employmentDao.selectAllCountById(map);
     }
 
@@ -85,7 +85,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         if(currentPage<=num.intValue()-1)
             pageBean.setAfterPage(true);
         else
-            pageBean.setAfterPage(false);
+        pageBean.setAfterPage(false);
         map.put("start",(currentPage-1)*pageSize);
         map.put("size", pageBean.getPageSize());
         map.put("S_ID", temp_Id);
@@ -121,35 +121,12 @@ public class EmploymentServiceImpl implements EmploymentService {
     @Override
     public PageBean<Employment> selectEmploymentByType(int currentPage, int pagesize, String S_id, String S_name) {
         PageBean<Employment> pageBean = new PageBean<Employment>();
-        if(S_id=="Company"||S_id.equals("Company")) {
-            log.info("公司查询宣讲会信息");
-            pageBean= PageBean_temp(currentPage,pagesize,S_id,S_name);
-        }
-        else
-        if(S_id=="School"||S_id.equals("School"))
-        {
-            log.info("学校查询宣讲会信息");
-            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
-        }
-        else
-        if(S_id=="Position"||S_id.equals("Position"))
-        {
-            log.info("岗位查询宣讲会信息");
-            pageBean= PageBean_temp(currentPage,pagesize,S_id,S_name);
-        }
-        else
-        if(S_id=="Professional"||S_id.equals("Professional"))
-        {
-            log.info("专业查询宣讲会信息");
-            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
-        }
-        else
-        if(S_id=="address"||S_id.equals("address"))
-        {
-            log.info("地址查询宣讲会信息");
-            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
-        }else
         if(S_id=="Company_ID"||S_id.equals("Company_ID"))
+        {
+            log.info("公司ID查询宣讲会信息");
+            pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
+        }
+        if(S_id=="All_Search"||S_id.equals("All_Search"))
         {
             log.info("公司ID查询宣讲会信息");
             pageBean = PageBean_temp(currentPage,pagesize,S_id,S_name);
@@ -158,11 +135,10 @@ public class EmploymentServiceImpl implements EmploymentService {
     }
 
     @Override
-    public PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Address_Id, String S_Name) {
+    public PageBean<Employment> selectAllEmploymentByType(int currentPage, int pagesize, String S_Search_Id, String S_Name) {
         log.info("S搜索框查询宣讲会信息");
         HashMap<String,Object> map = new HashMap<String,Object>();
         PageBean<Employment> pageBean = new PageBean<Employment>();
-
         //封装当前页数
         pageBean.setCurrPage(currentPage);
 
@@ -177,7 +153,7 @@ public class EmploymentServiceImpl implements EmploymentService {
         pageBean.setPageSize(pageSize);
         log.info("DSADAFE");
         //封装总记录数
-        int totalCount = selectAllCountById(S_Address_Id,S_Name);
+        int totalCount = selectAllCountById(S_Search_Id,S_Name);
         pageBean.setTotalCount(totalCount);
         log.info("SDSADADASDAD框查询宣讲会信息   "+totalCount);
         //封装总页数
@@ -192,7 +168,7 @@ public class EmploymentServiceImpl implements EmploymentService {
             pageBean.setAfterPage(false);
         map.put("start",(currentPage-1)*pageSize);
         map.put("size", pageBean.getPageSize());
-        map.put("S_ADDRESS_ID", S_Address_Id);
+        map.put("S_Search_Id", S_Search_Id);
         map.put("S_Name", S_Name);
         //封装每页显示的数据
         List<Employment> lists = employmentDao.selectAllEmploymentByType(map);

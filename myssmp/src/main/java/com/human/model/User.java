@@ -27,6 +27,15 @@ public class User implements Serializable {
     private String UserImg;
     private String user_Status;
     private String user_Resume;
+    private String user_Province;
+
+    public String getUser_Province() {
+        return user_Province;
+    }
+
+    public void setUser_Province(String user_Province) {
+        this.user_Province = user_Province;
+    }
 
     public String getUser_Resume() {
         return user_Resume;

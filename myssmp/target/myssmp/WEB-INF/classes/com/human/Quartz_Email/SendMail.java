@@ -7,10 +7,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import java.io.File;
 import java.util.Properties;
 
@@ -19,7 +16,7 @@ public class SendMail {
     private String host = "smtp.qq.com"; // smtp服务器
     private String from = ""; // 发件人地址
     private String to = ""; // 收件人地址
-    private String[] attachmentPath = null; // 附件地址
+    private String[]  attachmentPath = null; // 附件地址
     private String user = ""; // 用户名
     private String pwd = ""; // 密码
     private String subject = ""; // 邮件标题
@@ -32,6 +29,11 @@ public class SendMail {
         this.to = to;
         this.subject = subject;
     }
+
+    public String[] getAttachmentPath() {
+        return attachmentPath;
+    }
+
     public void setAttachmentPath(String[] attachmentPath) {
         this.attachmentPath = attachmentPath;
     }
@@ -66,26 +68,39 @@ public class SendMail {
             //邮件正文（html形式）
             bodyPart.setContent(htmlContent, "text/html; charset=utf-8");
             mp.addBodyPart(bodyPart);
-            //设置邮件附件
-            for (String filePath:attachmentPath) {
-                bodyPart= new MimeBodyPart();
-                File attachment = new File(filePath);
-                if (!attachment.exists()) {
-                    LOG.warn("文件:"+attachment+"不存在！");
-                    status = 1;
-                    return status;
-                } else{
-                    DataSource ds = new FileDataSource(attachment);
-                    bodyPart.setDataHandler(new DataHandler(ds));
-                    // 添加附件的标题
-                    // 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
-//                    sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
-//                    bodyPart.setFileName("=?GBK?B?"
-//                            + enc.encode(attachment.getName().getBytes()) + "?=");
-                    mp.addBodyPart(bodyPart);
-                    message.setContent(mp);
-                }
-            }
+
+            message.setContent(mp);
+//            //设置邮件附件
+//            for (String filePath:attachmentPath) {
+//                bodyPart= new MimeBodyPart();
+//                File attachment = new File(filePath);
+//                if (!attachment.exists()) {
+//                    LOG.warn("文件:"+attachment+"不存在！");
+//                    status = 1;
+//                    return status;
+//                } else{
+//
+//                    // 设置要发送附件的文件路径
+////                    DataSource source = new FileDataSource(attachment);
+////                    bodyPart.setDataHandler(new DataHandler(source));
+//
+//                    // messageBodyPart.setFileName(filename);
+//                    // 处理附件名称中文（附带文件路径）乱码问题
+////                    bodyPart.setFileName(MimeUtility.encodeText(attachment));
+////                    mp.addBodyPart(bodyPart);
+//                    DataSource ds = new FileDataSource(attachment);
+//                    bodyPart.setDataHandler(new DataHandler(ds));
+////                     添加附件的标题
+////                     这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
+////                    sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
+////                    bodyPart.setFileName("=?GBK?B?"
+////                            + enc.encode(attachment.getName().getBytes()) + "?=");
+//                   bodyPart.setFileName(MimeUtility.encodeText(attachment.getName()));
+//                    mp.addBodyPart(bodyPart);
+//                    mp.addBodyPart(bodyPart);
+//                    message.setContent(mp);
+//                }
+//            }
             message.saveChanges();
             //创建Transport对象
             Transport transport = session.getTransport("smtp");

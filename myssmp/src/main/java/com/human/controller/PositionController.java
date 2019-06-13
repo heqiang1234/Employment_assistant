@@ -138,7 +138,7 @@ public class PositionController {
             {
                 log.info("根据岗位名称查询岗位信息");
                 pageBean=positionService.selectPositionByType(cur,pag,Search_Id,Search_Name);
-                return JsonMsg.success().addInfo("pagebean_position_name",pageBean);
+                return JsonMsg.success().addInfo("pagebean",pageBean);
             }
             if(Search_Id=="workPlace"||Search_Id.equals("workPlace"))
             {

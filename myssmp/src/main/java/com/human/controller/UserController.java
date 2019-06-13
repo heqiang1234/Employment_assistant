@@ -1,6 +1,7 @@
 package com.human.controller;
 
 import com.google.code.kaptcha.Constants;
+import com.human.model.Session;
 import com.human.model.User;
 import com.human.service.ShiroService;
 import com.human.service.UserService;
@@ -11,7 +12,6 @@ import com.human.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 
 import org.apache.shiro.authc.*;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.session.mgt.SessionKey;
 import org.apache.shiro.subject.Subject;
@@ -29,6 +29,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -86,7 +87,7 @@ public class UserController {
                // 登录后存放进shiro token
 //               Session session = currentUser.getSession(false);
 //               SessionKey sessionKey = new DefaultSessionKey(session.getId());
-               if (!currentUser.isAuthenticated()) {
+               if (!currentUser.isAuthenticated()){
                    String verifyCode=request.getParameter("verifyCode").toUpperCase();
                    String user_name = request.getParameter("UserName");
                    String passWord = request.getParameter("Password");
@@ -101,6 +102,7 @@ public class UserController {
                            System.out.println(upToken);
                            currentUser.login(upToken);
                            User user;
+//                           System.out.println(currentUser.getSession().getId());
                            user = userService.getUserByNameNoPassword(user_name);
                            return JsonMsg.success().addInfo("person", user);
 
@@ -130,6 +132,43 @@ public class UserController {
                }
 
     }
+
+    /**
+     * 对登录页面输入的用户名和密码进行验证
+     * @param
+     * @return
+     */
+    @RequestMapping(value="/DoCheckLogin")
+    @ResponseBody
+    public JsonMsg  doCheckIsLogin(HttpServletRequest request) {
+        try {
+            log.info("是否登录验证");
+            //主体,当前状态为没有认证的状态“未认证”
+            Subject currentUser = SecurityUtils.getSubject();
+            // 登录后存放进shiro token
+            if (currentUser.isAuthenticated()) {
+
+                try {
+                    String username = currentUser.getPrincipal().toString();
+                    User user;
+                    user = userService.getUserByNameNoPassword(username);
+                    return JsonMsg.success().addInfo("person", user);
+
+                } catch (Exception e) {
+                  //  return JsonMsg.fail().addInfo("person", "查找不到用户，登陆失败，请重新输入！"+e);
+                    return JsonMsg.NotLogin().addInfo("ERROR_INFO","未登录"+e);
+
+                }
+            }
+            else
+            {
+                return JsonMsg.NotLogin().addInfo("ERROR_INFO","未登录");
+            }
+        } catch (AuthenticationException qqe) {
+            return JsonMsg.NotLogin().addInfo("ERROR_INFO","未登录"+qqe);
+        }
+    }
+
 
     /**
      * 注册添加用户
@@ -189,6 +228,7 @@ public class UserController {
             user.setUser_Name(user_name);
             user.setUser_Password(newPs);
             userService.updateUserPassword(user);
+
             return JsonMsg.success().addInfo("respn", "修改成功");
         }catch (Exception e)
         {
@@ -217,7 +257,8 @@ public class UserController {
             String UserSchool = request.getParameter("UserSchool");
             String UserMajor = request.getParameter("UserMajor");
             String UserIntentionalPost = request.getParameter("UserIntentionalPost");
-            String UserCity = request.getParameter("userCity");
+            String UserCity = request.getParameter("UserCity");
+            String UserProvince= request.getParameter("UserProvince");
             String UserMail = request.getParameter("UserMail");
             String UserImg = request.getParameter("UserImg");
             String UserStatus = request.getParameter("UserStatus");
@@ -234,12 +275,15 @@ public class UserController {
             user.setUser_Major(UserMajor);
             user.setUser_IntentionalPost(UserIntentionalPost);
             user.setUser_City(UserCity);
+            user.setUser_Province(UserProvince);
             user.setUser_Email(UserMail);
             user.setUserImg(UserImg);
             user.setUser_Status(UserStatus);
             log.info(user.getUser_Status()+"     1");
             userService.updateUser(user);
-            return JsonMsg.success().addInfo("respn", "修改成功");
+            User user1;
+            user1 = userService.getUserByNameNoPassword(UserName);
+            return JsonMsg.success().addInfo("person", user1);
         }catch (Exception e)
         {
             return JsonMsg.fail().addInfo("log_error",e+"修改失败");

@@ -45,7 +45,6 @@ public class SessionDao extends EnterpriseCacheSessionDAO {
         String username = String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY));
 
         //序列化Session
-
         this.sessionMapper.update(session.getId().toString(), SerializableUtils.serializ(session),username);
     }
 
@@ -56,7 +55,6 @@ public class SessionDao extends EnterpriseCacheSessionDAO {
         Serializable sessionId = generateSessionId(session);
         //给Session设定id
         assignSessionId(session, sessionId);
-
 
         //插入session 到数据库
         this.sessionMapper.insert(session.getId().toString(), SerializableUtils.serializ(session));
@@ -81,7 +79,6 @@ public class SessionDao extends EnterpriseCacheSessionDAO {
         if(dbSessions == null || dbSessions.size() == 0) {
             return null;
         }
-
         List<Session> result = new ArrayList<Session>();
         for(com.human.model.Session session:dbSessions) {
             //加载session数据
