@@ -4,20 +4,24 @@
     <div class="chartsBox">
       <div class="chartBox">
         <div id="myChart1" class="ty-form"></div>
-        <div class="chart-title">点击量排行</div>
+        <div class="chart-title"></div>
       </div>
       <div class="chartBox">
         <div id="myChart2" class="ty-form"></div>
-        <div class="chart-title">城市人才需求</div>
+        <div class="chart-title"></div>
       </div>
-      <div class="chartBox">
+      <div class="chartBox chart3">
         <div id="myChart3" class="ty-form"></div>
         <div class="chart-title">宣讲会日程</div>
       </div>
-      <div class="chartBox">
-        <!-- <div id="myChart4" class="ty-form"></div> -->
+      <!-- <div class="chartBox">
         <DataMap></DataMap>
         <div class="chart-title">全国人才需求</div>
+        <div class="chart-title"></div>
+      </div> -->
+      <div class="chartBox chart3">
+        <DataMap></DataMap>
+        <div class="chart-title">宣讲会日程</div>
       </div>
     </div>
     <Footsy></Footsy>
@@ -40,12 +44,34 @@ export default {
   },
   mounted() {
     // 绘制图表
-    this.echart();
-    this.echartPie();
-    this.echart1();
+    this.getChartsDatas(this.API.ECHARTS.GETEMPCHARTS)//宣讲会可视化数据
+      .then(res=>{
+        console.log(res);
+        this.empDatas = res.data.extendInfo.result_list;
+        this.echart();
+      })
+      this.getChartsDatas(this.API.ECHARTS.GETPOSCHARTS)//岗位可视化数据
+      .then((res)=>{
+        console.log(res)
+        this.posDatas = res.data.extendInfo.result_list;
+        this.echartPie();
+      })
+      this.getChartsDatas(this.API.ECHARTS.GETMEETCHARTS)
+        .then(res=>{
+          console.log(res);
+          this.meetCharts = res.data.extendInfo.result_list;
+          this.echart1();
+        })
+
+    
     this.echartPie1();
   },
   methods: {
+    getChartsDatas(url){//获取宣讲会可视化数据
+      return this.axios({
+        url:url,
+      })
+    },
     //点击量排行表
     echart() {
       var echarts = require("echarts");
@@ -56,12 +82,14 @@ export default {
       //实例容器，一般是一个具有高宽的div元素。
       myChart.setOption({
         title: {
-          text: "数据显示"
+          text: "宣讲会数量分布"
           //subtext: "二级标题"
         },
         tooltip: {},
         xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+          data: this.empDatas.map((item,index)=>{
+            return item.value_name;
+          }),
           axisLine: {
             // 设置刻度线相关的
             lineStyle: {
@@ -73,7 +101,7 @@ export default {
             // 设置字体相关的
             show: true,
             textStyle: {
-              color: "#ddd"
+              color: "#aaa"
             }
           }
         },
@@ -102,11 +130,13 @@ export default {
         },
         series: [
           {
-            name: "销量",
+            name: "学校",
             type: "bar", // line折线  bar矩形
             //					 smooth: true, //平滑折线
             //					showSymbol: false, // 去掉折线的点
-            data: [520, 200, 306, 520, 800, 120],
+            data: this.empDatas.map((item,index)=>{
+              return item.vaule;
+            }),
             itemStyle: {
               // 设置bar或者线的颜色
               normal: {
@@ -124,8 +154,8 @@ export default {
       //实例容器，一般是一个具有高宽的div元素。
       var option = {
         title: {
-          text: "某站点用户访问来源",
-          subtext: "纯属虚构",
+          text: "岗位城市分布情况",
+          subtext: "",
           x: "center"
         },
         tooltip: {
@@ -135,21 +165,22 @@ export default {
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+          data: this.posDatas.map((item,index)=>{
+            return item.value_name;
+          })
         },
         series: [
           {
-            name: "访问来源",
+            name: "城市",
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
-            data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" }
-            ],
+            data:this.posDatas.map((item,index)=>{
+              return {
+                value:item.vaule,
+                name:item.value_name
+              }
+            }),
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -161,15 +192,16 @@ export default {
         ]
       };
       myChart.setOption(option);
-      init(0);
-
-      function init(index) {
+       function init(index) {
         myChart.dispatchAction({
           type: "highlight",
           seriesIndex: 0,
           dataIndex: index
         });
       }
+      init(0);
+
+     
       //记录上次高亮的索引
       var lastMouseOverIndex = null;
       // mouseover事件，记录当前数据索引并取消其他高亮，over在out之后
@@ -222,25 +254,14 @@ export default {
           }
         },
         legend: {
-          data: ["蒸发量", "平均温度"]
+         
         },
         xAxis: [
           {
             type: "category",
-            data: [
-              "5月6",
-              "2月",
-              "3月",
-              "4月",
-              "5月",
-              "6月",
-              "7月",
-              "8月",
-              "9月",
-              "6月7",
-              "11月",
-              "12月"
-            ],
+            data: this.meetCharts.map(item=>{
+              return item.value_name;
+            }),
             axisPointer: {
               type: "shadow"
             }
@@ -249,51 +270,24 @@ export default {
         yAxis: [
           {
             type: "value",
-            name: "公司宣讲会",
+            name: "公司宣讲会日期分布",
             min: 0,
-            max: 25,
+            max: 40,
             interval: 5,
             axisLabel: {
               formatter: "{value} 个"
             }
           },
-          {
-            type: "value",
-            name: "点击人次",
-            min: 0,
-            max: 2500,
-            interval: 500,
-            axisLabel: {
-              formatter: "{value} 次"
-            }
-          }
         ],
         series: [
           {
             name: "公司宣讲会数量",
             type: "bar",
-            data: [5, 7, 1, 3, 6, 16, 2, 4, 6, 7, 10, 14]
+            data: this.meetCharts.map(item=>{
+              // console.log(item.vaule)
+              return item.vaule;
+            })
           },
-
-          {
-            name: "点击次数",
-            type: "line",
-            yAxisIndex: 1,
-            data: [
-              1000,
-              500,
-              900,
-              1544,
-              999,
-              2000,
-              1299,
-              800,
-              900,
-              1000,
-              1300,
-              1444
-            ]
-          }
         ]
       };
       myChart.setOption(option);
@@ -972,6 +966,12 @@ export default {
         });
       }
     }
+  },
+  data(){
+    return{
+      empDatas:[],
+      posDatas:[],
+    }
   }
 };
 </script>
@@ -1008,5 +1008,11 @@ export default {
   text-align: center;
   line-height: 100px;
   width: 100%;
+}
+#myChart3{
+  width:96%;
+}
+.chart3{
+  width:100%;
 }
 </style>

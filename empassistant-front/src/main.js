@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Dropdown,DropdownMenu,DropdownItem,Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
+import {Image,Dropdown,DropdownMenu,DropdownItem,Alert,Checkbox,Message,Input,Select,Button,Option,Carousel,CarouselItem,Icon,Loading,Upload,DatePicker,Pagination,Dialog} from 'element-ui';
 import axios from 'axios';
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts 
@@ -17,6 +17,7 @@ Vue.prototype.USERSTATUS = {
 Vue.prototype.axios = axios; //请求插件
 Vue.prototype.API = API; //接口地址
 Vue.config.productionTip = false;
+Vue.use(Image);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
