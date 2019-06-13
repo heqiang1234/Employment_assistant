@@ -11,7 +11,6 @@ import personalCenter from '@/components/personalCenter'
 import dataView from '@/components/dataView'
 import blank from '@/components/blank'
 
-
 Vue.use(Router)
 export default new Router({
   routes: [
