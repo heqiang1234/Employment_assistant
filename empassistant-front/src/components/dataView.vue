@@ -21,7 +21,7 @@
       </div> -->
       <div class="chartBox chart3">
         <DataMap></DataMap>
-        <div class="chart-title">宣讲会日程</div>
+        <div class="chart-title">全国人才需求状况</div>
       </div>
     </div>
     <Footsy></Footsy>

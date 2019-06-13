@@ -1,119 +1,105 @@
 <template>
-  <div>
-    <div id="myChartChina" :style="{width: '100%', height: '400px'}"></div>
+  <div class="echarts">
+    <div :style="{height:'400px',width:'100%'}" ref="myEchart"></div>
   </div>
 </template>
 <script>
-import china from "echarts/map/json/china.json";
-echarts.registerMap("china", china);
-export default {
-  mounted() {
-    this.drawLine();
-  },
-  drawLine() {
-    // 基于准备好的dom，初始化echarts实例
-    var myChartContainer = document.getElementById("myChartChina");
-    var resizeMyChartContainer = function() {
-      myChartContainer.style.width = document.body.offsetWidth / 2 + "px"; //页面一半的大小
-    };
-    resizeMyChartContainer();
-    var myChartChina = this.$echarts.init(myChartContainer);
-
-    function randomData() {
-      return Math.round(Math.random() * 500);
-    }
-    // 绘制图表
-    var optionMap = {
-      tooltip: {},
-      legend: {
-        orient: "vertical",
-        left: "left",
-        data: [""]
-      },
-      visualMap: {
-        min: 0,
-        max: 1500,
-        left: "10%",
-        top: "bottom",
-        text: ["高", "低"],
-        calculable: true,
-        color: ["#0b50b9", "#c3e2f4"]
-      },
-      selectedMode: "single",
-      series: [
-        {
-          name: "",
-          type: "map",
-          mapType: "china",
-          itemStyle: {
-            normal: {
-              borderColor: "rgba(0, 0, 0, 0.2)"
+  import echarts from "echarts";
+  import '../../../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+  export default {
+    name: "echarts",
+    props: ["userJson"],
+    data() {
+      return {
+        chart: null
+      };
+    },
+    mounted() {
+      this.chinaConfigure();
+    },
+    beforeDestroy() {
+      if (!this.chart) {
+        return;
+      }
+      this.chart.dispose();
+      this.chart = null;
+    },
+    methods: {
+      chinaConfigure() {
+        console.log(this.userJson)
+        let myChart = echarts.init(this.$refs.myEchart); //这里是为了获得容器所在位置    
+        window.onresize = myChart.resize;
+        myChart.setOption({ // 进行相关配置
+          backgroundColor: "#02AFDB",
+          tooltip: {}, // 鼠标移到图里面的浮动提示框
+          dataRange: {
+            show: false,
+            min: 0,
+            max: 1000,
+            text: ['High', 'Low'],
+            realtime: true,
+            calculable: true,
+            color: ['orangered', 'yellow', 'lightskyblue']
+          },
+          geo: { // 这个是重点配置区
+            map: 'china', // 表示中国地图
+            roam: true,
+            label: {
+              normal: {
+                show: true, // 是否显示对应地名
+                textStyle: {
+                  color: 'rgba(0,0,0,0.4)'
+                }
+              }
             },
-            emphasis: {
-              shadowOffsetX: 0,
-              shadowOffsetY: 0,
-              shadowBlur: 20,
-              borderWidth: 0,
-              shadowColor: "rgba(0, 0, 0, 0.5)"
+            itemStyle: {
+              normal: {
+                borderColor: 'rgba(0, 0, 0, 0.2)'
+              },
+              emphasis: {
+                areaColor: null,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 20,
+                borderWidth: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
             }
           },
-          showLegendSymbol: true,
-          label: {
-            normal: {
-              show: true
+          series: [{
+              type: 'scatter',
+              coordinateSystem: 'geo' // 对应上方配置
             },
-            emphasis: {
-              show: true
+            {
+              name: '启动次数', // 浮动框的标题
+              type: 'map',
+              geoIndex: 0,
+              data: [{
+                "name": "北京",
+                "value": 1399
+              }, {
+                "name": "上海",
+                "value": 1142
+              }, {
+                "name": "江西",
+                "value": 544
+              }, {
+                "name": "深圳",
+                "value": 900
+              }, {
+                "name": "广东",
+                "value": 1110
+              }, {
+                "name": "四川",
+                "value": 200
+              }, {
+                "name": "浙江",
+                "value": 800
+              }]
             }
-          },
-          data: [
-            { name: "北京", value: randomData() },
-            { name: "天津", value: randomData() },
-            { name: "上海", value: randomData() },
-            { name: "重庆", value: randomData() },
-            { name: "河北", value: randomData() },
-            { name: "河南", value: randomData() },
-            { name: "云南", value: randomData() },
-            { name: "辽宁", value: randomData() },
-            { name: "黑龙江", value: randomData() },
-            { name: "湖南", value: randomData() },
-            { name: "安徽", value: randomData() },
-            { name: "山东", value: randomData() },
-            { name: "新疆", value: randomData() },
-            { name: "江苏", value: randomData() },
-            { name: "浙江", value: randomData() },
-            { name: "江西", value: randomData() },
-            { name: "湖北", value: randomData() },
-            { name: "广西", value: randomData() },
-            { name: "甘肃", value: randomData() },
-            { name: "山西", value: randomData() },
-            { name: "内蒙古", value: randomData() },
-            { name: "陕西", value: randomData() },
-            { name: "吉林", value: randomData() },
-            { name: "福建", value: randomData() },
-            { name: "贵州", value: randomData() },
-            { name: "广东", value: randomData() },
-            { name: "青海", value: randomData() },
-            { name: "西藏", value: randomData() },
-            { name: "四川", value: randomData() },
-            { name: "宁夏", value: randomData() },
-            { name: "海南", value: randomData() },
-            { name: "台湾", value: randomData() },
-            { name: "香港", value: randomData() },
-            { name: "澳门", value: randomData() }
           ]
-        }
-      ]
-    };
-
-    myChartChina.setOption(optionMap);
-    window.onresize = function() {
-      resizeMyChartContainer();
-      myChartChina.resize();
-    };
+        })
+      }
+    }
   }
-};
 </script>
- <style>
-</style>
-
